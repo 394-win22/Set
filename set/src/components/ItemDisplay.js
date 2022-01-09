@@ -3,7 +3,14 @@ import { DropdownButton, Dropdown } from 'react-bootstrap';
 
 const occasion = ["business casual", "going out", "business formal", "everyday wear", "comfortable", "black tie"]
 const weather = ["sunny and warm", "hot and humid", "fall breeze", "winter chill", "rain", "snow"]
-const type = ["T-Shirt"]
+const topType = ["T-Shirt", "Blouse", "Crop Top", "Tank Top", "Sweater", "Long-sleeve T-shirt", "Button-down", "Bodysuit"]
+const bottomType = ["Jeans", "Shorts", "Sweatpants", "Trousers", "Mini Skirt", "Maxi Skirt", "Midi Skirt", "Leggings"]
+const shoeType = ["Sneakers", "Flats", "Boots", "Heels", "Loafers", "Sandals"]
+
+const color = ["Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Purple", "Black", "Pink", "Gray", "White", "Beige", "Gold", "Silver", "Multicolored"]
+const material = ["Leather", "Wool", "Linen", "Silk", "Cotton", "Denim", "Polyester", "Flannel", "Sherpa"]
+const audience = ["women", "men", "unisex", "children"]
+
 const clothes = {
     "Tops": {
         "Strong Together" : {
