@@ -1,99 +1,135 @@
 import React, { useState } from 'react';
 import { DropdownButton, Dropdown } from 'react-bootstrap';
 
-const occasion = ["business casual", "going out", "business formal", "everyday wear", "comfortable", "black tie"]
-const weather = ["sunny and warm", "hot and humid", "fall breeze", "winter chill", "rain", "snow"]
+const color = ["Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Purple", "Black", "Pink", "Gray", "White", "Beige", "Gold", "Silver", "Multicolored"]
+const material = ["Leather", "Wool", "Linen", "Silk", "Cotton", "Denim", "Polyester", "Flannel", "Sherpa", "Suede", "Sequins"]
+const occasion = ["Business Casual", "Going Out", "Business Formal", "Everyday Wear", "Comfortable", "Black Tie"]
+const weather = ["Sunny and Warm", "Hot and Humid", "Fall Breeze", "Winter Chill", "Rain", "Snow"]
+const audience = ["Women", "Men", "Unisex", "Children"]
+
 const topType = ["T-Shirt", "Blouse", "Crop Top", "Tank Top", "Sweater", "Long-sleeve T-shirt", "Button-down", "Bodysuit"]
 const bottomType = ["Jeans", "Shorts", "Sweatpants", "Trousers", "Mini Skirt", "Maxi Skirt", "Midi Skirt", "Leggings"]
 const shoeType = ["Sneakers", "Flats", "Boots", "Heels", "Loafers", "Sandals"]
 
-const color = ["Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Purple", "Black", "Pink", "Gray", "White", "Beige", "Gold", "Silver", "Multicolored"]
-const material = ["Leather", "Wool", "Linen", "Silk", "Cotton", "Denim", "Polyester", "Flannel", "Sherpa"]
-const audience = ["women", "men", "unisex", "children"]
-
-const clothes = {
-    "Tops": {
-        "Strong Together" : {
-            "name" : "Strong Together T-Shirt",
-            "brand" : "Cinq à Sept",
-            "color" : ["grey"],
-            "type" : "T-Shirt",
-            "audience" : "women",
-            "image" : "https://image.s5a.com/is/image/saks/0400012787086_HEATHERGREYWHITE"
-        },
-        "Nora Floral Boxy" : {
-            "name" : "Nora Floral Boxy T-Shirt",
-            "brand" : "Leset",
-            "color" : ["white", "blue"],
-            "type" : "T-Shirt",
-            "audience" : "women",
-            "image" : "https://image.s5a.com/is/image/saks/0400014573744_WHITEBLUE"
-        },
-        "Dive Cold-Shoulder Tee" : {
-            "name" : "Dive Cold-Shoulder Tee",
-            "brand" : "LNA",
-            "color" : ["sand"],
-            "type" : "T-Shirt",
-            "audience" : "women",
-            "image" : "https://image.s5a.com/is/image/saks/0400014628136_SAND"
+const userCloset = {
+    "Name": "William",
+    "UserId": 1,
+    "Closet": {
+        "Tops": [
+            {
+                "name" : "Strong Together T-Shirt",
+                "brand" : "Cinq à Sept",
+                "color" : ["Gray"],
+                "material" : "Cotton",
+                "comfort": 7,
+                "occasion" : ["Everyday Wear", "Comfortable"],
+                "weather" : ["Sunny and Warm", "Hot and Humid", "Rain"],
+                "audience" : "Women",
+                "type" : "T-Shirt",
+                "image" : "https://image.s5a.com/is/image/saks/0400012787086_HEATHERGREYWHITE"
+            },
+            {
+                "name" : "Nora Floral Boxy T-Shirt",
+                "brand" : "Leset",
+                "color" : ["White", "Blue"],
+                "material" : "Cotton",
+                "comfort": 10,
+                "occasion" : ["Everyday Wear", "Comfortable"],
+                "weather" : ["Sunny and Warm", "Hot and Humid"],
+                "audience" : "Women",
+                "type" : "T-Shirt",
+                "image" : "https://image.s5a.com/is/image/saks/0400014573744_WHITEBLUE"
+            },
+            {
+                "name" : "Dive Cold-Shoulder Tee",
+                "brand" : "LNA",
+                "color" : ["Beige"],
+                "material" : "Cotton",
+                "comfort": 5,
+                "occasion" : ["Everyday Wear", "Comfortable"],
+                "weather" : ["Sunny and Warm", "Hot and Humid"],
+                "audience" : "Women",
+                "type" : "T-Shirt",
+                "image" : "https://image.s5a.com/is/image/saks/0400014628136_SAND"
+            }
+        ],
+        "Bottoms": [
+            {
+                "name" : "Le Jane Two-Tone Jeans",
+                "brand" : "Frame",
+                "color" : ["Blue"],
+                "material": "Denim",
+                "comfort": 4,
+                "weather": ["Sunny and Warm", "Fall Breeze", "Winter Chill"],
+                "occasion": ["Going Out", "Everyday Wear"],
+                "audience" : "Women",
+                "type" : "Jeans",
+                "image" : "https://image.s5a.com/is/image/saks/0400015380808_DELLNOIR"
+            },
+            {
+                "name" : "Trevor High-Rise Patchwork Jeans",
+                "brand" : "Jonathan Simkhai Standard",
+                "color" : ["Blue", "White"],
+                "material": "Denim",
+                "comfort": 6,
+                "weather": ["Sunny and Warm", "Fall Breeze", "Winter Chill"],
+                "occasion": ["Going Out", "Everyday Wear"],
+                "audience" : "Women",
+                "type" : "Jeans",
+                "image" : "https://image.s5a.com/is/image/saks/0400015593348_SILVERLAKE"
+            },
+        ],
+        "Shoes": {
+            "Leather Lug Sole Chelsea Boots" : {
+                "name" : "Leather Lug Sole Chelsea Boots",
+                "brand" : "Prada",
+                "color" : ["Black"],
+                "material": "Leather",
+                "comfort": 6,
+                "weather": ["Fall Breeze", "Winter Chill"],
+                "occasion": ["Going Out", "Everyday Wear", "Business Casual"],
+                "audience" : "Women",
+                "type" : "Boot",
+                "image" : "https://image.s5a.com/is/image/saks/0400014408655_NERO"
+            },
+            "Women's Suede Oversized Sneakers" : {
+                "name" : "Women's Suede Oversized Sneakers",
+                "brand" : "Alexandar McQueen",
+                "color" : ["White", "Black"],
+                "material": "Suede",
+                "comfort": 9,
+                "weather": ["Sunny and Warm", "Hot and Humid", "Fall Breeze"],
+                "occasion": ["Everyday Wear", "Comfortable"],
+                "audience" : "Women",
+                "type" : "Sneaker",
+                "image" : "https://image.s5a.com/is/image/saks/0400010174918_WHITEBLACK"
+            },
+            "Marmont Leather Thong Sandals With Double G" : {
+                "name" : "Marmont Leather Thong Sandals With Double G",
+                "brand" : "Gucci",
+                "color" : ["Black", "Gold"],
+                "material": "Leather",
+                "comfort": 6,
+                "weather": ["Sunny and Warm", "Hot and Humid"],
+                "occasion": ["Everyday Wear", "Comfortable", "Going Out"],
+                "audience" : "Women",
+                "type" : "Sandal",
+                "image" : "https://image.s5a.com/is/image/saks/0400096071331_BLACK"
+            },
+            "Jolie Leather & Rabbit Fur Combat Boots" : {
+                "name" : "Jolie Leather & Rabbit Fur Combat Boots",
+                "brand" : "Montelliana 1965",
+                "color" : ["Black", "White"],
+                "material": "Leather",
+                "comfort": 6,
+                "weather": ["Winter Chill", "Fall Breeze", "Snow"],
+                "occasion": ["Everyday Wear", "Comfortable", "Going Out", "Business Casual"],
+                "audience" : "Women",
+                "type" : "Boot",
+                "image" : "https://image.s5a.com/is/image/saks/0400014622466_BLACK"
+            }
         }
-    },
-    "Bottoms": {
-    "Le Jane Two-Tone Jeans" : {
-        "name" : "Le Jane Two-Tone Jeans",
-        "brand" : "Frame",
-        "color" : ["blue"],
-        "material": ["denim"],
-        "comfort": "4",
-        "occasion": ["going out", "everyday wear"],
-        "weather": ["sunny and warm", "fall breeze", "winter chill"],
-        "type" : "Jeans",
-        "audience" : "women",
-        "image" : "https://image.s5a.com/is/image/saks/0400015380808_DELLNOIR"
-    },
-    "Trevor High-Rise Patchwork Jeans" : {
-        "name" : "Trevor High-Rise Patchwork Jeans",
-        "brand" : "Jonathan Simkhai Standard",
-        "color" : ["blue", "white"],
-        "type" : "Jeans",
-        "audience" : "women",
-        "image" : "https://image.s5a.com/is/image/saks/0400015593348_SILVERLAKE"
-    },
-    },
-    "Shoes": {
-    "Leather Lug Sole Chelsea Boots" : {
-        "name" : "Leather Lug Sole Chelsea Boots",
-        "brand" : "Prada",
-        "color" : ["black"],
-        "type" : "Boot",
-        "audience" : "women",
-        "image" : "https://image.s5a.com/is/image/saks/0400014408655_NERO"
-    },
-    "Women's Suede Oversized Sneakers" : {
-        "name" : "Women's Suede Oversized Sneakers",
-        "brand" : "Alexandar McQueen",
-        "color" : ["white", "black"],
-        "type" : "Sneaker",
-        "audience" : "women",
-        "image" : "https://image.s5a.com/is/image/saks/0400010174918_WHITEBLACK"
-    },
-    "Marmont Leather Thong Sandals With Double G" : {
-        "name" : "Marmont Leather Thong Sandals With Double G",
-        "brand" : "Gucci",
-        "color" : ["black", "gold"],
-        "type" : "Sandal",
-        "audience" : "women",
-        "image" : "https://image.s5a.com/is/image/saks/0400096071331_BLACK"
-    },
-    "Jolie Leather & Rabbit Fur Combat Boots" : {
-        "name" : "Jolie Leather & Rabbit Fur Combat Boots",
-        "brand" : "Montelliana 1965",
-        "color" : ["black"],
-        "type" : "Boot",
-        "audience" : "women",
-        "image" : "https://image.s5a.com/is/image/saks/0400014622466_BLACK"
     }
-}
 };
 
 const types = {
