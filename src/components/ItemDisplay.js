@@ -79,8 +79,8 @@ const userCloset = {
                 "image" : "https://image.s5a.com/is/image/saks/0400015593348_SILVERLAKE"
             },
         ],
-        "Shoes": {
-            "Leather Lug Sole Chelsea Boots" : {
+        "Shoes": [
+            {
                 "name" : "Leather Lug Sole Chelsea Boots",
                 "brand" : "Prada",
                 "color" : ["Black"],
@@ -92,7 +92,7 @@ const userCloset = {
                 "type" : "Boot",
                 "image" : "https://image.s5a.com/is/image/saks/0400014408655_NERO"
             },
-            "Women's Suede Oversized Sneakers" : {
+            {
                 "name" : "Women's Suede Oversized Sneakers",
                 "brand" : "Alexandar McQueen",
                 "color" : ["White", "Black"],
@@ -104,7 +104,7 @@ const userCloset = {
                 "type" : "Sneaker",
                 "image" : "https://image.s5a.com/is/image/saks/0400010174918_WHITEBLACK"
             },
-            "Marmont Leather Thong Sandals With Double G" : {
+            {
                 "name" : "Marmont Leather Thong Sandals With Double G",
                 "brand" : "Gucci",
                 "color" : ["Black", "Gold"],
@@ -116,7 +116,7 @@ const userCloset = {
                 "type" : "Sandal",
                 "image" : "https://image.s5a.com/is/image/saks/0400096071331_BLACK"
             },
-            "Jolie Leather & Rabbit Fur Combat Boots" : {
+            {
                 "name" : "Jolie Leather & Rabbit Fur Combat Boots",
                 "brand" : "Montelliana 1965",
                 "color" : ["Black", "White"],
@@ -128,7 +128,7 @@ const userCloset = {
                 "type" : "Boot",
                 "image" : "https://image.s5a.com/is/image/saks/0400014622466_BLACK"
             }
-        }
+        ]
     }
 };
 
