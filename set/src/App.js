@@ -6,7 +6,7 @@ import ItemList from './components/ItemDisplay'
 import { DropdownButton, Dropdown } from 'react-bootstrap';
 
 const clothes = {
-  "tops": {
+  "Tops": {
       "Strong Together" : {
         "name" : "Strong Together T-Shirt",
         "brand" : "Cinq à Sept",
@@ -29,7 +29,7 @@ const clothes = {
         "image" : "https://image.s5a.com/is/image/saks/0400014628136_SAND"
       }
   },
-  "bottoms": {
+  "Bottoms": {
     "Le Jane Two-Tone Jeans" : {
       "name" : "Le Jane Two-Tone Jeans",
       "brand" : "Frame",
@@ -45,7 +45,7 @@ const clothes = {
       "image" : "https://image.s5a.com/is/image/saks/0400015593348_SILVERLAKE"
     },
   },
-  "shoes": {
+  "Shoes": {
     "Leather Lug Sole Chelsea Boots" : {
       "name" : "Leather Lug Sole Chelsea Boots",
       "brand" : "Prada",
@@ -70,22 +70,34 @@ const clothes = {
 }
 };
 
+const types = {
+  T: "Tops",
+  B: "Buttoms",
+  S: "Shoes"
+};
+
+const FilterSelector = () => (
+  <DropdownButton id="items-dropdown" variant="secondary" title="Filter By">
+  {
+    Object.values(types).map(
+    type => <Dropdown.Item>{type}</Dropdown.Item>
+    )
+  }
+  </DropdownButton>
+);
+
 function App() {
   return (
     <div>
       <Header />
       <div class="container">
         <div class="col-md-12 text-center">
-      <DropdownButton id="items-dropdown" variant="secondary" title="Dropdown button">
-        <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-        <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-        <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-      </DropdownButton>
+      <FilterSelector />
       </div>
       </div>
-      <ItemList items={ clothes.tops } />
-      <ItemList items={ clothes.bottoms } />
-      <ItemList items={ clothes.shoes } />
+      <ItemList items={ clothes.Tops } />
+      <ItemList items={ clothes.Bottoms } />
+      <ItemList items={ clothes.Shoes } />
       <Footer />
     </div>
   )
