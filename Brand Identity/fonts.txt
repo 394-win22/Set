@@ -1,6 +1,0 @@
-Images were generated using the following font:
-
-- Font Title: Prata
-- Font Author: Copyright 2011 The Prata Project Authors (contact@cyreal.org)
-- Font Source: http://fonts.gstatic.com/s/prata/v13/6xKhdSpbNNCT-vWIAG_5LWwJ.ttf
-- Font License: SIL Open Font License, 1.1 (http://scripts.sil.org/OFL))
