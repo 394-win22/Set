@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { DropdownButton, Dropdown } from 'react-bootstrap';
 
+const occasion = ["business casual", "going out", "business formal", "everyday wear", "comfortable", "black tie"]
+const weather = ["sunny and warm", "hot and humid", "fall breeze", "winter chill", "rain", "snow"]
+const type = ["T-Shirt"]
 const clothes = {
     "Tops": {
         "Strong Together" : {
@@ -33,6 +36,10 @@ const clothes = {
         "name" : "Le Jane Two-Tone Jeans",
         "brand" : "Frame",
         "color" : ["blue"],
+        "material": ["denim"],
+        "comfort": "4",
+        "occasion": ["going out", "everyday wear"],
+        "weather": ["sunny and warm", "fall breeze", "winter chill"],
         "type" : "Jeans",
         "audience" : "women",
         "image" : "https://image.s5a.com/is/image/saks/0400015380808_DELLNOIR"
