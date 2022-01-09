@@ -8,6 +8,7 @@ const clothes = {
             "brand" : "Cinq à Sept",
             "color" : ["grey"],
             "type" : "T-Shirt",
+            "audience" : "women",
             "image" : "https://image.s5a.com/is/image/saks/0400012787086_HEATHERGREYWHITE"
         },
         "Nora Floral Boxy" : {
@@ -15,6 +16,7 @@ const clothes = {
             "brand" : "Leset",
             "color" : ["white", "blue"],
             "type" : "T-Shirt",
+            "audience" : "women",
             "image" : "https://image.s5a.com/is/image/saks/0400014573744_WHITEBLUE"
         },
         "Dive Cold-Shoulder Tee" : {
@@ -22,6 +24,7 @@ const clothes = {
             "brand" : "LNA",
             "color" : ["sand"],
             "type" : "T-Shirt",
+            "audience" : "women",
             "image" : "https://image.s5a.com/is/image/saks/0400014628136_SAND"
         }
     },
@@ -31,6 +34,7 @@ const clothes = {
         "brand" : "Frame",
         "color" : ["blue"],
         "type" : "Jeans",
+        "audience" : "women",
         "image" : "https://image.s5a.com/is/image/saks/0400015380808_DELLNOIR"
     },
     "Trevor High-Rise Patchwork Jeans" : {
@@ -38,6 +42,7 @@ const clothes = {
         "brand" : "Jonathan Simkhai Standard",
         "color" : ["blue", "white"],
         "type" : "T-Shirt",
+        "audience" : "women",
         "image" : "https://image.s5a.com/is/image/saks/0400015593348_SILVERLAKE"
     },
     },
@@ -47,6 +52,7 @@ const clothes = {
         "brand" : "Prada",
         "color" : ["black"],
         "type" : "Boot",
+        "audience" : "women",
         "image" : "https://image.s5a.com/is/image/saks/0400014408655_NERO"
     },
     "Women's Suede Oversized Sneakers" : {
@@ -54,14 +60,24 @@ const clothes = {
         "brand" : "Alexandar McQueen",
         "color" : ["white", "black"],
         "type" : "Sneaker",
-        "image" : "https://image.s5a.com/is/image/saks/0400010174918_WHITEBLACK?"
+        "audience" : "women",
+        "image" : "https://image.s5a.com/is/image/saks/0400010174918_WHITEBLACK"
     },
     "Marmont Leather Thong Sandals With Double G" : {
         "name" : "Marmont Leather Thong Sandals With Double G",
         "brand" : "Gucci",
         "color" : ["black", "gold"],
         "type" : "Sandal",
-        "image" : "https://image.s5a.com/is/image/saks/0400096071331_BLACK?"
+        "audience" : "women",
+        "image" : "https://image.s5a.com/is/image/saks/0400096071331_BLACK"
+    },
+    "Jolie Leather & Rabbit Fur Combat Boots" : {
+        "name" : "Jolie Leather & Rabbit Fur Combat Boots",
+        "brand" : "Montelliana 1965",
+        "color" : ["black"],
+        "type" : "Boot",
+        "audience" : "women",
+        "image" : "https://image.s5a.com/is/image/saks/0400014622466_BLACK"
     }
 }
 };
@@ -72,7 +88,7 @@ const types = {
     S: "Shoes"
 };
 
-const FilterSelector = ({ type, setType }) => (
+const FilterSelector = ({ setType }) => (
     <DropdownButton id="items-dropdown" variant="secondary" title="Filter By">
     {
         Object.values(types).map(
@@ -87,7 +103,7 @@ const ItemList = () => {
         <>
         <div className="container">
             <div className="col-md-12 text-center">
-                <FilterSelector type={type} setType={setType} />
+                <FilterSelector setType={setType} />
             </div>
         </div>
         <div className="container">
