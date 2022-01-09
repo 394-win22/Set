@@ -159,7 +159,7 @@ const ItemList = () => {
         <div className="container">
         <div className="album">
             <div className="row">
-                { Object.values(clothes[type]).map(items => <Item item={ items } />) }
+                { Object.values(userCloset.Closet).map(items => <Item item={ items } />) }
             </div>
         </div>
     </div>
