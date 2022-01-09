@@ -41,7 +41,7 @@ const clothes = {
         "name" : "Trevor High-Rise Patchwork Jeans",
         "brand" : "Jonathan Simkhai Standard",
         "color" : ["blue", "white"],
-        "type" : "T-Shirt",
+        "type" : "Jeans",
         "audience" : "women",
         "image" : "https://image.s5a.com/is/image/saks/0400015593348_SILVERLAKE"
     },
