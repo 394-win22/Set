@@ -11,3 +11,29 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.header {
+  padding: 1rem;
+  font-family: 'Prata', serif;
+  color: #1c3580;
+  background-color: #f7ebda;
+  text-align: center;
+}
+
+.header > h1 {
+  letter-spacing: 15px;
+}
+
+.header > h3 {
+  font-size: 14px;
+  letter-spacing: 5px;
+}
+
+.footer{
+  background-color: #f7ebda;
+  position: absolute; 
+  text-align: center;
+  bottom: 0;
+  width: 100%;
+  min-height: 80px;
+}
