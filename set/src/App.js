@@ -30,6 +30,8 @@ const clothes = {
   }
 };
 
+
+
 function App() {
   return (
     <div>
