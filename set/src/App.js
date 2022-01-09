@@ -3,6 +3,7 @@ import './App.css';
 import Header from './components/Header.js'
 import Footer from './components/Footer.js'
 import ItemList from './components/ItemDisplay'
+import { DropdownButton, Dropdown } from 'react-bootstrap';
 
 const clothes = {
   "tops": {
@@ -73,16 +74,15 @@ function App() {
   return (
     <div>
       <Header />
-      <div class="dropdown item-selector">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown button
-        </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <a class="dropdown-item" href="#">Action</a>
-      <a class="dropdown-item" href="#">Another action</a>
-      <a class="dropdown-item" href="#">Something else here</a>
-  </div>
-</div>
+      <div class="container">
+        <div class="col-md-12 text-center">
+      <DropdownButton id="items-dropdown" variant="secondary" title="Dropdown button">
+        <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+        <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+        <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+      </DropdownButton>
+      </div>
+      </div>
       <ItemList items={ clothes.tops } />
       <ItemList items={ clothes.bottoms } />
       <ItemList items={ clothes.shoes } />
