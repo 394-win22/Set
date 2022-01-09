@@ -1,7 +1,5 @@
 import React from 'react';
 import '../index.css';
-import { Nav, NavItem} from 'reactstrap';
-import { NavLink } from 'react-router-dom';
 import HomeIcon from '@material-ui/icons/Home';
 import AddIcon from '@material-ui/icons/Add';
 import PersonIcon from '@material-ui/icons/Person';
