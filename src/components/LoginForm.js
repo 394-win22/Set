@@ -44,6 +44,7 @@ const Form = () => {
             setwarnpass(true);
         } else {
             alert("Logged in Successfully");
+            window.location.replace("/");
         }
     };
 
@@ -56,7 +57,7 @@ const Form = () => {
             seteye(true);
         }
     };
-    
+
     return(
         <>
             <div className="container-login">
