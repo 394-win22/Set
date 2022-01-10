@@ -1,9 +1,14 @@
 import React from 'react';
+import Header from '../components/Header.js'
+import Footer from '../components/Footer.js'
+import {RecommendDisplayBlock}  from '../components/ItemDisplay'
 
 const RecommendPage = (props) => {
-return (
+  return (
     <div>
-      Recommend
+      <Header />
+      <RecommendDisplayBlock/>
+      <Footer />
     </div>
   )
 };

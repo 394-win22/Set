@@ -155,16 +155,12 @@ const types = {
 };
 
 const FilterSelector = ({ setType }) => (
-    <>
-    <div className="header-margin"></div>
     <DropdownButton id="items-dropdown" variant="secondary" title="Filter By">
     {
         Object.values(types).map(
         type => <Dropdown.Item onClick={() => setType(type)}>{type}</Dropdown.Item>)
     }
-    </DropdownButton>
-    </>
-    
+    </DropdownButton>    
 );
 
 export const ItemList = () => {

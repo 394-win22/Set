@@ -8,6 +8,7 @@ const Header = () =>  (
       <h1>SET</h1>
       <h3>SET your cloSET</h3>
     </div>
+    <div className="header-margin"></div>
   </div>
 );
 
