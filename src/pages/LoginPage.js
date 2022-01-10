@@ -1,15 +1,10 @@
-import React from 'react';
-import Header from '../components/Header.js'
-import Footer from '../components/Footer.js'
+import React, { useState } from 'react';
+import Form from '../components/LoginForm'
 
 const LoginPage = (props) => {
 return (
-    <div>
-      <Header />
-      Login Page
-      <Footer />
-    </div>
-  )
+    <Form />
+)
 };
 
 export default LoginPage;

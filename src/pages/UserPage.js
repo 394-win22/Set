@@ -1,12 +1,13 @@
 import React from 'react';
-import Header from '../components/Header.js'
-import Footer from '../components/Footer.js'
+import Header from '../components/Header'
+import Footer from '../components/Footer'
+import UserBox from '../components/UserBox'
 
 const UserPage = (props) => {
 return (
     <div>
       <Header />
-      User Page
+      <UserBox />
       <Footer />
     </div>
   )

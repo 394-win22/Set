@@ -155,7 +155,7 @@ const types = {
 };
 
 const FilterSelector = ({ setType }) => (
-    <DropdownButton id="items-dropdown" variant="secondary" title="Filter By">
+    <DropdownButton className='my-3' id="items-dropdown" variant="secondary" title="Filter By">
     {
         Object.values(types).map(
         type => <Dropdown.Item onClick={() => setType(type)}>{type}</Dropdown.Item>)
@@ -184,7 +184,7 @@ export const ItemList = () => {
 };
 
 const Item = ({ item }) => (
-    <div className="col-6 col-sm-4 col-md-3 my-3">
+    <div className="col-6 col-sm-4 col-md-3">
     <div className="card mb-4">
         <img className="card-img-top" src={ item.image } alt={ item.name }/>
             <div className="card-body">
@@ -209,8 +209,9 @@ export const RecommendDisplayBlock = () => {
 
 const RecommendDisplay = ({top, bottom, shoes, accessory}) => {
     return (
+    <>
     <div className="container">
-        <div className="row align-items-center">
+        <div className="row align-items-center mt-2">
             <div className="col">
             <div className="card text-white">
                 <img className="card-img" src={accessory.image} alt={accessory.name} />
@@ -236,5 +237,18 @@ const RecommendDisplay = ({top, bottom, shoes, accessory}) => {
             </div>
         </div>
     </div>
+    <div className="container">
+        <div className="row text-center mt-5">
+        <div className="col">
+            <button type="button" className="btn btn-warning btn-circle btn-xl"><i className="fa fa-times"></i>
+            </button>
+        </div>
+        <div className="col align-items-right">
+            <button type="button" className="btn btn-danger btn-circle btn-xl"><i className="fa fa-heart"></i>
+            </button>
+        </div>
+        </div>
+    </div>
+    </>
     );
 };
