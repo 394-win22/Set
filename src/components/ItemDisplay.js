@@ -10,6 +10,7 @@ const audience = ["Women", "Men", "Unisex", "Children"]
 const topType = ["T-Shirt", "Blouse", "Crop Top", "Tank Top", "Sweater", "Long-sleeve T-shirt", "Button-down", "Bodysuit"]
 const bottomType = ["Jeans", "Shorts", "Sweatpants", "Trousers", "Mini Skirt", "Maxi Skirt", "Midi Skirt", "Leggings"]
 const shoeType = ["Sneakers", "Flats", "Boots", "Heels", "Loafers", "Sandals"]
+const accessoryType = ["Hats", "Scarves", "Handbags"]
 
 const userCloset = {
     "Name": "William",
@@ -126,28 +127,47 @@ const userCloset = {
                 "occasion": ["Everyday Wear", "Comfortable", "Going Out", "Business Casual"],
                 "audience" : "Women",
                 "type" : "Boot",
-                "image" : "https://image.s5a.com/is/image/saks/0400014622466_BLACK"
-            }
-        ]
+                "image" : "https://image.s5a.com/is/image/saks/0400014622466_BLACK"    
+            },
+        ],
+        "Accessories": [
+            {
+                "name" : "Faux Fur Pom-Pom Beanie",
+                "brand" : "Moncler",
+                "color" : ["Black"],
+                "material": "Cotton",
+                "comfort": 10,
+                "weather": ["Winter Chill", "Fall Breeze", "Snow"],
+                "occasion": ["Everyday Wear", "Comfortable"],
+                "audience" : "Women",
+                "type" : "Hat",
+                "image" : "https://image.s5a.com/is/image/saks/0400015396959_BLACK?"
+            },
+        ],
     }
 };
 
 const types = {
     T: "Tops",
     B: "Bottoms",
-    S: "Shoes"
+    S: "Shoes",
+    A: "Accessories"
 };
 
 const FilterSelector = ({ setType }) => (
+    <>
+    <div className="header-margin"></div>
     <DropdownButton id="items-dropdown" variant="secondary" title="Filter By">
     {
         Object.values(types).map(
         type => <Dropdown.Item onClick={() => setType(type)}>{type}</Dropdown.Item>)
     }
     </DropdownButton>
+    </>
+    
 );
 
-const ItemList = () => {
+export const ItemList = () => {
     const [type, setType] = useState("Tops");
     return (
         <>
@@ -159,7 +179,7 @@ const ItemList = () => {
         <div className="container">
         <div className="album">
             <div className="row">
-                { Object.values(userCloset.Closet).map(items => <Item item={ items } />) }
+                { Object.values(userCloset.Closet[type]).map(items => <Item item={ items } />) }
             </div>
         </div>
     </div>
@@ -185,4 +205,40 @@ const Item = ({ item }) => (
     </div>
 );
 
-export default ItemList;
+export const RecommendDisplayBlock = () => {
+    return (
+        <RecommendDisplay top={ userCloset.Closet.Tops[1] } bottom={ userCloset.Closet.Bottoms[1] } shoes={ userCloset.Closet.Shoes[1] } accessory={ userCloset.Closet.Accessories[0] } />
+    );
+};
+
+const RecommendDisplay = ({top, bottom, shoes, accessory}) => {
+    return (
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col">
+            <div class="card text-white">
+                <img class="card-img" src={accessory.image} alt={accessory.name} />
+            </div>
+            </div>
+
+            <div class="col-6">
+                <div class="row">
+                <div class="card text-white">
+                    <img class="card-img" src={top.image} alt={top.name} />
+                </div>
+                </div>
+                <div class="row">
+                <div class="card text-white mt-4">
+                    <img class="card-img" src={bottom.image} alt={bottom.name} />
+                </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card text-white">
+                    <img class="card-img" src={shoes.image} alt={shoes.name} />
+                </div>
+            </div>
+        </div>
+    </div>
+    );
+};
