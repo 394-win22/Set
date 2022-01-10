@@ -141,7 +141,7 @@ const userCloset = {
                 "occasion": ["Everyday Wear", "Comfortable"],
                 "audience" : "Women",
                 "type" : "Hat",
-                "image" : "https://image.s5a.com/is/image/saks/0400015396959_BLACK?"
+                "image" : "https://image.s5a.com/is/image/saks/0400015396959_BLACK"
             },
         ],
     }
@@ -213,29 +213,29 @@ export const RecommendDisplayBlock = () => {
 
 const RecommendDisplay = ({top, bottom, shoes, accessory}) => {
     return (
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col">
-            <div class="card text-white">
-                <img class="card-img" src={accessory.image} alt={accessory.name} />
+    <div className="container">
+        <div className="row align-items-center">
+            <div className="col">
+            <div className="card text-white">
+                <img className="card-img" src={accessory.image} alt={accessory.name} />
             </div>
             </div>
 
-            <div class="col-6">
-                <div class="row">
-                <div class="card text-white">
-                    <img class="card-img" src={top.image} alt={top.name} />
+            <div className="col-6">
+                <div className="row">
+                <div className="card text-white">
+                    <img className="card-img" src={top.image} alt={top.name} />
                 </div>
                 </div>
-                <div class="row">
-                <div class="card text-white mt-4">
-                    <img class="card-img" src={bottom.image} alt={bottom.name} />
+                <div className="row">
+                <div className="card text-white mt-4">
+                    <img className="card-img" src={bottom.image} alt={bottom.name} />
                 </div>
                 </div>
             </div>
-            <div class="col">
-                <div class="card text-white">
-                    <img class="card-img" src={shoes.image} alt={shoes.name} />
+            <div className="col">
+                <div className="card text-white">
+                    <img className="card-img" src={shoes.image} alt={shoes.name} />
                 </div>
             </div>
         </div>

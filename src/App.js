@@ -1,16 +1,20 @@
 import React from 'react';
 import './App.css';
-import Header from './components/Header.js'
-import Footer from './components/Footer.js'
-import {ItemList, RecommendDisplayBlock}  from './components/ItemDisplay'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import HomePage from './pages/HomePage';
+import RecommendPage from './pages/RecommendPage';
+import UserPage from './pages/UserPage';
 
 function App() {
   return (
     <div>
-      <Header />
-      <ItemList />
-      <RecommendDisplayBlock/>
-      <Footer />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/recommend" element={<RecommendPage />} />
+          <Route path="/user" element={<UserPage />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   )
 };
