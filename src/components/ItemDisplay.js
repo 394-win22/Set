@@ -238,7 +238,7 @@ const RecommendDisplay = ({top, bottom, shoes, accessory}) => {
         </div>
     </div>
     <div className="container">
-        <div className="row text-center mt-5">
+        <div className="row text-center my-5">
         <div className="col">
             <button type="button" className="btn btn-warning btn-circle btn-xl"><i className="fa fa-times"></i>
             </button>
