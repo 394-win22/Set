@@ -1,0 +1,25 @@
+.header {
+    padding: 1rem;
+    font-family: 'Prata', serif;
+    color: #1c3580;
+    background-color: #f7ebda;
+    text-align: center;
+    z-index: 999;
+    position: fixed;
+    width: 100%;
+    top: 0;
+}
+
+.header>h1 {
+    letter-spacing: 15px;
+    font-size: 45px;
+}
+
+.header>h3 {
+    font-size: 14px;
+    letter-spacing: 5px;
+}
+
+.header-margin {
+    height: 9rem;
+}

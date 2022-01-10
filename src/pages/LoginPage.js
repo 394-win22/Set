@@ -1,9 +1,13 @@
 import React from 'react';
+import Header from '../components/Header.js'
+import Footer from '../components/Footer.js'
 
 const LoginPage = (props) => {
 return (
     <div>
-      Login
+      <Header />
+      Login Page
+      <Footer />
     </div>
   )
 };
