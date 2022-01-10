@@ -15,7 +15,7 @@ const styles = {
 
 const Footer = () =>  (
   <>
-    <div class="footer-margin"></div>
+    <div className="footer-margin"></div>
     <div className="footer"> 
         <nav className="nav nav-pills nav-fill">
             <a className="nav-item nav-link" href="#"><HomeIcon style={styles.footerIcon}/></a>
