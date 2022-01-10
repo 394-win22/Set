@@ -2,50 +2,62 @@ import React, { useState } from 'react';
 import './LoginForm.css';
 
 const Form = () => {    
-    const[inputs,setinputs]=useState({
-    email:"",
-    password:""
+    const [inputs, setinputs] = useState({
+        email: "",
+        password: ""
     });
     
-    const[warnemail,setwarnemail]=useState(false);
-    const[warnpass,setwarnpass]=useState(false);
-    const[danger,setdanger]=useState(true);
+    const [warnemail, setwarnemail] = useState(false);
+    const [warnpass, setwarnpass] = useState(false);
+    const [danger, setdanger] = useState(true);
     
-    const[eye,seteye]=useState(true);
-    const[pass,setpass]=useState("password");
+    const [eye, seteye] = useState(true);
+    const [pass, setpass] = useState("password");
     
     
-    const inputEvent=(event)=>{
-    const name=event.target.name;
-    const value=event.target.value;
-    if(name=="email"){
-    if(value.length>0){
-    setdanger(true);
-    }
-    }
-    setinputs((lastValue)=>{
-    return{
-    ...lastValue,
-    [name]:value
-    }
-    });
+    const inputEvent = (event) => {
+        const name = event.target.name;
+        const value = event.target.value;
+        if (name == "email") {
+            if (value.length > 0) {
+                setdanger(true);
+            }
+        }
+        setinputs((lastValue) => {
+            return {
+                ...lastValue,
+                [name]: value
+            }
+        });
     };
     
-    const submitForm=(e)=>{
-    e.preventDefault();
-    setwarnemail(false);
-    setwarnpass(false);
-    if(inputs.email.length<1){ setdanger(false); } if(inputs.email=="" ){ setwarnemail(true); } else if(inputs.password=="" ){ setwarnpass(true); } else{ alert("Logged in Successfully"); } }; const Eye=()=>{
-        if(pass=="password"){
-        setpass("text");
-        seteye(false);
-        }else{
-        setpass("password");
-        seteye(true);
+    const submitForm = (e) => {
+        e.preventDefault();
+        setwarnemail(false);
+        setwarnpass(false);
+        if (inputs.email.length < 1) {
+            setdanger(false);
         }
-        };
+        if (inputs.email == "") {
+            setwarnemail(true);
+        } else if (inputs.password == "") {
+            setwarnpass(true);
+        } else {
+            alert("Logged in Successfully");
+        }
+    };
+
+    const Eye = () => {
+        if (pass == "password") {
+            setpass("text");
+            seteye(false);
+        } else {
+            setpass("password");
+            seteye(true);
+        }
+    };
     
-        return(
+    return(
         <>
             <div className="container-login">
                 <div className="card-login">
@@ -80,9 +92,8 @@ const Form = () => {
                                 <div className="btn-login">
                                     <button type="submit">Sign in</button>
                                 </div>
-    
+
                             </form>
-    
                             <hr />
                             <div className="boxes-login">
                                 <span><img src="https://imgur.com/XnY9cKl.png" /></span>
@@ -93,11 +104,8 @@ const Form = () => {
                     </div>
                 </div>
             </div>
-    
-    
-    
         </>
-        );
+    );
 }
 
 export default Form;
