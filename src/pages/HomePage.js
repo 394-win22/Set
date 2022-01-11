@@ -7,7 +7,7 @@ const HomePage = (props) => {
 return (
     <div>
       <Header />
-      <ItemList />
+      <ItemList closet={props.closet} userId={props.userId}/>
       <Footer />
     </div>
   )

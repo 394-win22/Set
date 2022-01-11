@@ -7,7 +7,7 @@ const RecommendPage = (props) => {
   return (
     <div>
       <Header />
-      <RecommendDisplayBlock/>
+      <RecommendDisplayBlock closet={props.closet} userId={props.userId}/>
       <Footer />
     </div>
   )

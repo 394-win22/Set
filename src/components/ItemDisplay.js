@@ -12,141 +12,6 @@ const bottomType = ["Jeans", "Shorts", "Sweatpants", "Trousers", "Mini Skirt", "
 const shoeType = ["Sneakers", "Flats", "Boots", "Heels", "Loafers", "Sandals"]
 const accessoryType = ["Hats", "Scarves", "Handbags"]
 
-const userCloset = {
-    "Name": "William",
-    "UserId": 1,
-    "Closet": {
-        "Tops": [
-            {
-                "name" : "Strong Together T-Shirt",
-                "brand" : "Cinq à Sept",
-                "color" : ["Gray"],
-                "material" : "Cotton",
-                "comfort": 7,
-                "occasion" : ["Everyday Wear", "Comfortable"],
-                "weather" : ["Sunny and Warm", "Hot and Humid", "Rain"],
-                "audience" : "Women",
-                "type" : "T-Shirt",
-                "image" : "https://image.s5a.com/is/image/saks/0400012787086_HEATHERGREYWHITE"
-            },
-            {
-                "name" : "Nora Floral Boxy T-Shirt",
-                "brand" : "Leset",
-                "color" : ["White", "Blue"],
-                "material" : "Cotton",
-                "comfort": 10,
-                "occasion" : ["Everyday Wear", "Comfortable"],
-                "weather" : ["Sunny and Warm", "Hot and Humid"],
-                "audience" : "Women",
-                "type" : "T-Shirt",
-                "image" : "https://image.s5a.com/is/image/saks/0400014573744_WHITEBLUE"
-            },
-            {
-                "name" : "Dive Cold-Shoulder Tee",
-                "brand" : "LNA",
-                "color" : ["Beige"],
-                "material" : "Cotton",
-                "comfort": 5,
-                "occasion" : ["Everyday Wear", "Comfortable"],
-                "weather" : ["Sunny and Warm", "Hot and Humid"],
-                "audience" : "Women",
-                "type" : "T-Shirt",
-                "image" : "https://image.s5a.com/is/image/saks/0400014628136_SAND"
-            }
-        ],
-        "Bottoms": [
-            {
-                "name" : "Le Jane Two-Tone Jeans",
-                "brand" : "Frame",
-                "color" : ["Blue"],
-                "material": "Denim",
-                "comfort": 4,
-                "weather": ["Sunny and Warm", "Fall Breeze", "Winter Chill"],
-                "occasion": ["Going Out", "Everyday Wear"],
-                "audience" : "Women",
-                "type" : "Jeans",
-                "image" : "https://image.s5a.com/is/image/saks/0400015380808_DELLNOIR"
-            },
-            {
-                "name" : "Trevor High-Rise Patchwork Jeans",
-                "brand" : "Jonathan Simkhai Standard",
-                "color" : ["Blue", "White"],
-                "material": "Denim",
-                "comfort": 6,
-                "weather": ["Sunny and Warm", "Fall Breeze", "Winter Chill"],
-                "occasion": ["Going Out", "Everyday Wear"],
-                "audience" : "Women",
-                "type" : "Jeans",
-                "image" : "https://image.s5a.com/is/image/saks/0400015593348_SILVERLAKE"
-            },
-        ],
-        "Shoes": [
-            {
-                "name" : "Leather Lug Sole Chelsea Boots",
-                "brand" : "Prada",
-                "color" : ["Black"],
-                "material": "Leather",
-                "comfort": 6,
-                "weather": ["Fall Breeze", "Winter Chill"],
-                "occasion": ["Going Out", "Everyday Wear", "Business Casual"],
-                "audience" : "Women",
-                "type" : "Boot",
-                "image" : "https://image.s5a.com/is/image/saks/0400014408655_NERO"
-            },
-            {
-                "name" : "Women's Suede Oversized Sneakers",
-                "brand" : "Alexandar McQueen",
-                "color" : ["White", "Black"],
-                "material": "Suede",
-                "comfort": 9,
-                "weather": ["Sunny and Warm", "Hot and Humid", "Fall Breeze"],
-                "occasion": ["Everyday Wear", "Comfortable"],
-                "audience" : "Women",
-                "type" : "Sneaker",
-                "image" : "https://image.s5a.com/is/image/saks/0400010174918_WHITEBLACK"
-            },
-            {
-                "name" : "Marmont Leather Thong Sandals With Double G",
-                "brand" : "Gucci",
-                "color" : ["Black", "Gold"],
-                "material": "Leather",
-                "comfort": 6,
-                "weather": ["Sunny and Warm", "Hot and Humid"],
-                "occasion": ["Everyday Wear", "Comfortable", "Going Out"],
-                "audience" : "Women",
-                "type" : "Sandal",
-                "image" : "https://image.s5a.com/is/image/saks/0400096071331_BLACK"
-            },
-            {
-                "name" : "Jolie Leather & Rabbit Fur Combat Boots",
-                "brand" : "Montelliana 1965",
-                "color" : ["Black", "White"],
-                "material": "Leather",
-                "comfort": 6,
-                "weather": ["Winter Chill", "Fall Breeze", "Snow"],
-                "occasion": ["Everyday Wear", "Comfortable", "Going Out", "Business Casual"],
-                "audience" : "Women",
-                "type" : "Boot",
-                "image" : "https://image.s5a.com/is/image/saks/0400014622466_BLACK"    
-            },
-        ],
-        "Accessories": [
-            {
-                "name" : "Faux Fur Pom-Pom Beanie",
-                "brand" : "Moncler",
-                "color" : ["Black"],
-                "material": "Cotton",
-                "comfort": 10,
-                "weather": ["Winter Chill", "Fall Breeze", "Snow"],
-                "occasion": ["Everyday Wear", "Comfortable"],
-                "audience" : "Women",
-                "type" : "Hat",
-                "image" : "https://image.s5a.com/is/image/saks/0400015396959_BLACK"
-            },
-        ],
-    }
-};
-
 const types = {
     T: "Tops",
     B: "Bottoms",
@@ -163,8 +28,9 @@ const FilterSelector = ({ setType }) => (
     </DropdownButton>    
 );
 
-export const ItemList = () => {
+export const ItemList = (props) => {
     const [type, setType] = useState("Tops");
+    console.log(props)
     return (
         <>
         <div className="container">
@@ -175,7 +41,7 @@ export const ItemList = () => {
         <div className="container">
         <div className="album">
             <div className="row">
-                { Object.values(userCloset.Closet[type]).map(items => <Item item={ items } />) }
+                { Object.values(props.closet[type][props.userId]).map(items => <Item item={ items } />) }
             </div>
         </div>
     </div>
@@ -201,15 +67,18 @@ const Item = ({ item }) => (
     </div>
 );
 
-export const RecommendDisplayBlock = () => {
+export const RecommendDisplayBlock = (props) => {
     return (
-        <RecommendDisplay top={ userCloset.Closet.Tops[1] } bottom={ userCloset.Closet.Bottoms[1] } shoes={ userCloset.Closet.Shoes[1] } accessory={ userCloset.Closet.Accessories[0] } />
+        <RecommendDisplay top={ props.closet["Tops"][props.userId]["3a119c21f23d"] } bottom={props.closet["Bottoms"][props.userId]["f27c84fb4aab"] } shoes={ props.closet["Shoes"][props.userId]["343f44e3b186"] } accessory={ props.closet["Accessories"][props.userId]["08ffdbd3ad3a"] } />
     );
 };
 
 const RecommendDisplay = ({top, bottom, shoes, accessory}) => {
     return (
     <>
+    <h1>
+        
+    </h1>
     <div className="container">
         <div className="row align-items-center mt-2">
             <div className="col">
