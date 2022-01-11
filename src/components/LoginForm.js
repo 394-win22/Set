@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './LoginForm.css';
+import { signInWithEmailAndPassWD, signInWithGoogle } from '../utilities/firebase';
 
 const Form = () => {    
     const [inputs, setinputs] = useState({
@@ -30,21 +31,29 @@ const Form = () => {
             }
         });
     };
+
+    const validateEmail = (email) => {
+        return String(email)
+        .toLowerCase()
+        .match(
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        );
+    };
     
     const submitForm = (e) => {
         e.preventDefault();
         setwarnemail(false);
         setwarnpass(false);
-        if (inputs.email.length < 1) {
-            setdanger(false);
+        if (inputs.password == "") {
+            setwarnpass(true);
         }
         if (inputs.email == "") {
             setwarnemail(true);
-        } else if (inputs.password == "") {
-            setwarnpass(true);
+        } else if (!validateEmail(inputs.email)) {
+            setwarnemail(true);
+            setdanger(false);
         } else {
-            alert("Logged in Successfully");
-            window.location.replace("/");
+            signInWithEmailAndPassWD(inputs);
         }
     };
 
@@ -80,7 +89,7 @@ const Form = () => {
                             <form onSubmit={submitForm}>
     
                                 <div className="input_text">
-                                    <input className={` ${warnemail ? "warning" : "" }`} type="text" placeholder="Enter Email" name="email" value={inputs.email} onChange={inputEvent} />
+                                    <input className={` ${warnemail ? "warning" : "" }`} type="text" pattern="[^\s]+" placeholder="Enter Email" name="email" value={inputs.email} onChange={inputEvent} />
                                     <p className={` ${danger ? "danger" : "" }`}><i className="fa fa-warning"></i>Please enter a valid email address.</p>
                                 </div>
                                 <div className="input_text">
@@ -97,9 +106,9 @@ const Form = () => {
                             </form>
                             <hr />
                             <div className="boxes-login">
-                                <span><img src="https://imgur.com/XnY9cKl.png" /></span>
-                                <span><img src="https://imgur.com/ODlSChL.png" /></span>
-                                <span><img src="https://imgur.com/mPBRdQt.png" /></span>
+                                <span onClick={() => signInWithGoogle()}><img src="https://imgur.com/XnY9cKl.png" /></span>
+                                {/* <span><img src="https://imgur.com/ODlSChL.png" /></span>
+                                <span><img src="https://imgur.com/mPBRdQt.png" /></span> */}
                             </div>
                         </div>
                     </div>

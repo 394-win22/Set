@@ -23,14 +23,13 @@ const FilterSelector = ({ setType }) => (
     <DropdownButton className='my-3' id="items-dropdown" variant="secondary" title="Filter By">
     {
         Object.values(types).map(
-        type => <Dropdown.Item onClick={() => setType(type)}>{type}</Dropdown.Item>)
+        (type, index) => <Dropdown.Item onClick={() => setType(type)} key={index}>{type}</Dropdown.Item>)
     }
     </DropdownButton>    
 );
 
 export const ItemList = (props) => {
     const [type, setType] = useState("Tops");
-    console.log(props)
     return (
         <>
         <div className="container">
@@ -41,7 +40,7 @@ export const ItemList = (props) => {
         <div className="container">
         <div className="album">
             <div className="row">
-                { Object.values(props.closet[type][props.userId]).map(items => <Item item={ items } />) }
+                { Object.entries(props.closet[type][props.userId]).map(([key, item]) => <Item item={ item } key={key}/>) }
             </div>
         </div>
     </div>
@@ -49,7 +48,8 @@ export const ItemList = (props) => {
     );
 };
 
-const Item = ({ item }) => (
+const Item = ({ item,index }) => {
+    return(
     <div className="col-6 col-sm-4 col-md-3">
     <div className="card mb-4">
         <img className="card-img-top" src={ item.image } alt={ item.name }/>
@@ -65,7 +65,8 @@ const Item = ({ item }) => (
                 </div>
             </div>
     </div>
-);
+    )
+};
 
 export const RecommendDisplayBlock = (props) => {
     return (
