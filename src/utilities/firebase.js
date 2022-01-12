@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getDatabase, onValue, ref, set } from 'firebase/database';
+import { getStorage } from "firebase/storage";
 import { useState, useEffect } from "react";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, onIdTokenChanged, signInWithPopup, signOut } from 'firebase/auth'
 import { useNavigate as navigate } from 'react-router-dom'
@@ -21,6 +22,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
+export const storage = getStorage(app);
 
 // This is a hardcoded test user id
 const userId = "C0XdX2OmOQZKzVknueo4xGtsgvI2"

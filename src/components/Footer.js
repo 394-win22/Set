@@ -2,21 +2,26 @@ import React from 'react';
 import './Footer.css';
 import { Nav, NavItem} from 'reactstrap';
 import { NavLink } from 'react-router-dom';
-import HomeIcon from '@material-ui/icons/Home';
-import AddIcon from '@material-ui/icons/Add';
-import PersonIcon from '@material-ui/icons/Person';
+import CheckroomIcon from '@mui/icons-material/Checkroom';
+import AssistantIcon from '@mui/icons-material/Assistant';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const tabs = [{
   route: "/",
-  icon: HomeIcon,
+  icon: CheckroomIcon,
   label: "Home"
 },{
   route: "/recommend",
-  icon: AddIcon,
+  icon: AssistantIcon,
   label: "Recommend"
 },{
+  route: "/additem",
+  icon: AddCircleIcon,
+  label: "Add"
+},{
   route: "/user",
-  icon: PersonIcon,
+  icon: AccountCircleIcon,
   label: "User"
 }]
 
@@ -30,13 +35,6 @@ const styles = {
 const Footer = () => (
   <>
     <div className="footer-margin"></div>
-    {/* <div className="footer"> 
-        <nav className="nav nav-pills nav-fill">
-            <a className="nav-item nav-link" href="#"><HomeIcon style={styles.footerIcon}/></a>
-            <a className="nav-item nav-link" href="#"><AddIcon style={styles.footerIcon}/></a>
-            <a className="nav-item nav-link" href="#"><PersonIcon style={styles.footerIcon}/></a>
-        </nav>
-    </div> */}
     <nav className="fixed-bottom navbar-light bottom-tab-nav footer" role="navigation">
         <Nav className="w-100">
           <div className=" d-flex flex-row justify-content-around w-100">

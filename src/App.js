@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from './pages/HomePage';
 import RecommendPage from './pages/RecommendPage';
+import NewItemPage from './pages/NewItemPage';
 import UserPage from './pages/UserPage';
 import LoginPage from './pages/LoginPage';
 import { useData, getTopsFromUser, getAllData } from './utilities/firebase.js';
@@ -19,6 +20,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage closet={closet} userId={userId}/>} />
           <Route path="/recommend" element={<RecommendPage closet={closet} userId={userId}/>} />
+          <Route path="/additem" element={<NewItemPage/>} />
           <Route path="/user" element={<UserPage />} />
           <Route path="/login" element={<LoginPage />} />
         </Routes>
