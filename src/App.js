@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import HomePage from './pages/HomePage';
+import ClosetPage from './pages/ClosetPage';
 import RecommendPage from './pages/RecommendPage';
 import NewItemPage from './pages/NewItemPage';
 import UserPage from './pages/UserPage';
@@ -18,7 +18,7 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<HomePage closet={closet} userId={userId}/>} />
+          <Route path="/" element={<ClosetPage closet={closet} userId={userId}/>} />
           <Route path="/recommend" element={<RecommendPage closet={closet} userId={userId}/>} />
           <Route path="/additem" element={<NewItemPage/>} />
           <Route path="/user" element={<UserPage />} />

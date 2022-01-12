@@ -10,7 +10,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 const tabs = [{
   route: "/",
   icon: CheckroomIcon,
-  label: "Home"
+  label: "Closet"
 },{
   route: "/recommend",
   icon: AssistantIcon,
