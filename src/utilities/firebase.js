@@ -52,7 +52,7 @@ export const useData = (path, transform) => {
     return [data, loading, error];
   };
 
-export const getAllData = data => data
+export const getAllData = data => data;
 
 export const getTopsFromUser = data => ({
     tops: data.Tops[userId]

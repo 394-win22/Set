@@ -3,11 +3,11 @@ import Header from '../components/Header.js'
 import Footer from '../components/Footer.js'
 import {RecommendDisplayBlock}  from '../components/ItemDisplay'
 
-const RecommendPage = (props) => {
+const RecommendPage = () => {
   return (
     <div>
       <Header />
-      <RecommendDisplayBlock closet={props.closet} userId={props.userId}/>
+      <RecommendDisplayBlock />
       <Footer />
     </div>
   )

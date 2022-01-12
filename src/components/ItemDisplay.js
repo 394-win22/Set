@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { DropdownButton, Dropdown } from 'react-bootstrap';
+import { useData, getTopsFromUser, getAllData } from '../utilities/firebase.js';
 
 const color = ["Brown", "Red", "Orange", "Yellow", "Green", "Blue", "Purple", "Black", "Pink", "Gray", "White", "Beige", "Gold", "Silver", "Multicolored"]
 const material = ["Leather", "Wool", "Linen", "Silk", "Cotton", "Denim", "Polyester", "Flannel", "Sherpa", "Suede", "Sequins"]
@@ -19,6 +20,9 @@ const types = {
     A: "Accessories"
 };
 
+// This is a hardcoded test user id
+const userId = "C0XdX2OmOQZKzVknueo4xGtsgvI2"
+
 const FilterSelector = ({ setType }) => (
     <DropdownButton className='my-3' id="items-dropdown" variant="secondary" title="Filter By">
     {
@@ -28,8 +32,12 @@ const FilterSelector = ({ setType }) => (
     </DropdownButton>    
 );
 
-export const ItemList = (props) => {
+export const ItemList = () => {
+    // User Specific Database functions
+    const [closet, loading, error] = useData('/', getAllData);
     const [type, setType] = useState("Tops");
+    if (error) return <h1>{error}</h1>;
+    if (loading) return <h1>Loading closet...</h1>;
     return (
         <>
         <div className="container">
@@ -40,7 +48,7 @@ export const ItemList = (props) => {
         <div className="container">
         <div className="album">
             <div className="row">
-                { Object.entries(props.closet[type][props.userId]).map(([key, item]) => <Item item={ item } key={key}/>) }
+                { Object.entries(closet[type][userId]).map(([key, item]) => <Item item={ item } key={key}/>) }
             </div>
         </div>
     </div>
@@ -48,7 +56,7 @@ export const ItemList = (props) => {
     );
 };
 
-const Item = ({ item,index }) => {
+const Item = ({ item }) => {
     return(
     <div className="col-6 col-sm-4 col-md-3">
     <div className="card mb-4">
@@ -69,8 +77,12 @@ const Item = ({ item,index }) => {
 };
 
 export const RecommendDisplayBlock = (props) => {
+    // User Specific Database functions
+    const [closet, loading, error] = useData('/', getAllData);
+    if (error) return <h1>{error}</h1>;
+    if (loading) return <h1>Loading closet...</h1>
     return (
-        <RecommendDisplay top={ props.closet["Tops"][props.userId]["3a119c21f23d"] } bottom={props.closet["Bottoms"][props.userId]["f27c84fb4aab"] } shoes={ props.closet["Shoes"][props.userId]["343f44e3b186"] } accessory={ props.closet["Accessories"][props.userId]["08ffdbd3ad3a"] } />
+        <RecommendDisplay top={ closet["Tops"][userId]["3a119c21f23d"] } bottom={closet["Bottoms"][userId]["f27c84fb4aab"] } shoes={ closet["Shoes"][userId]["343f44e3b186"] } accessory={ closet["Accessories"][userId]["08ffdbd3ad3a"] } />
     );
 };
 
