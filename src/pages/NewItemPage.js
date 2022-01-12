@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { storage } from '../utilities/firebase'
-import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { ref, uploadBytes } from "firebase/storage";
 
 const NewItemPage = () => {
     const [file, setFile] = useState(null);

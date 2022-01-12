@@ -3,7 +3,7 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import {ItemList}  from '../components/ItemDisplay'
 
-const HomePage = (props) => {
+const ClosetPage = (props) => {
 return (
     <div>
       <Header />
@@ -13,4 +13,4 @@ return (
   )
 };
 
-export default HomePage;
+export default ClosetPage;
