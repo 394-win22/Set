@@ -159,7 +159,6 @@ const Item = ({ item }) => {
 };
 
 export const RecommendDisplayBlock = ({top,bottom,shoes,accessory}) => {
-    console.log(accessory);
 	return (
 		<RecommendDisplay
 			top={top}
