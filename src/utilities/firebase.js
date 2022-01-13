@@ -25,7 +25,7 @@ const database = getDatabase(app);
 export const storage = getStorage(app);
 
 // This is a hardcoded test user id
-const userId = "C0XdX2OmOQZKzVknueo4xGtsgvI2"
+export const userId = "C0XdX2OmOQZKzVknueo4xGtsgvI2"
 
 export const useData = (path, transform) => {
     const [data, setData] = useState();
@@ -54,18 +54,22 @@ export const useData = (path, transform) => {
 
 export const getAllData = data => data;
 
-export const getTopsFromUser = data => ({
-    tops: data.Tops[userId]
-});
-export const getBottomsFromUser = data => ({
-    tops: data.Bottoms[userId]
-});
-export const getAccessoriesFromUser = data => ({
-    tops: data.Accessories[userId]
-});
-export const getShoesFromUser = data => ({
-    tops: data.Shoes[userId]
-});
+export const getTopsFromUser = (userID) => (
+    `/Tops/${userID}`
+);
+export const getBottomsFromUser = (userID) => (
+  `/Bottoms/${userID}`
+);
+export const getAccessoriesFromUser = (userID) => (
+  `/Accessories/${userID}`
+);
+export const getShoesFromUser = (userID) => (
+  `/Shoes/${userID}`
+);
+
+export const getRecommendationsFromUser = (userID) => (
+  `/Recommendations/${userID}`
+);
 
 export const signInWithGoogle = () => {
   signInWithPopup(getAuth(app), new GoogleAuthProvider());

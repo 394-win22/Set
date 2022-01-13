@@ -77,15 +77,20 @@ const OldFooter = () => (
 );
 
 function Footer() {
-  const [value, setValue] = React.useState(0);
-
   const { pathname } = useLocation();
+  let routeIndex = 0;
+  for (let i = 0; i < tabs.length; i++) {
+    if (pathname == tabs[i].route) {
+      routeIndex = i;
+    }
+  } 
+  const [value, setValue] = React.useState(routeIndex);
   if (pathname === "/login") return null;
 
   return (
-    <Box sx={{ pb: 7 }}>
+    <Box sx={{ pb: 7}}>
       <CssBaseline />
-      <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0}} elevation={4}>
+      <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 101}} elevation={4}>
         <BottomNavigation
           value={value}
           onChange={(event, newValue) => {
