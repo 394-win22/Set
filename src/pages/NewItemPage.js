@@ -28,7 +28,6 @@ const NewItemPage = () => {
             <button disabled={!file}>upload to firebase</button>
         </form>
         <img src={url} alt="" />
-        <Footer />
     </div>
     );
 }

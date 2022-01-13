@@ -8,7 +8,6 @@ return (
     <div>
       <Header />
       <ItemList />
-      <Footer />
     </div>
   )
 };

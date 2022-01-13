@@ -19,18 +19,19 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
 
+
 const tabs = [{
   route: "/",
   icon: Checkroom,
   label: "Closet"
 },{
-  route: "/recommend",
-  icon: Assistant,
-  label: "Recommend"
-},{
   route: "/additem",
   icon: AddCircle,
   label: "Add"
+},{
+  route: "/recommend",
+  icon: Assistant,
+  label: "Recommend"
 },{
   route: "/user",
   icon: AccountCircle,
@@ -44,41 +45,39 @@ const styles = {
     }
   };
 
-// const Footer = () => (
-//   <>
-//     <div className="footer-margin"></div>
-//     <nav className="fixed-bottom navbar-light bottom-tab-nav footer" role="navigation">
-//         <Nav className="w-100">
-//           <div className=" d-flex flex-row justify-content-around w-100">
-//             {
-//               tabs.map((tab, index) => {
-//                 const Icon = tab.icon;
-//                 return (
-//                 <NavItem key={`tab-${index}`}>
-//                   <NavLink to={tab.route} className="nav-link bottom-nav-link" style={({ isActive }) => {
-//                       return {
-//                         display: "block",
-//                         color: isActive ? "#1c3580" : ""
-//                       };
-//                     }}>
-//                     <div className="row d-flex flex-column justify-content-center align-items-center">
-//                       <Icon style={styles.footerIcon} />
-//                       <div className="bottom-tab-label">{tab.label}</div>
-//                     </div>
-//                   </NavLink>
-//                 </NavItem>
-//               );})
-//             }
-//           </div>
-//         </Nav>
-//     </nav>
-//   </> 
-// );
+const OldFooter = () => (
+  <>
+    <div className="footer-margin"></div>
+    <nav className="fixed-bottom navbar-light bottom-tab-nav footer" role="navigation">
+        <Nav className="w-100">
+          <div className=" d-flex flex-row justify-content-around w-100">
+            {
+              tabs.map((tab, index) => {
+                const Icon = tab.icon;
+                return (
+                <NavItem key={`tab-${index}`}>
+                  <NavLink to={tab.route} className="nav-link bottom-nav-link" style={({ isActive }) => {
+                      return {
+                        display: "block",
+                        color: isActive ? "#1c3580" : ""
+                      };
+                    }}>
+                    <div className="row d-flex flex-column justify-content-center align-items-center">
+                      <Icon style={styles.footerIcon} />
+                      <div className="bottom-tab-label">{tab.label}</div>
+                    </div>
+                  </NavLink>
+                </NavItem>
+              );})
+            }
+          </div>
+        </Nav>
+    </nav>
+  </> 
+);
 
 function Footer() {
   const [value, setValue] = React.useState(0);
-  
-  const ref = React.useRef(null);
 
   const { pathname } = useLocation();
   if (pathname === "/login") return null;
@@ -88,7 +87,6 @@ function Footer() {
       <CssBaseline />
       <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0}} elevation={4}>
         <BottomNavigation
-          showLabels
           value={value}
           onChange={(event, newValue) => {
             setValue(newValue);
@@ -103,6 +101,35 @@ function Footer() {
         </BottomNavigation>
       </Paper>
     </Box>
+  );
+}
+
+function SpeedDialFooter() {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  
+  const { pathname } = useLocation();
+  if (pathname === "/login") return null;
+
+  return (
+    <Box sx={{flexGrow: 1}}>
+        <SpeedDial
+            ariaLabel="SpeedDial tooltip example"
+            sx={{ position: 'fixed', bottom: 16, right: 16 }}
+            icon={<SpeedDialIcon />}
+            onClose={handleClose}
+            onOpen={handleOpen}
+            open={open}
+        >
+          {tabs.map((tab, index) => {
+            const Icon = tab.icon;
+            return (
+              <SpeedDialAction key={`tab-${index}`} component={Link} to={tab.route} tooltipTitle={tab.label} icon={<Icon />} />
+            );}
+          )}
+        </SpeedDial>
+      </Box>
   );
 }
 

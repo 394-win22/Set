@@ -8,7 +8,6 @@ const RecommendPage = () => {
     <div>
       <Header />
       <RecommendDisplayBlock />
-      <Footer />
     </div>
   )
 };
