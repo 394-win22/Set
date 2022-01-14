@@ -1,8 +1,15 @@
 import React, { useState, useMemo, useRef } from "react";
-import { DropdownButton, Dropdown, Carousel, Container, Row } from "react-bootstrap";
+import {
+	Button,
+	DropdownButton,
+	Dropdown,
+	Carousel,
+	Container,
+	Row,
+} from "react-bootstrap";
 import { useData, getAllData } from "../utilities/firebase.js";
 import TinderCard from "react-tinder-card";
-import './ItemDisplay.css';
+import "./ItemDisplay.css";
 
 const color = [
 	"Brown",
@@ -100,6 +107,10 @@ const FilterSelector = ({ setType }) => (
 	</DropdownButton>
 );
 
+const AddButton = () => (
+	<Button variant="secondary">Upload clothing item</Button>
+);
+
 export const ItemList = () => {
 	// User Specific Database functions
 	const [closet, loading, error] = useData("/", getAllData);
@@ -110,15 +121,18 @@ export const ItemList = () => {
 		<>
 			<div className="container">
 				<div className="col-md-12 text-center">
+					<AddButton />
 					<FilterSelector setType={setType} />
 				</div>
 			</div>
 			<div className="container">
 				<div className="album">
 					<div className="row">
-						{Object.entries(closet[type][userId]).map(([key, item]) => (
-							<Item item={item} key={key} />
-						))}
+						{Object.entries(closet[type][userId]).map(
+							([key, item]) => (
+								<Item item={item} key={key} />
+							)
+						)}
 					</div>
 				</div>
 			</div>
@@ -126,11 +140,15 @@ export const ItemList = () => {
 	);
 };
 
-const Item = ({ item }) => {
+export const Item = ({ item }) => {
 	return (
 		<div className="col-6 col-sm-4 col-md-3">
 			<div className="card mb-4">
-				<img className="card-img-top" src={item.image} alt={item.name} />
+				<img
+					className="card-img-top"
+					src={item.image}
+					alt={item.name}
+				/>
 				<div className="card-body">
 					<p className="card-text">
 						{item.name} by {item.brand}
@@ -158,7 +176,7 @@ const Item = ({ item }) => {
 	);
 };
 
-export const RecommendDisplayBlock = ({top,bottom,shoes,accessory}) => {
+export const RecommendDisplayBlock = ({ top, bottom, shoes, accessory }) => {
 	return (
 		<RecommendDisplay
 			top={top}
@@ -169,7 +187,7 @@ export const RecommendDisplayBlock = ({top,bottom,shoes,accessory}) => {
 	);
 };
 
-const RecommendDisplay = ({ top, bottom, shoes, accessory}) => {
+const RecommendDisplay = ({ top, bottom, shoes, accessory }) => {
 	return (
 		<div className="row align-items-center mt-2">
 			<div className="col">
@@ -185,18 +203,30 @@ const RecommendDisplay = ({ top, bottom, shoes, accessory}) => {
 			<div className="col-lg-4 col-6">
 				<div className="row">
 					<div className="rec-card text-white">
-						<img className="card-img" src={top.image} alt={top.name} />
+						<img
+							className="card-img"
+							src={top.image}
+							alt={top.name}
+						/>
 					</div>
 				</div>
 				<div className="row">
 					<div className="rec-card text-white mt-4">
-						<img className="card-img" src={bottom.image} alt={bottom.name} />
+						<img
+							className="card-img"
+							src={bottom.image}
+							alt={bottom.name}
+						/>
 					</div>
 				</div>
 			</div>
 			<div className="col">
 				<div className="rec-card text-white">
-					<img className="card-img" src={shoes.image} alt={shoes.name} />
+					<img
+						className="card-img"
+						src={shoes.image}
+						alt={shoes.name}
+					/>
 				</div>
 			</div>
 		</div>
@@ -204,73 +234,74 @@ const RecommendDisplay = ({ top, bottom, shoes, accessory}) => {
 };
 
 const db = [
-    {
-      name: 'Richard Hendricks',
-      url: './img/richard.jpg'
-    },
-    {
-      name: 'Erlich Bachman',
-      url: './img/erlich.jpg'
-    },
-    {
-      name: 'Monica Hall',
-      url: './img/monica.jpg'
-    },
-    {
-      name: 'Jared Dunn',
-      url: './img/jared.jpg'
-    },
-    {
-      name: 'Dinesh Chugtai',
-      url: './img/dinesh.jpg'
-    }
-  ]
+	{
+		name: "Richard Hendricks",
+		url: "./img/richard.jpg",
+	},
+	{
+		name: "Erlich Bachman",
+		url: "./img/erlich.jpg",
+	},
+	{
+		name: "Monica Hall",
+		url: "./img/monica.jpg",
+	},
+	{
+		name: "Jared Dunn",
+		url: "./img/jared.jpg",
+	},
+	{
+		name: "Dinesh Chugtai",
+		url: "./img/dinesh.jpg",
+	},
+];
 
-export const ClothesCarousel = ({clothes}) => {
-    return (
-        <Container fluid>
-            <Row className="carousel-container">
-                <Carousel variant="dark" interval={null} indicators={false}>
-                    {Object.entries(clothes).map(([key, clothingItem], index) => {
-                                return (
-                                    <Carousel.Item key={key}>
-                                        <img
-                                            className="d-block w-100"
-                                            src={clothingItem.image}
-                                            alt={clothingItem.name}
-                                            />
-                                    </Carousel.Item>
-                                )
-                        })
-                    }
-                </Carousel>
-            </Row>
-        </Container>
-    )
-}
+export const ClothesCarousel = ({ clothes }) => {
+	return (
+		<Container fluid>
+			<Row className="carousel-container">
+				<Carousel variant="dark" interval={null} indicators={false}>
+					{Object.entries(clothes).map(
+						([key, clothingItem], index) => {
+							return (
+								<Carousel.Item key={key}>
+									<img
+										className="d-block w-100"
+										src={clothingItem.image}
+										alt={clothingItem.name}
+									/>
+								</Carousel.Item>
+							);
+						}
+					)}
+				</Carousel>
+			</Row>
+		</Container>
+	);
+};
 
-export const OutfitCarousel = ({ tops, bottoms, shoes, accessories}) => {
+export const OutfitCarousel = ({ tops, bottoms, shoes, accessories }) => {
 	return (
 		<div className="row justify-content-center mt-2">
 			<div className="col-lg-4 col-6">
 				<div className="row">
 					<div className="rec-card text-white">
-                        <ClothesCarousel clothes={accessories} />
+						<ClothesCarousel clothes={accessories} />
 					</div>
 				</div>
 				<div className="row">
 					<div className="rec-card text-white">
-                        <ClothesCarousel clothes={tops} />
+						<ClothesCarousel clothes={tops} />
 					</div>
 				</div>
 				<div className="row">
 					<div className="rec-card text-white mt-4">
-                        <ClothesCarousel clothes={bottoms} />
+						<ClothesCarousel clothes={bottoms} />
 					</div>
 				</div>
 				<div className="row">
 					<div className="rec-card text-white">
-                        <ClothesCarousel clothes={shoes} />
+						<ClothesCarousel clothes={shoes} />
 					</div>
 				</div>
 			</div>
@@ -278,15 +309,15 @@ export const OutfitCarousel = ({ tops, bottoms, shoes, accessories}) => {
 	);
 };
 
-export const SwipeCard = ({recs, shoes, tops, bottoms, accessories}) => {
-    const recLength = Object.keys(recs).length;
-    const [currentIndex, setCurrentIndex] = useState(recLength - 1);
+export const SwipeCard = ({ recs, shoes, tops, bottoms, accessories }) => {
+	const recLength = Object.keys(recs).length;
+	const [currentIndex, setCurrentIndex] = useState(recLength - 1);
 	const [lastDirection, setLastDirection] = useState();
-    
-    // used for outOfFrame closure
+
+	// used for outOfFrame closure
 	const currentIndexRef = useRef(currentIndex);
 
-    const childRefs = useMemo(
+	const childRefs = useMemo(
 		() =>
 			Array(recLength)
 				.fill(0)
@@ -310,7 +341,10 @@ export const SwipeCard = ({recs, shoes, tops, bottoms, accessories}) => {
 	};
 
 	const outOfFrame = (name, idx) => {
-		console.log(`${name} (${idx}) left the screen!`, currentIndexRef.current);
+		console.log(
+			`${name} (${idx}) left the screen!`,
+			currentIndexRef.current
+		);
 		// handle the case in which go back is pressed before card goes outOfFrame
 		currentIndexRef.current >= idx && childRefs[idx].current.restoreCard();
 	};
@@ -329,7 +363,7 @@ export const SwipeCard = ({recs, shoes, tops, bottoms, accessories}) => {
 		await childRefs[newIndex].current.restoreCard();
 	};
 
-    return (
+	return (
 		<div>
 			<div className="cardContainer">
 				{Object.entries(recs).map(([key, rec], index) => (
@@ -341,7 +375,12 @@ export const SwipeCard = ({recs, shoes, tops, bottoms, accessories}) => {
 						onCardLeftScreen={() => outOfFrame(key, index)}
 					>
 						<div className="rec-card-block container">
-							<RecommendDisplayBlock top={tops[rec.top]} bottom={bottoms[rec.bottom]} accessory={accessories[rec.accessory]} shoes={shoes[rec.shoes]} />
+							<RecommendDisplayBlock
+								top={tops[rec.top]}
+								bottom={bottoms[rec.bottom]}
+								accessory={accessories[rec.accessory]}
+								shoes={shoes[rec.shoes]}
+							/>
 						</div>
 					</TinderCard>
 				))}
@@ -350,7 +389,7 @@ export const SwipeCard = ({recs, shoes, tops, bottoms, accessories}) => {
 				<div className="row text-center my-5">
 					<div className="col">
 						<button
-                            style={{ backgroundColor: !canGoBack && "#c3c4d3" }}
+							style={{ backgroundColor: !canGoBack && "#c3c4d3" }}
 							type="button"
 							className="btn btn-warning btn-circle btn-xl"
 							onClick={() => goBack("left")}
