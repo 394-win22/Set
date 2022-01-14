@@ -17,7 +17,7 @@ const RecommendPage = () => {
   return (
     <div>
       <Header />
-      <div id="rec-canvas">
+      <div>
         {/* <SwipeCard recs={recs} tops={tops} bottoms={bottoms} accessories={accessories} shoes={shoes} /> */}
         <ClothesCarousel clothes={tops} />
       </div>

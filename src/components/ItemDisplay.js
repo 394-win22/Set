@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useRef } from "react";
-import { DropdownButton, Dropdown, Carousel, CarouselItem } from "react-bootstrap";
+import { DropdownButton, Dropdown, Carousel, Container, Row } from "react-bootstrap";
 import { useData, getAllData } from "../utilities/firebase.js";
 import TinderCard from "react-tinder-card";
 import './ItemDisplay.css';
@@ -228,20 +228,24 @@ const db = [
 
 export const ClothesCarousel = ({clothes}) => {
     return (
-        <Carousel variant="dark">
-            {Object.entries(clothes).map(([key, clothingItem], index) => {
-                        return (
-                            <Carousel.Item>
-                                <img
-                                    className="d-block w-100"
-                                    src={clothingItem.image}
-                                    alt={clothingItem.name}
-                                    />
-                            </Carousel.Item>
-                        )
-                })
-            }
-        </Carousel>
+        <Container fluid>
+            <Row>
+                <Carousel variant="dark">
+                    {Object.entries(clothes).map(([key, clothingItem], index) => {
+                                return (
+                                    <Carousel.Item key={key}>
+                                        <img
+                                            className="d-block w-100"
+                                            src={clothingItem.image}
+                                            alt={clothingItem.name}
+                                            />
+                                    </Carousel.Item>
+                                )
+                        })
+                    }
+                </Carousel>
+            </Row>
+        </Container>
     )
 }
 
