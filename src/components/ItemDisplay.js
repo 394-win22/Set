@@ -230,7 +230,7 @@ export const ClothesCarousel = ({clothes}) => {
     return (
         <Container fluid>
             <Row className="carousel-container">
-                <Carousel variant="dark">
+                <Carousel variant="dark" interval={null} indicators={false}>
                     {Object.entries(clothes).map(([key, clothingItem], index) => {
                                 return (
                                     <Carousel.Item key={key}>
@@ -251,14 +251,13 @@ export const ClothesCarousel = ({clothes}) => {
 
 export const OutfitCarousel = ({ tops, bottoms, shoes, accessories}) => {
 	return (
-		<div className="row align-items-center mt-2">
-			<div className="col">
-				<div className="rec-card text-white">
-                    <ClothesCarousel clothes={accessories} />
-				</div>
-			</div>
-
+		<div className="row justify-content-center mt-2">
 			<div className="col-lg-4 col-6">
+				<div className="row">
+					<div className="rec-card text-white">
+                        <ClothesCarousel clothes={accessories} />
+					</div>
+				</div>
 				<div className="row">
 					<div className="rec-card text-white">
                         <ClothesCarousel clothes={tops} />
@@ -269,10 +268,10 @@ export const OutfitCarousel = ({ tops, bottoms, shoes, accessories}) => {
                         <ClothesCarousel clothes={bottoms} />
 					</div>
 				</div>
-			</div>
-			<div className="col">
-				<div className="rec-card text-white">
-                    <ClothesCarousel clothes={shoes} />
+				<div className="row">
+					<div className="rec-card text-white">
+                        <ClothesCarousel clothes={shoes} />
+					</div>
 				</div>
 			</div>
 		</div>
