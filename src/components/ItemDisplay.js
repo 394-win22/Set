@@ -229,7 +229,7 @@ const db = [
 export const ClothesCarousel = ({clothes}) => {
     return (
         <Container fluid>
-            <Row>
+            <Row className="carousel-container">
                 <Carousel variant="dark">
                     {Object.entries(clothes).map(([key, clothingItem], index) => {
                                 return (
@@ -248,6 +248,36 @@ export const ClothesCarousel = ({clothes}) => {
         </Container>
     )
 }
+
+export const OutfitCarousel = ({ tops, bottoms, shoes, accessories}) => {
+	return (
+		<div className="row align-items-center mt-2">
+			<div className="col">
+				<div className="rec-card text-white">
+                    <ClothesCarousel clothes={accessories} />
+				</div>
+			</div>
+
+			<div className="col-lg-4 col-6">
+				<div className="row">
+					<div className="rec-card text-white">
+                        <ClothesCarousel clothes={tops} />
+					</div>
+				</div>
+				<div className="row">
+					<div className="rec-card text-white mt-4">
+                        <ClothesCarousel clothes={bottoms} />
+					</div>
+				</div>
+			</div>
+			<div className="col">
+				<div className="rec-card text-white">
+                    <ClothesCarousel clothes={shoes} />
+				</div>
+			</div>
+		</div>
+	);
+};
 
 export const SwipeCard = ({recs, shoes, tops, bottoms, accessories}) => {
     const recLength = Object.keys(recs).length;

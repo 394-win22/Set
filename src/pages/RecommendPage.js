@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../components/Header.js'
-import {SwipeCard, ClothesCarousel}  from '../components/ItemDisplay'
+import {SwipeCard, ClothesCarousel, OutfitCarousel}  from '../components/ItemDisplay'
 import './RecommendPage.css';
 import { useData, getTopsFromUser, getBottomsFromUser, getRecommendationsFromUser, getAccessoriesFromUser, getShoesFromUser, getAllData, userId} from "../utilities/firebase.js";
 
@@ -19,7 +19,11 @@ const RecommendPage = () => {
       <Header />
       <div>
         {/* <SwipeCard recs={recs} tops={tops} bottoms={bottoms} accessories={accessories} shoes={shoes} /> */}
-        <ClothesCarousel clothes={tops} />
+        {/* <ClothesCarousel clothes={tops} />
+        <ClothesCarousel clothes={bottoms} />
+        <ClothesCarousel clothes={accessories} />
+        <ClothesCarousel clothes={shoes} /> */}
+        <OutfitCarousel tops={tops} bottoms={bottoms} accessories={accessories} shoes={shoes} />
       </div>
     </div>
   )
