@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useRef } from "react";
-import { DropdownButton, Dropdown } from "react-bootstrap";
+import { DropdownButton, Dropdown, Carousel, CarouselItem } from "react-bootstrap";
 import { useData, getAllData } from "../utilities/firebase.js";
 import TinderCard from "react-tinder-card";
 import './ItemDisplay.css';
@@ -225,6 +225,25 @@ const db = [
       url: './img/dinesh.jpg'
     }
   ]
+
+export const ClothesCarousel = ({clothes}) => {
+    return (
+        <Carousel variant="dark">
+            {Object.entries(clothes).map(([key, clothingItem], index) => {
+                        return (
+                            <Carousel.Item>
+                                <img
+                                    className="d-block w-100"
+                                    src={clothingItem.image}
+                                    alt={clothingItem.name}
+                                    />
+                            </Carousel.Item>
+                        )
+                })
+            }
+        </Carousel>
+    )
+}
 
 export const SwipeCard = ({recs, shoes, tops, bottoms, accessories}) => {
     const recLength = Object.keys(recs).length;
