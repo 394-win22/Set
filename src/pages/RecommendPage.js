@@ -1,8 +1,16 @@
 import React from 'react';
 import Header from '../components/Header.js'
-import {SwipeCard, ClothesCarousel, OutfitCarousel}  from '../components/ItemDisplay'
+import {SwipeCard, ClothesCarousel, OutfitCarousel, SaveButton}  from '../components/ItemDisplay'
 import './RecommendPage.css';
 import { useData, getTopsFromUser, getBottomsFromUser, getRecommendationsFromUser, getAccessoriesFromUser, getShoesFromUser, getAllData, userId} from "../utilities/firebase.js";
+import {
+	Button,
+	DropdownButton,
+	Dropdown,
+	Carousel,
+	Container,
+	Row,
+} from "react-bootstrap";
 
 const RecommendPage = () => {
   // get data from database
@@ -24,9 +32,12 @@ const RecommendPage = () => {
         <ClothesCarousel clothes={accessories} />
         <ClothesCarousel clothes={shoes} /> */}
         <OutfitCarousel tops={tops} bottoms={bottoms} accessories={accessories} shoes={shoes} />
+        <SaveButton></SaveButton>
       </div>
     </div>
   )
 };
+
+
 
 export default RecommendPage;

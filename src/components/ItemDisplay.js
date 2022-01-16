@@ -11,6 +11,8 @@ import { useData, getAllData } from "../utilities/firebase.js";
 import TinderCard from "react-tinder-card";
 import "./ItemDisplay.css";
 
+const currentOutfit = {accesories: 0,tops: 0, bottoms: 0, shoes:0}
+
 const color = [
 	"Brown",
 	"Red",
@@ -256,11 +258,18 @@ const db = [
 	},
 ];
 
-export const ClothesCarousel = ({ clothes }) => {
+export const ClothesCarousel = ({ clothes, type }) => {
+	const [index, setIndex] = useState(0);
+
+  	const handleSelect = (selectedIndex, e) => {
+		setIndex(selectedIndex);
+		currentOutfit[type] = selectedIndex;
+		
+	};
 	return (
 		<Container fluid>
 			<Row className="carousel-container">
-				<Carousel variant="dark" interval={null} indicators={false}>
+				<Carousel variant="dark" interval={null} indicators={false} activeIndex={index} onSelect={handleSelect}>
 					{Object.entries(clothes).map(
 						([key, clothingItem], index) => {
 							return (
@@ -286,146 +295,159 @@ export const OutfitCarousel = ({ tops, bottoms, shoes, accessories }) => {
 			<div className="col-lg-4 col-6">
 				<div className="row">
 					<div className="rec-card text-white">
-						<ClothesCarousel clothes={accessories} />
+						<ClothesCarousel clothes={accessories} type={"accessories"} />
 					</div>
 				</div>
 				<div className="row">
 					<div className="rec-card text-white">
-						<ClothesCarousel clothes={tops} />
+						<ClothesCarousel clothes={tops} type={"tops"}/>
 					</div>
 				</div>
 				<div className="row">
 					<div className="rec-card text-white mt-4">
-						<ClothesCarousel clothes={bottoms} />
+						<ClothesCarousel clothes={bottoms} type={"bottoms"}/>
 					</div>
 				</div>
 				<div className="row">
 					<div className="rec-card text-white">
-						<ClothesCarousel clothes={shoes} />
+						<ClothesCarousel clothes={shoes} type={"shoes"}/>
 					</div>
 				</div>
 			</div>
 		</div>
 	);
 };
+export const SaveButton = () => (
 
-export const SwipeCard = ({ recs, shoes, tops, bottoms, accessories }) => {
-	const recLength = Object.keys(recs).length;
-	const [currentIndex, setCurrentIndex] = useState(recLength - 1);
-	const [lastDirection, setLastDirection] = useState();
+		<Button onClick={() => saveOutfit()}>Save outfit</Button>
+	
+);
 
-	// used for outOfFrame closure
-	const currentIndexRef = useRef(currentIndex);
+const saveOutfit = () => {
+	console.log(currentOutfit)
+	console.log("jhello")
+	return;
 
-	const childRefs = useMemo(
-		() =>
-			Array(recLength)
-				.fill(0)
-				.map((i) => React.createRef()),
-		[]
-	);
+}
 
-	const updateCurrentIndex = (val) => {
-		setCurrentIndex(val);
-		currentIndexRef.current = val;
-	};
+// export const SwipeCard = ({ recs, shoes, tops, bottoms, accessories }) => {
+// 	const recLength = Object.keys(recs).length;
+// 	const [currentIndex, setCurrentIndex] = useState(recLength - 1);
+// 	const [lastDirection, setLastDirection] = useState();
 
-	const canGoBack = currentIndex < recLength - 1;
+// 	// used for outOfFrame closure
+// 	const currentIndexRef = useRef(currentIndex);
 
-	const canSwipe = currentIndex >= 0;
+// 	const childRefs = useMemo(
+// 		() =>
+// 			Array(recLength)
+// 				.fill(0)
+// 				.map((i) => React.createRef()),
+// 		[]
+// 	);
 
-	// set last direction and decrease current index
-	const swiped = (direction, nameToDelete, index) => {
-		setLastDirection(direction);
-		updateCurrentIndex(index - 1);
-	};
+// 	const updateCurrentIndex = (val) => {
+// 		setCurrentIndex(val);
+// 		currentIndexRef.current = val;
+// 	};
 
-	const outOfFrame = (name, idx) => {
-		console.log(
-			`${name} (${idx}) left the screen!`,
-			currentIndexRef.current
-		);
-		// handle the case in which go back is pressed before card goes outOfFrame
-		currentIndexRef.current >= idx && childRefs[idx].current.restoreCard();
-	};
+// 	const canGoBack = currentIndex < recLength - 1;
 
-	const swipe = async (dir) => {
-		if (canSwipe && currentIndex < recLength) {
-			await childRefs[currentIndex].current.swipe(dir); // Swipe the card!
-		}
-	};
+// 	const canSwipe = currentIndex >= 0;
 
-	// increase current index and show card
-	const goBack = async () => {
-		if (!canGoBack) return;
-		const newIndex = currentIndex + 1;
-		updateCurrentIndex(newIndex);
-		await childRefs[newIndex].current.restoreCard();
-	};
+// 	// set last direction and decrease current index
+// 	const swiped = (direction, nameToDelete, index) => {
+// 		setLastDirection(direction);
+// 		updateCurrentIndex(index - 1);
+// 	};
 
-	return (
-		<div>
-			<div className="cardContainer">
-				{Object.entries(recs).map(([key, rec], index) => (
-					<TinderCard
-						ref={childRefs[index]}
-						className="swipe"
-						key={index}
-						onSwipe={(dir) => swiped(dir, rec, index)}
-						onCardLeftScreen={() => outOfFrame(key, index)}
-					>
-						<div className="rec-card-block container">
-							<RecommendDisplayBlock
-								top={tops[rec.top]}
-								bottom={bottoms[rec.bottom]}
-								accessory={accessories[rec.accessory]}
-								shoes={shoes[rec.shoes]}
-							/>
-						</div>
-					</TinderCard>
-				))}
-			</div>
-			<div className="rec-buttons container">
-				<div className="row text-center my-5">
-					<div className="col">
-						<button
-							style={{ backgroundColor: !canGoBack && "#c3c4d3" }}
-							type="button"
-							className="btn btn-warning btn-circle btn-xl"
-							onClick={() => goBack("left")}
-						>
-							<i className="fas fa-undo align-middle"></i>
-						</button>
-					</div>
-					<div className="col align-items-middle">
-						<button
-							style={{ backgroundColor: !canSwipe && "#c3c4d3" }}
-							type="button"
-							className="btn btn-warning btn-circle btn-xl"
-							onClick={() => swipe("left")}
-						>
-							<i className="fa fa-times align-middle"></i>
-						</button>
-					</div>
-					<div className="col align-items-right">
-						<button
-							style={{ backgroundColor: !canSwipe && "#c3c4d3" }}
-							type="button"
-							className="btn btn-danger btn-circle btn-xl"
-							onClick={() => swipe("right")}
-						>
-							<i className="fa fa-heart align-middle"></i>
-						</button>
-					</div>
-				</div>
-			</div>
-			{lastDirection ? (
-				<h2 key={lastDirection} className="infoText">
-					You swiped {lastDirection}
-				</h2>
-			) : (
-				<h2 className="infoText"></h2>
-			)}
-		</div>
-	);
-};
+// 	const outOfFrame = (name, idx) => {
+// 		console.log(
+// 			`${name} (${idx}) left the screen!`,
+// 			currentIndexRef.current
+// 		);
+// 		// handle the case in which go back is pressed before card goes outOfFrame
+// 		currentIndexRef.current >= idx && childRefs[idx].current.restoreCard();
+// 	};
+
+// 	const swipe = async (dir) => {
+// 		if (canSwipe && currentIndex < recLength) {
+// 			await childRefs[currentIndex].current.swipe(dir); // Swipe the card!
+// 		}
+// 	};
+
+// 	// increase current index and show card
+// 	const goBack = async () => {
+// 		if (!canGoBack) return;
+// 		const newIndex = currentIndex + 1;
+// 		updateCurrentIndex(newIndex);
+// 		await childRefs[newIndex].current.restoreCard();
+// 	};
+
+// 	return (
+// 		<div>
+			
+// 			<div className="cardContainer">
+// 				{Object.entries(recs).map(([key, rec], index) => (
+// 					<TinderCard
+// 						ref={childRefs[index]}
+// 						className="swipe"
+// 						key={index}
+// 						onSwipe={(dir) => swiped(dir, rec, index)}
+// 						onCardLeftScreen={() => outOfFrame(key, index)}
+// 					>
+// 						<div className="rec-card-block container">
+// 							<RecommendDisplayBlock
+// 								top={tops[rec.top]}
+// 								bottom={bottoms[rec.bottom]}
+// 								accessory={accessories[rec.accessory]}
+// 								shoes={shoes[rec.shoes]}
+// 							/>
+// 						</div>
+// 					</TinderCard>
+// 				))}
+// 			</div>
+// 			<div className="rec-buttons container">
+// 				<div className="row text-center my-5">
+// 					<div className="col">
+// 						<button
+// 							style={{ backgroundColor: !canGoBack && "#c3c4d3" }}
+// 							type="button"
+// 							className="btn btn-warning btn-circle btn-xl"
+// 							onClick={() => goBack("left")}
+// 						>
+// 							<i className="fas fa-undo align-middle"></i>
+// 						</button>
+// 					</div>
+// 					<div className="col align-items-middle">
+// 						<button
+// 							style={{ backgroundColor: !canSwipe && "#c3c4d3" }}
+// 							type="button"
+// 							className="btn btn-warning btn-circle btn-xl"
+// 							onClick={() => swipe("left")}
+// 						>
+// 							<i className="fa fa-times align-middle"></i>
+// 						</button>
+// 					</div>
+// 					<div className="col align-items-right">
+// 						<button
+// 							style={{ backgroundColor: !canSwipe && "#c3c4d3" }}
+// 							type="button"
+// 							className="btn btn-danger btn-circle btn-xl"
+// 							onClick={() => swipe("right")}
+// 						>
+// 							<i className="fa fa-heart align-middle"></i>
+// 						</button>
+// 					</div>
+// 				</div>
+// 			</div>
+// 			{lastDirection ? (
+// 				<h2 key={lastDirection} className="infoText">
+// 					You swiped {lastDirection}
+// 				</h2>
+// 			) : (
+// 				<h2 className="infoText"></h2>
+// 			)}
+// 		</div>
+// 	);
+// };
