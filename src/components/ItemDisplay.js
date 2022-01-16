@@ -11,7 +11,8 @@ import { useData, getAllData } from "../utilities/firebase.js";
 import TinderCard from "react-tinder-card";
 import "./ItemDisplay.css";
 
-const currentOutfit = {accesories: 0,tops: 0, bottoms: 0, shoes:0}
+const currentOutfit = {accessories: 0,tops: 0, bottoms: 0, shoes:0}
+export const SavedOutfit ={accessories: 0,tops: 0, bottoms: 0, shoes:0}
 
 const color = [
 	"Brown",
@@ -263,7 +264,7 @@ export const ClothesCarousel = ({ clothes, type }) => {
 
   	const handleSelect = (selectedIndex, e) => {
 		setIndex(selectedIndex);
-		currentOutfit[type] = selectedIndex;
+		currentOutfit[type] = selectedIndex
 		
 	};
 	return (
@@ -290,6 +291,8 @@ export const ClothesCarousel = ({ clothes, type }) => {
 };
 
 export const OutfitCarousel = ({ tops, bottoms, shoes, accessories }) => {
+	console.log("ACCESSORIESSSS")
+	console.log(accessories)
 	return (
 		<div className="row justify-content-center mt-2">
 			<div className="col-lg-4 col-6">
@@ -317,15 +320,29 @@ export const OutfitCarousel = ({ tops, bottoms, shoes, accessories }) => {
 		</div>
 	);
 };
-export const SaveButton = () => (
+export const SaveButton = (tops, bottoms, accessories, shoes) => {
+		SavedOutfit["tops"] = tops[currentOutfit["tops"]]
+		SavedOutfit["bottoms"] = bottoms[currentOutfit["bottoms"]]
+		// console.log(currentOutfit["accessories"])
+		// console.log(accessories)
+		//const first = accessories[currentOutfit["accessories"]]
+		//console.log(first)
+		//SavedOutfit["accessories"] = first
+		//SavedOutfit["shoes"] = shoes[currentOutfit["shoes"]]
 
-		<Button onClick={() => saveOutfit()}>Save outfit</Button>
+		return(
+			<Button onClick={(SavedOutfit) => saveOutfit()}>Save outfit</Button>
+		)
+		
 	
-);
+};
 
-const saveOutfit = () => {
+const saveOutfit = (outfit) => {
 	console.log(currentOutfit)
-	console.log("jhello")
+	console.log(outfit)
+	
+	// push to firebase here
+
 	return;
 
 }

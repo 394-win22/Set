@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "../components/Header";
 import Item from "../components/ItemDisplay";
+import SavedOutfit from "../components/ItemDisplay";
 
 import {
 	useData,
@@ -12,7 +13,9 @@ import {
 // outfit <= top
 const Outfit = ({ outfit }) => {
 	return (
+		
 		<div className="col-6 col-sm-4 col-md-3">
+			
 			<div className="card mb-4">
 				<img
 					className="card-img-top"
@@ -21,7 +24,7 @@ const Outfit = ({ outfit }) => {
 				/>
 				<div className="card-body">
 					<p className="card-text">
-						{outfit.name} by {item.brand}
+						{/* {outfit.name} by {item.brand} */}
 					</p>
 					<div className="d-flex justify-content-between align-items-center">
 						<div className="btn-group">
@@ -38,7 +41,7 @@ const Outfit = ({ outfit }) => {
 								Edit
 							</button>
 						</div>
-						<small className="text-muted">{item.type}</small>
+						{/* <small className="text-muted">{item.type}</small> */}
 					</div>
 				</div>
 			</div>
@@ -56,6 +59,7 @@ const OutfitsPage = () => {
 		<div>
 			<Header />
 			<div className="container">
+			<p> HELLO</p>
 				<div className="album">
 					<div className="row">
 						{/* {Object.entries(recs[userId]).map(([key, item]) => (

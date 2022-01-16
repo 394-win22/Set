@@ -32,7 +32,7 @@ const RecommendPage = () => {
         <ClothesCarousel clothes={accessories} />
         <ClothesCarousel clothes={shoes} /> */}
         <OutfitCarousel tops={tops} bottoms={bottoms} accessories={accessories} shoes={shoes} />
-        <SaveButton></SaveButton>
+        <SaveButton tops={tops} bottoms={bottoms} accessories={accessories} shoes={shoes}></SaveButton>
       </div>
     </div>
   )
