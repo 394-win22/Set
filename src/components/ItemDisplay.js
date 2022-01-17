@@ -252,12 +252,6 @@ export const ClothesCarousel = ({clothes}) => {
 export const OutfitCarousel = ({ tops, bottoms, shoes, accessories}) => {
 	return (
 		<div className="row justify-content-center mt-2">
-			<button
-							type="button"
-							className="btn btn-dark btn-circle btn-xl"
-						>
-							<i class="fas fa-random"></i>
-			</button>
 			<div className="col-lg-4 col-6">
 				<div className="row">
 					<div className="rec-card text-white">
@@ -280,12 +274,6 @@ export const OutfitCarousel = ({ tops, bottoms, shoes, accessories}) => {
 					</div>
 				</div>
 			</div>
-			<button
-							type="button"
-							className="btn btn-danger btn-circle btn-xl"
-              >
-              <i className="fa fa-heart align-middle"></i>
-       		 </button>
 		</div>
 	);
 };
