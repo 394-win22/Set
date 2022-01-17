@@ -319,6 +319,15 @@ export const OutfitCarousel = ({ tops, bottoms, shoes, accessories }) => {
 			</div>
 		</div>
 	);
+
+	// use this for shuffle button:
+	// 		<button
+	// 						type="button"
+	// 						className="btn btn-dark btn-circle btn-xl"
+	// 					>
+	// 						<i class="fas fa-random"></i>
+	// 		</button>
+
 };
 export const SaveButton = (tops, bottoms, accessories, shoes) => {
 		SavedOutfit["tops"] = tops[currentOutfit["tops"]]
@@ -331,7 +340,14 @@ export const SaveButton = (tops, bottoms, accessories, shoes) => {
 		//SavedOutfit["shoes"] = shoes[currentOutfit["shoes"]]
 
 		return(
-			<Button onClick={(SavedOutfit) => saveOutfit()}>Save outfit</Button>
+			<Button
+			onClick={(SavedOutfit) => saveOutfit()}
+							type="button"
+							className="btn btn-danger btn-circle btn-xl"
+						>
+							<i class="fa fa-heart align-middle"></i>
+			</Button>
+			// <Button onClick={(SavedOutfit) => saveOutfit()}>Save outfit</Button>
 		)
 		
 	
