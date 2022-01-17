@@ -3,6 +3,8 @@ import Header from '../components/Header.js'
 import {SwipeCard, ClothesCarousel, OutfitCarousel}  from '../components/ItemDisplay'
 import './RecommendPage.css';
 import { useData, getTopsFromUser, getBottomsFromUser, getRecommendationsFromUser, getAccessoriesFromUser, getShoesFromUser, getAllData, userId} from "../utilities/firebase.js";
+import { flexbox } from '@mui/system';
+import { red } from '@mui/material/colors';
 
 const RecommendPage = () => {
   // get data from database
@@ -22,7 +24,7 @@ const RecommendPage = () => {
         {/* <ClothesCarousel clothes={tops} />
         <ClothesCarousel clothes={bottoms} />
         <ClothesCarousel clothes={accessories} />
-        <ClothesCarousel clothes={shoes} /> */}
+        <ClothesCarousel clothes={shoes} /> */}    
         <OutfitCarousel tops={tops} bottoms={bottoms} accessories={accessories} shoes={shoes} />
       </div>
     </div>
