@@ -324,7 +324,7 @@ export const OutfitCarousel = ({ tops, bottoms, shoes, accessories }) => {
 	// 						type="button"
 	// 						className="btn btn-dark btn-circle btn-xl"
 	// 					>
-	// 						<i class="fas fa-random"></i>
+	// 						<i className="fas fa-random"></i>
 	// 		</button>
 
 };
@@ -338,11 +338,11 @@ export const SaveButton = ({ tops, bottoms, shoes, accessories }) => {
 
 		return(
 			<Button
-			onClick={() => saveOutfit(helloo)}
+			onClick={(helloo) => saveOutfit(helloo)}
 							type="button"
 							className="btn btn-danger btn-circle btn-xl"
 						>
-							<i class="fa fa-heart align-middle"></i>
+							<i className="fa fa-heart align-middle"></i>
 			</Button>
 			// <Button onClick={(SavedOutfit) => saveOutfit()}>Save outfit</Button>
 		)
@@ -350,7 +350,7 @@ export const SaveButton = ({ tops, bottoms, shoes, accessories }) => {
 	
 };
 
-const saveOutfit = ({hellooo}) => {
+const saveOutfit = (hellooo) => {
 	console.log(hellooo)
 	//console.log(currentOutfit)
 	//const test = Object.entries(tops)//[currentOutfit["tops"]]
