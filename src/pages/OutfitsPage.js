@@ -5,27 +5,73 @@ import SavedOutfit from "../components/ItemDisplay";
 
 import {
 	useData,
-	getRecommendationsFromUser,
+	getOutfitsFromUser,
 	getAllData,
 	userId,
+	getClothingItem,
 } from "../utilities/firebase.js";
 
-// outfit <= top
 const Outfit = ({ outfit }) => {
+	// get clothing items
+	const [top, loadingTop, errorTop] = useData(
+		getClothingItem("Tops", userId, outfit["Tops"]),
+		getAllData
+	);
+	const [bottom, loadingBottom, errorBottom] = useData(
+		getClothingItem("Bottoms", userId, outfit["Bottoms"]),
+		getAllData
+	);
+	const [shoes, loadingShoes, errorShoes] = useData(
+		getClothingItem("Shoes", userId, outfit["Shoes"]),
+		getAllData
+	);
+	const [accessories, loadingAccessories, errorAccessories] = useData(
+		getClothingItem("Accessories", userId, outfit["Accessories"]),
+		getAllData
+	);
+
+	// error checking & loading
+	if (errorTop || errorBottom || errorShoes || errorAccessories)
+		return <h1>{(errorTop, errorBottom, errorAccessories, errorShoes)}</h1>;
+	if (loadingTop || loadingBottom || loadingShoes || loadingAccessories)
+		return <h1>Loading...</h1>;
+
 	return (
-		
 		<div className="col-6 col-sm-4 col-md-3">
-			
 			<div className="card mb-4">
-				<img
-					className="card-img-top"
-					src={outfit.image}
-					alt={outfit.name}
-				/>
+				<div>
+					<div className="row">
+						<div className="col-6">
+							<img width="100%" src={top.image} alt={top.name} />
+						</div>
+						<div className="col-6">
+							<img
+								width="100%"
+								src={accessories.image}
+								alt={accessories.name}
+							/>
+						</div>
+					</div>
+					<div className="row">
+						<div className="col-6">
+							<img
+								width="100%"
+								src={bottom.image}
+								alt={bottom.name}
+							/>
+						</div>
+						<div className="col-6">
+							<img
+								width="100%"
+								src={shoes.image}
+								alt={shoes.name}
+							/>
+						</div>
+					</div>
+				</div>
+
 				<div className="card-body">
-					<p className="card-text">
-						{/* {outfit.name} by {item.brand} */}
-					</p>
+					<p className="card-text">Outfit</p>
 					<div className="d-flex justify-content-between align-items-center">
 						<div className="btn-group">
 							<button
@@ -41,7 +87,6 @@ const Outfit = ({ outfit }) => {
 								Edit
 							</button>
 						</div>
-						{/* <small className="text-muted">{item.type}</small> */}
 					</div>
 				</div>
 			</div>
@@ -50,21 +95,24 @@ const Outfit = ({ outfit }) => {
 };
 
 const OutfitsPage = () => {
-	const [recs, loadingRecs, errorRecs] = useData(
-		getRecommendationsFromUser(userId),
+	const [outfits, loadingOutfits, errorOutfits] = useData(
+		getOutfitsFromUser(userId),
 		getAllData
 	);
+
+	// User Specific Database functions
+	if (errorOutfits) return <h1>{errorOutfits}</h1>;
+	if (loadingOutfits) return <h1>Loading...</h1>;
 
 	return (
 		<div>
 			<Header />
 			<div className="container">
-			<p> HELLO</p>
 				<div className="album">
 					<div className="row">
-						{/* {Object.entries(recs[userId]).map(([key, item]) => (
-							<Item item={item} key={key} />
-						))} */}
+						{Object.entries(outfits).map(([key, outfit]) => (
+							<Outfit outfit={outfit} key={key} />
+						))}
 					</div>
 				</div>
 			</div>
