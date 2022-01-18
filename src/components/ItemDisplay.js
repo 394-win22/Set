@@ -291,8 +291,7 @@ export const ClothesCarousel = ({ clothes, type }) => {
 };
 
 export const OutfitCarousel = ({ tops, bottoms, shoes, accessories }) => {
-	console.log("ACCESSORIESSSS")
-	console.log(accessories)
+	
 	return (
 		<div className="row justify-content-center mt-2">
 			<div className="col-lg-4 col-6">
@@ -329,19 +328,17 @@ export const OutfitCarousel = ({ tops, bottoms, shoes, accessories }) => {
 	// 		</button>
 
 };
-export const SaveButton = (tops, bottoms, accessories, shoes) => {
-		SavedOutfit["tops"] = tops[currentOutfit["tops"]]
-		SavedOutfit["bottoms"] = bottoms[currentOutfit["bottoms"]]
-		// console.log(currentOutfit["accessories"])
-		// console.log(accessories)
-		//const first = accessories[currentOutfit["accessories"]]
-		//console.log(first)
-		//SavedOutfit["accessories"] = first
-		//SavedOutfit["shoes"] = shoes[currentOutfit["shoes"]]
+export const SaveButton = ({ tops, bottoms, shoes, accessories }) => {
+		
+		const savedTops = tops;
+		const savedBottoms = bottoms;
+		const savedShoes = shoes;
+		const savedAccesories = accessories;
+		const helloo = "hello"
 
 		return(
 			<Button
-			onClick={(SavedOutfit) => saveOutfit()}
+			onClick={() => saveOutfit(helloo)}
 							type="button"
 							className="btn btn-danger btn-circle btn-xl"
 						>
@@ -353,9 +350,22 @@ export const SaveButton = (tops, bottoms, accessories, shoes) => {
 	
 };
 
-const saveOutfit = (outfit) => {
-	console.log(currentOutfit)
-	console.log(outfit)
+const saveOutfit = ({hellooo}) => {
+	console.log(hellooo)
+	//console.log(currentOutfit)
+	//const test = Object.entries(tops)//[currentOutfit["tops"]]
+	// console.log("test")
+	// //console.log(test)
+	// console.log(tops)
+	// SavedOutfit["tops"] = tops[currentOutfit["tops"]]
+	
+
+	// SavedOutfit["bottoms"] = bottoms[currentOutfit["bottoms"]]
+	// SavedOutfit["accessories"] = accessories[currentOutfit["accessories"]]
+	// SavedOutfit["shoes"] = shoes[currentOutfit["shoes"]]
+	
+	// console.log("OUTFIT")
+	// console.log(SavedOutfit)
 	
 	// push to firebase here
 
