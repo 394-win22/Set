@@ -1,15 +1,18 @@
-import React, { useState, useMemo, useRef } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import {
 	Button,
+	Col,
 	DropdownButton,
 	Dropdown,
-	Carousel,
 	Container,
 	Row,
 } from "react-bootstrap";
 import { useData, getAllData } from "../utilities/firebase.js";
 import TinderCard from "react-tinder-card";
+import Carousel from "react-multi-carousel";
+
 import "./ItemDisplay.css";
+import 'react-multi-carousel/lib/styles.css';
 
 const currentOutfit = {accessories: 0,tops: 0, bottoms: 0, shoes:0}
 export const SavedOutfit ={accessories: 0,tops: 0, bottoms: 0, shoes:0}
@@ -259,26 +262,76 @@ const db = [
 	},
 ];
 
+const responsive = {
+	superLargeDesktop: {
+	  breakpoint: { max: 4000, min: 3000 },
+	  items: 1
+	},
+	desktop: {
+	  breakpoint: { max: 3000, min: 1024 },
+	  items: 1
+	},
+	tablet: {
+	  breakpoint: { max: 1024, min: 464 },
+	  items: 1
+	},
+	mobile: {
+	  breakpoint: { max: 464, min: 0 },
+	  items: 1
+	}
+  };
+
+// For responsive design
+const getWindowDimensions = () => {
+	const { innerWidth: width, innerHeight: height } = window;
+	return {
+	  width,
+	  height
+	};
+  }
+const useWindowDimensions = () => {
+	const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+
+	useEffect(() => {
+	  function handleResize() {
+		setWindowDimensions(getWindowDimensions());
+	  }
+
+	  window.addEventListener('resize', handleResize);
+	  return () => window.removeEventListener('resize', handleResize);
+	}, []);
+
+	return windowDimensions;
+}
+
 export const ClothesCarousel = ({ clothes, type }) => {
 	const [index, setIndex] = useState(0);
-
+	const { height, width } = useWindowDimensions();
   	const handleSelect = (selectedIndex, e) => {
 		setIndex(selectedIndex);
 		currentOutfit[type] = selectedIndex
-		
+
 	};
+	console.log(Math.floor(Object.keys(clothes).length));
+	//this.Carousel.goToSlide(Math.floor(Object.keys(clothes).length), true);
 	return (
-				<Carousel variant="dark" interval={null} indicators={false} activeIndex={index} onSelect={handleSelect}>
+				<Carousel responsive={responsive}
+						  centerMode={true}
+						  infinite={true}
+						  showDots={true}
+						  focusOnSelect={true}
+						  removeArrowOnDeviceType={["mobile"]}
+						  >
 					{Object.entries(clothes).map(
 						([key, clothingItem], index) => {
 							return (
-								<Carousel.Item key={key}>
+								<div key={key}>
 									<img
 										className="d-block w-100"
 										src={clothingItem.image}
 										alt={clothingItem.name}
 									/>
-								</Carousel.Item>
+								</div>
 							);
 						}
 					)}
@@ -287,32 +340,24 @@ export const ClothesCarousel = ({ clothes, type }) => {
 };
 
 export const OutfitCarousel = ({ tops, bottoms, shoes, accessories }) => {
-	
+
 	return (
-		<Container>
-		<Row className="justify-content-center mt-2">
-			<div className="col-lg-4 col-6">
+		<Container fluid>
+		<Row className="justify-content-center">
+			<Col className="col-carousel">
 				<Row>
-					<div className="rec-card text-white">
-						<ClothesCarousel clothes={accessories} type={"accessories"} />
-					</div>
+					<ClothesCarousel clothes={accessories} type={"accessories"} />
 				</Row>
 				<Row>
-					<div className="rec-card text-white">
-						<ClothesCarousel clothes={tops} type={"tops"}/>
-					</div>
+					<ClothesCarousel clothes={tops} type={"tops"}/>
 				</Row>
 				<Row>
-					<div className="rec-card text-white mt-4">
-						<ClothesCarousel clothes={bottoms} type={"bottoms"}/>
-					</div>
+					<ClothesCarousel clothes={bottoms} type={"bottoms"}/>
 				</Row>
 				<Row>
-					<div className="rec-card text-white">
-						<ClothesCarousel clothes={shoes} type={"shoes"}/>
-					</div>
+					<ClothesCarousel clothes={shoes} type={"shoes"}/>
 				</Row>
-			</div>
+			</Col>
 		</Row>
 		</Container>
 	);
@@ -327,7 +372,7 @@ export const OutfitCarousel = ({ tops, bottoms, shoes, accessories }) => {
 
 };
 export const SaveButton = ({ tops, bottoms, shoes, accessories }) => {
-	
+
 
 		return(
 			<Container>
@@ -341,8 +386,8 @@ export const SaveButton = ({ tops, bottoms, shoes, accessories }) => {
 			</Row>
 			</Container>
 		)
-		
-	
+
+
 };
 
 const saveOutfit = (tops, bottoms, shoes, accessories) => {
@@ -352,7 +397,7 @@ const saveOutfit = (tops, bottoms, shoes, accessories) => {
 	SavedOutfit["bottoms"] = Object.entries(bottoms)[currentOutfit["bottoms"]][0]
 	SavedOutfit["shoes"] = Object.entries(shoes)[currentOutfit["shoes"]][0]
 	SavedOutfit["accessories"] = Object.entries(accessories)[currentOutfit["accessories"]][0]
-	
+
 
 	// push to firebase here
 
@@ -416,7 +461,7 @@ const saveOutfit = (tops, bottoms, shoes, accessories) => {
 
 // 	return (
 // 		<div>
-			
+
 // 			<div className="cardContainer">
 // 				{Object.entries(recs).map(([key, rec], index) => (
 // 					<TinderCard
