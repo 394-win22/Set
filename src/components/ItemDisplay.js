@@ -268,8 +268,6 @@ export const ClothesCarousel = ({ clothes, type }) => {
 		
 	};
 	return (
-		<Container fluid>
-			<Row className="carousel-container">
 				<Carousel variant="dark" interval={null} indicators={false} activeIndex={index} onSelect={handleSelect}>
 					{Object.entries(clothes).map(
 						([key, clothingItem], index) => {
@@ -285,38 +283,38 @@ export const ClothesCarousel = ({ clothes, type }) => {
 						}
 					)}
 				</Carousel>
-			</Row>
-		</Container>
 	);
 };
 
 export const OutfitCarousel = ({ tops, bottoms, shoes, accessories }) => {
 	
 	return (
-		<div className="row justify-content-center mt-2">
+		<Container>
+		<Row className="justify-content-center mt-2">
 			<div className="col-lg-4 col-6">
-				<div className="row">
+				<Row>
 					<div className="rec-card text-white">
 						<ClothesCarousel clothes={accessories} type={"accessories"} />
 					</div>
-				</div>
-				<div className="row">
+				</Row>
+				<Row>
 					<div className="rec-card text-white">
 						<ClothesCarousel clothes={tops} type={"tops"}/>
 					</div>
-				</div>
-				<div className="row">
+				</Row>
+				<Row>
 					<div className="rec-card text-white mt-4">
 						<ClothesCarousel clothes={bottoms} type={"bottoms"}/>
 					</div>
-				</div>
-				<div className="row">
+				</Row>
+				<Row>
 					<div className="rec-card text-white">
 						<ClothesCarousel clothes={shoes} type={"shoes"}/>
 					</div>
-				</div>
+				</Row>
 			</div>
-		</div>
+		</Row>
+		</Container>
 	);
 
 	// use this for shuffle button:
@@ -337,14 +335,16 @@ export const SaveButton = ({ tops, bottoms, shoes, accessories }) => {
 		const helloo = "hello"
 
 		return(
-			<Button
-			onClick={(helloo) => saveOutfit(helloo)}
-							type="button"
-							className="btn btn-danger btn-circle btn-xl"
-						>
+			<Container>
+			<Row className="justify-content-center mt-2">
+				<Button
+				onClick={(helloo) => saveOutfit(helloo)}
+								type="button"
+								className="btn btn-danger btn-circle btn-xl">
 							<i className="fa fa-heart align-middle"></i>
-			</Button>
-			// <Button onClick={(SavedOutfit) => saveOutfit()}>Save outfit</Button>
+				</Button>
+			</Row>
+			</Container>
 		)
 		
 	
