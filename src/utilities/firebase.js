@@ -27,8 +27,12 @@ export const storage = getStorage(app);
 // This is a hardcoded test user id
 export const userId = "C0XdX2OmOQZKzVknueo4xGtsgvI2"
 
+export const setData = (path, value) => (
+    set(ref(database, path), value)
+  );
+
 export const useData = (path, transform) => {
-    const [data, setData] = useState();
+    const [localData, setlocalData] = useState();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState();
   
@@ -39,17 +43,17 @@ export const useData = (path, transform) => {
       return onValue(dbRef, (snapshot) => {
         const val = snapshot.val();
         if (devMode) { console.log(val); }
-        setData(transform ? transform(val) : val);
+        setlocalData(transform ? transform(val) : val);
         setLoading(false);
         setError(null);
       }, (error) => {
-        setData(null);
+        setlocalData(null);
         setLoading(false);
         setError(error);
       });
     }, [path, transform]);
   
-    return [data, loading, error];
+    return [localData, loading, error];
   };
 
 export const getAllData = data => data;

@@ -7,9 +7,10 @@ import {
 	Container,
 	Row,
 } from "react-bootstrap";
-import { useData, getAllData } from "../utilities/firebase.js";
+import { useData, getAllData, setData } from "../utilities/firebase.js";
 import TinderCard from "react-tinder-card";
 import Carousel from "react-multi-carousel";
+import {v4 as uuidv4} from 'uuid';
 
 import "./ItemDisplay.css";
 import 'react-multi-carousel/lib/styles.css';
@@ -390,7 +391,12 @@ export const SaveButton = ({ tops, bottoms, shoes, accessories }) => {
 
 };
 
-const saveOutfit = (tops, bottoms, shoes, accessories) => {
+const saveOutfit = async (tops, bottoms, shoes, accessories) => {
+
+    let newuuid = uuidv4();
+    let parsed_uuid = newuuid.split('-')
+    let length = parsed_uuid.length
+    let outfit_uuid = parsed_uuid[length - 1]
 
 
 	SavedOutfit["tops"] = Object.entries(tops)[currentOutfit["tops"]][0]
@@ -398,8 +404,18 @@ const saveOutfit = (tops, bottoms, shoes, accessories) => {
 	SavedOutfit["shoes"] = Object.entries(shoes)[currentOutfit["shoes"]][0]
 	SavedOutfit["accessories"] = Object.entries(accessories)[currentOutfit["accessories"]][0]
 
-
 	// push to firebase here
+    try {
+        await setData(`/Saved Outfits/${userId}/${outfit_uuid}`, {
+            'Accessories': SavedOutfit["accessories"],
+            'Tops': SavedOutfit["tops"],
+            'Shoes': SavedOutfit["shoes"],
+            'Bottoms': SavedOutfit["bottoms"]
+        });
+      } catch (error) {
+        alert(error);
+    }
+
 
 	return;
 
