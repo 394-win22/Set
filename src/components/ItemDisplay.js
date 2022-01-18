@@ -10,13 +10,13 @@ import {
 import { useData, getAllData, setData } from "../utilities/firebase.js";
 import TinderCard from "react-tinder-card";
 import Carousel from "react-multi-carousel";
-import {v4 as uuidv4} from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 import "./ItemDisplay.css";
-import 'react-multi-carousel/lib/styles.css';
+import "react-multi-carousel/lib/styles.css";
 
-const currentOutfit = {accessories: 0,tops: 0, bottoms: 0, shoes:0}
-export const SavedOutfit ={accessories: 0,tops: 0, bottoms: 0, shoes:0}
+const currentOutfit = { accessories: 0, tops: 0, bottoms: 0, shoes: 0 };
+export const SavedOutfit = { accessories: 0, tops: 0, bottoms: 0, shoes: 0 };
 
 const color = [
 	"Brown",
@@ -265,101 +265,99 @@ const db = [
 
 const responsive = {
 	superLargeDesktop: {
-	  breakpoint: { max: 4000, min: 3000 },
-	  items: 1
+		breakpoint: { max: 4000, min: 3000 },
+		items: 1,
 	},
 	desktop: {
-	  breakpoint: { max: 3000, min: 1024 },
-	  items: 1
+		breakpoint: { max: 3000, min: 1024 },
+		items: 1,
 	},
 	tablet: {
-	  breakpoint: { max: 1024, min: 464 },
-	  items: 1
+		breakpoint: { max: 1024, min: 464 },
+		items: 1,
 	},
 	mobile: {
-	  breakpoint: { max: 464, min: 0 },
-	  items: 1
-	}
-  };
+		breakpoint: { max: 464, min: 0 },
+		items: 1,
+	},
+};
 
 // For responsive design
 const getWindowDimensions = () => {
 	const { innerWidth: width, innerHeight: height } = window;
 	return {
-	  width,
-	  height
+		width,
+		height,
 	};
-  }
+};
 const useWindowDimensions = () => {
-	const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+	const [windowDimensions, setWindowDimensions] = useState(
+		getWindowDimensions()
+	);
 
 	useEffect(() => {
-	  function handleResize() {
-		setWindowDimensions(getWindowDimensions());
-	  }
+		function handleResize() {
+			setWindowDimensions(getWindowDimensions());
+		}
 
-	  window.addEventListener('resize', handleResize);
-	  return () => window.removeEventListener('resize', handleResize);
+		window.addEventListener("resize", handleResize);
+		return () => window.removeEventListener("resize", handleResize);
 	}, []);
 
 	return windowDimensions;
-}
+};
 
 export const ClothesCarousel = ({ clothes, type }) => {
-	const [index, setIndex] = useState(0);
-	const { height, width } = useWindowDimensions();
-  	const handleSelect = (selectedIndex, e) => {
-		setIndex(selectedIndex);
-		currentOutfit[type] = selectedIndex
-
-	};
-	console.log(Math.floor(Object.keys(clothes).length));
-	//this.Carousel.goToSlide(Math.floor(Object.keys(clothes).length), true);
 	return (
-				<Carousel responsive={responsive}
-						  centerMode={true}
-						  infinite={true}
-						  showDots={true}
-						  focusOnSelect={true}
-						  removeArrowOnDeviceType={["mobile"]}
-						  >
-					{Object.entries(clothes).map(
-						([key, clothingItem], index) => {
-							return (
-								<div key={key}>
-									<img
-										className="d-block w-100"
-										src={clothingItem.image}
-										alt={clothingItem.name}
-									/>
-								</div>
-							);
-						}
-					)}
-				</Carousel>
+		<Carousel
+			afterChange={(previousSlide, { currentSlide, onMove }) => {
+				console.log(currentSlide);
+				currentOutfit[type] = currentSlide;
+			}}
+			responsive={responsive}
+			centerMode={true}
+			infinite={false}
+			showDots={true}
+			focusOnSelect={true}
+			removeArrowOnDeviceType={["mobile"]}
+		>
+			{Object.entries(clothes).map(([key, clothingItem], index) => {
+				return (
+					<div key={key}>
+						<img
+							className="d-block w-100"
+							src={clothingItem.image}
+							alt={clothingItem.name}
+						/>
+					</div>
+				);
+			})}
+		</Carousel>
 	);
 };
 
 export const OutfitCarousel = ({ tops, bottoms, shoes, accessories }) => {
-
 	return (
 		<Container fluid>
-		<Row className="justify-content-center">
-			<Col className="col-carousel">
-				<Row>
-					<ClothesCarousel clothes={accessories} type={"accessories"} />
-				</Row>
-				<Row>
-					<ClothesCarousel clothes={tops} type={"tops"}/>
-				</Row>
-				<Row>
-					<ClothesCarousel clothes={bottoms} type={"bottoms"}/>
-				</Row>
-				<Row>
-					<ClothesCarousel clothes={shoes} type={"shoes"}/>
-				</Row>
-			</Col>
-		</Row>
+			<Row className="justify-content-center">
+				<Col className="col-carousel">
+					<Row>
+						<ClothesCarousel
+							clothes={accessories}
+							type={"accessories"}
+						/>
+					</Row>
+					<Row>
+						<ClothesCarousel clothes={tops} type={"tops"} />
+					</Row>
+					<Row>
+						<ClothesCarousel clothes={bottoms} type={"bottoms"} />
+					</Row>
+					<Row>
+						<ClothesCarousel clothes={shoes} type={"shoes"} />
+					</Row>
+				</Col>
+			</Row>
 		</Container>
 	);
 
@@ -370,56 +368,54 @@ export const OutfitCarousel = ({ tops, bottoms, shoes, accessories }) => {
 	// 					>
 	// 						<i className="fas fa-random"></i>
 	// 		</button>
-
 };
 export const SaveButton = ({ tops, bottoms, shoes, accessories }) => {
-
-
-		return(
-			<Container>
+	return (
+		<Container>
 			<Row className="justify-content-center mt-2">
 				<Button
-				onClick={(evt) => saveOutfit(tops, bottoms, shoes, accessories)}
-								type="button"
-								className="btn btn-danger btn-circle btn-xl">
-							<i className="fa fa-heart align-middle"></i>
+					onClick={(evt) =>
+						saveOutfit(tops, bottoms, shoes, accessories)
+					}
+					type="button"
+					className="btn btn-danger btn-circle btn-xl"
+				>
+					<i className="fa fa-heart align-middle"></i>
 				</Button>
 			</Row>
-			</Container>
-		)
-
-
+		</Container>
+	);
 };
 
 const saveOutfit = async (tops, bottoms, shoes, accessories) => {
+	let newuuid = uuidv4();
+	let parsed_uuid = newuuid.split("-");
+	let length = parsed_uuid.length;
+	let outfit_uuid = parsed_uuid[length - 1];
 
-    let newuuid = uuidv4();
-    let parsed_uuid = newuuid.split('-')
-    let length = parsed_uuid.length
-    let outfit_uuid = parsed_uuid[length - 1]
+	SavedOutfit["tops"] = Object.entries(tops)[currentOutfit["tops"]][0];
+	SavedOutfit["bottoms"] =
+		Object.entries(bottoms)[currentOutfit["bottoms"]][0];
+	SavedOutfit["shoes"] = Object.entries(shoes)[currentOutfit["shoes"]][0];
+	SavedOutfit["accessories"] =
+		Object.entries(accessories)[currentOutfit["accessories"]][0];
 
-
-	SavedOutfit["tops"] = Object.entries(tops)[currentOutfit["tops"]][0]
-	SavedOutfit["bottoms"] = Object.entries(bottoms)[currentOutfit["bottoms"]][0]
-	SavedOutfit["shoes"] = Object.entries(shoes)[currentOutfit["shoes"]][0]
-	SavedOutfit["accessories"] = Object.entries(accessories)[currentOutfit["accessories"]][0]
+	console.log(SavedOutfit);
 
 	// push to firebase here
-    try {
-        await setData(`/Saved Outfits/${userId}/${outfit_uuid}`, {
-            'Accessories': SavedOutfit["accessories"],
-            'Tops': SavedOutfit["tops"],
-            'Shoes': SavedOutfit["shoes"],
-            'Bottoms': SavedOutfit["bottoms"]
-        });
-      } catch (error) {
-        alert(error);
-    }
-
+	try {
+		await setData(`/Saved Outfits/${userId}/${outfit_uuid}`, {
+			Accessories: SavedOutfit["accessories"],
+			Tops: SavedOutfit["tops"],
+			Shoes: SavedOutfit["shoes"],
+			Bottoms: SavedOutfit["bottoms"],
+		});
+	} catch (error) {
+		alert(error);
+	}
 
 	return;
-
-}
+};
 
 // export const SwipeCard = ({ recs, shoes, tops, bottoms, accessories }) => {
 // 	const recLength = Object.keys(recs).length;
