@@ -327,18 +327,13 @@ export const OutfitCarousel = ({ tops, bottoms, shoes, accessories }) => {
 
 };
 export const SaveButton = ({ tops, bottoms, shoes, accessories }) => {
-		
-		const savedTops = tops;
-		const savedBottoms = bottoms;
-		const savedShoes = shoes;
-		const savedAccesories = accessories;
-		const helloo = "hello"
+	
 
 		return(
 			<Container>
 			<Row className="justify-content-center mt-2">
 				<Button
-				onClick={(helloo) => saveOutfit(helloo)}
+				onClick={(evt) => saveOutfit(tops, bottoms, shoes, accessories)}
 								type="button"
 								className="btn btn-danger btn-circle btn-xl">
 							<i className="fa fa-heart align-middle"></i>
@@ -350,23 +345,15 @@ export const SaveButton = ({ tops, bottoms, shoes, accessories }) => {
 	
 };
 
-const saveOutfit = (hellooo) => {
-	console.log(hellooo)
-	//console.log(currentOutfit)
-	//const test = Object.entries(tops)//[currentOutfit["tops"]]
-	// console.log("test")
-	// //console.log(test)
-	// console.log(tops)
-	// SavedOutfit["tops"] = tops[currentOutfit["tops"]]
+const saveOutfit = (tops, bottoms, shoes, accessories) => {
+
+
+	SavedOutfit["tops"] = Object.entries(tops)[currentOutfit["tops"]][0]
+	SavedOutfit["bottoms"] = Object.entries(bottoms)[currentOutfit["bottoms"]][0]
+	SavedOutfit["shoes"] = Object.entries(shoes)[currentOutfit["shoes"]][0]
+	SavedOutfit["accessories"] = Object.entries(accessories)[currentOutfit["accessories"]][0]
 	
 
-	// SavedOutfit["bottoms"] = bottoms[currentOutfit["bottoms"]]
-	// SavedOutfit["accessories"] = accessories[currentOutfit["accessories"]]
-	// SavedOutfit["shoes"] = shoes[currentOutfit["shoes"]]
-	
-	// console.log("OUTFIT")
-	// console.log(SavedOutfit)
-	
 	// push to firebase here
 
 	return;
