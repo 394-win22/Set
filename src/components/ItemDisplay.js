@@ -14,9 +14,6 @@ import { v4 as uuidv4 } from "uuid";
 import "./ItemDisplay.css";
 import "react-multi-carousel/lib/styles.css";
 
-import { render } from 'react-dom'
-import { Provider as AlertProvider } from 'react-alert'
-import AlertTemplate from 'react-alert-template-basic'
 import { useAlert } from 'react-alert'
 
 const options = {
