@@ -71,7 +71,7 @@ const Outfit = ({ outfit }) => {
 				</div>
 
 				<div className="card-body">
-					<p className="card-text">Outfit</p>
+					<p className="card-text">{outfit["Name"]}</p>
 					<div className="d-flex justify-content-between align-items-center">
 						<div className="btn-group">
 							<button

@@ -400,11 +400,10 @@ const saveOutfit = async (tops, bottoms, shoes, accessories) => {
 	SavedOutfit["accessories"] =
 		Object.entries(accessories)[currentOutfit["accessories"]][0];
 
-	console.log(SavedOutfit);
-
 	// push to firebase here
 	try {
 		await setData(`/Saved Outfits/${userId}/${outfit_uuid}`, {
+			Name: "Outfit",
 			Accessories: SavedOutfit["accessories"],
 			Tops: SavedOutfit["tops"],
 			Shoes: SavedOutfit["shoes"],
