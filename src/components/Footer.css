@@ -23,6 +23,12 @@
     height: 6rem;
 }
 
+@media only screen and (max-width: 600px) {
+    .footer-margin-mobile {
+        height: 2rem;
+    }
+}
+
 .footer {
     background-color: #f7ebda;
     text-align: center;

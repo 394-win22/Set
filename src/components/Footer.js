@@ -49,7 +49,7 @@ function Footer() {
 	if (pathname === "/login") return null;
 
 	return (
-		<Box sx={{ pb: 7 }}>
+		<Box sx={{ pb: 7}}>
 			<CssBaseline />
 			<Paper
 				sx={{
@@ -80,6 +80,7 @@ function Footer() {
 						);
 					})}
 				</BottomNavigation>
+				<div className="footer-margin-mobile"></div>
 			</Paper>
 		</Box>
 	);
