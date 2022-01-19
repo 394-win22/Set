@@ -14,6 +14,18 @@ import { v4 as uuidv4 } from "uuid";
 import "./ItemDisplay.css";
 import "react-multi-carousel/lib/styles.css";
 
+import { render } from 'react-dom'
+import { Provider as AlertProvider } from 'react-alert'
+import AlertTemplate from 'react-alert-template-basic'
+import { useAlert } from 'react-alert'
+
+const options = {
+	position: 'bottom center',
+	timeout: 500000,
+	offset: '30px',
+	transition: 'scale'
+  }
+
 const currentOutfit = { accessories: 0, tops: 0, bottoms: 0, shoes: 0 };
 export const SavedOutfit = { accessories: 0, tops: 0, bottoms: 0, shoes: 0 };
 
@@ -367,14 +379,17 @@ export const OutfitCarousel = ({ tops, bottoms, shoes, accessories }) => {
 	// </button>;
 };
 
+
+
 export const SaveButton = ({ tops, bottoms, shoes, accessories }) => {
+	const alert = useAlert();
 	return (
 		<Container>
 			<Row className="justify-content-center mt-2">
 				<Button
-					onClick={(evt) =>
-						saveOutfit(tops, bottoms, shoes, accessories)
-					}
+					onClick={(evt) => {
+						saveOutfit(tops, bottoms, shoes, accessories, alert);
+					}}
 					type="button"
 					className="btn btn-danger btn-circle btn-xl"
 				>
@@ -385,7 +400,7 @@ export const SaveButton = ({ tops, bottoms, shoes, accessories }) => {
 	);
 };
 
-const saveOutfit = async (tops, bottoms, shoes, accessories) => {
+const saveOutfit = async (tops, bottoms, shoes, accessories, alert) => {
 	let newuuid = uuidv4();
 	let parsed_uuid = newuuid.split("-");
 	let length = parsed_uuid.length;
@@ -408,8 +423,8 @@ const saveOutfit = async (tops, bottoms, shoes, accessories) => {
 			Bottoms: SavedOutfit["bottoms"],
 		});
 	} catch (error) {
-		alert(error);
+		alert.show(error);
 	}
-
+	alert.show('Outfit Saved');
 	return;
 };
