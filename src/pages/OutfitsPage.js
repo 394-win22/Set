@@ -1,7 +1,5 @@
 import React from "react";
 import Header from "../components/Header";
-import Item from "../components/ItemDisplay";
-import SavedOutfit from "../components/ItemDisplay";
 
 import {
 	useData,
@@ -12,7 +10,6 @@ import {
 } from "../utilities/firebase.js";
 
 const Outfit = ({ outfit }) => {
-	// get clothing items
 	const [top, loadingTop, errorTop] = useData(
 		getClothingItem("Tops", userId, outfit["Tops"]),
 		getAllData
@@ -30,7 +27,6 @@ const Outfit = ({ outfit }) => {
 		getAllData
 	);
 
-	// error checking & loading
 	if (errorTop || errorBottom || errorShoes || errorAccessories)
 		return <h1>{(errorTop, errorBottom, errorAccessories, errorShoes)}</h1>;
 	if (loadingTop || loadingBottom || loadingShoes || loadingAccessories)
@@ -100,7 +96,6 @@ const OutfitsPage = () => {
 		getAllData
 	);
 
-	// User Specific Database functions
 	if (errorOutfits) return <h1>{errorOutfits}</h1>;
 	if (loadingOutfits) return <h1>Loading...</h1>;
 

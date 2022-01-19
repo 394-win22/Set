@@ -12,7 +12,7 @@ import {
 	signInWithPopup,
 	signOut,
 } from "firebase/auth";
-import { useNavigate as navigate } from "react-router-dom";
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -80,8 +80,9 @@ export const getShoesFromUser = (userID) => `/Shoes/${userID}`;
 
 export const getOutfitsFromUser = (userID) => `/Saved Outfits/${userID}`;
 
-export const getRecommendationsFromUser = (userID) =>
-	`/Recommendations/${userID}`;
+export const getClothingItem = (type, userID, clothingID) => {
+	return `/${type}/${userID}/${clothingID}`;
+};
 
 export const signInWithGoogle = () => {
 	signInWithPopup(getAuth(app), new GoogleAuthProvider());
@@ -118,8 +119,4 @@ export const signInWithEmailAndPassWD = (inputs) => {
 				return false;
 			}
 		});
-};
-
-export const getClothingItem = (type, userID, clothingID) => {
-	return `/${type}/${userID}/${clothingID}`;
 };
