@@ -11,6 +11,16 @@ import {
 	getAllData,
 	userId,
 } from "../utilities/firebase.js";
+import { Provider as AlertProvider } from 'react-alert'
+import AlertTemplate from 'react-alert-template-mui'
+
+const options = {
+	position: 'top center',
+	timeout: 5000,
+	offset: '130px',
+	transition: 'scale',
+	type: 'success',
+  }
 
 const CarouselPage = () => {
 	// get data from database
@@ -47,12 +57,14 @@ const CarouselPage = () => {
 					accessories={accessories}
 					shoes={shoes}
 				/>
+				<AlertProvider template={AlertTemplate} {...options}>
 				<SaveButton
 					tops={tops}
 					bottoms={bottoms}
 					accessories={accessories}
 					shoes={shoes}
 				></SaveButton>
+				</AlertProvider>
 			</div>
 		</div>
 	);
