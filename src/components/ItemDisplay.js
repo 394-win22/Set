@@ -1,8 +1,22 @@
-import React, { useState, useMemo, useRef } from "react";
-import { DropdownButton, Dropdown, Carousel, Container, Row } from "react-bootstrap";
-import { useData, getAllData } from "../utilities/firebase.js";
+import React, { useState, useEffect, useMemo, useRef } from "react";
+import {
+	Button,
+	Col,
+	DropdownButton,
+	Dropdown,
+	Container,
+	Row,
+} from "react-bootstrap";
+import { useData, getAllData, setData } from "../utilities/firebase.js";
 import TinderCard from "react-tinder-card";
-import './ItemDisplay.css';
+import Carousel from "react-multi-carousel";
+import { v4 as uuidv4 } from "uuid";
+
+import "./ItemDisplay.css";
+import "react-multi-carousel/lib/styles.css";
+
+const currentOutfit = { accessories: 0, tops: 0, bottoms: 0, shoes: 0 };
+export const SavedOutfit = { accessories: 0, tops: 0, bottoms: 0, shoes: 0 };
 
 const color = [
 	"Brown",
@@ -100,6 +114,10 @@ const FilterSelector = ({ setType }) => (
 	</DropdownButton>
 );
 
+const AddButton = () => (
+	<Button variant="secondary">Upload clothing item</Button>
+);
+
 export const ItemList = () => {
 	// User Specific Database functions
 	const [closet, loading, error] = useData("/", getAllData);
@@ -110,15 +128,18 @@ export const ItemList = () => {
 		<>
 			<div className="container">
 				<div className="col-md-12 text-center">
+					<AddButton />
 					<FilterSelector setType={setType} />
 				</div>
 			</div>
 			<div className="container">
 				<div className="album">
 					<div className="row">
-						{Object.entries(closet[type][userId]).map(([key, item]) => (
-							<Item item={item} key={key} />
-						))}
+						{Object.entries(closet[type][userId]).map(
+							([key, item]) => (
+								<Item item={item} key={key} />
+							)
+						)}
 					</div>
 				</div>
 			</div>
@@ -126,11 +147,15 @@ export const ItemList = () => {
 	);
 };
 
-const Item = ({ item }) => {
+export const Item = ({ item }) => {
 	return (
 		<div className="col-6 col-sm-4 col-md-3">
 			<div className="card mb-4">
-				<img className="card-img-top" src={item.image} alt={item.name} />
+				<img
+					className="card-img-top"
+					src={item.image}
+					alt={item.name}
+				/>
 				<div className="card-body">
 					<p className="card-text">
 						{item.name} by {item.brand}
@@ -158,7 +183,7 @@ const Item = ({ item }) => {
 	);
 };
 
-export const RecommendDisplayBlock = ({top,bottom,shoes,accessory}) => {
+export const RecommendDisplayBlock = ({ top, bottom, shoes, accessory }) => {
 	return (
 		<RecommendDisplay
 			top={top}
@@ -169,7 +194,7 @@ export const RecommendDisplayBlock = ({top,bottom,shoes,accessory}) => {
 	);
 };
 
-const RecommendDisplay = ({ top, bottom, shoes, accessory}) => {
+const RecommendDisplay = ({ top, bottom, shoes, accessory }) => {
 	return (
 		<div className="row align-items-center mt-2">
 			<div className="col">
@@ -185,18 +210,30 @@ const RecommendDisplay = ({ top, bottom, shoes, accessory}) => {
 			<div className="col-lg-4 col-6">
 				<div className="row">
 					<div className="rec-card text-white">
-						<img className="card-img" src={top.image} alt={top.name} />
+						<img
+							className="card-img"
+							src={top.image}
+							alt={top.name}
+						/>
 					</div>
 				</div>
 				<div className="row">
 					<div className="rec-card text-white mt-4">
-						<img className="card-img" src={bottom.image} alt={bottom.name} />
+						<img
+							className="card-img"
+							src={bottom.image}
+							alt={bottom.name}
+						/>
 					</div>
 				</div>
 			</div>
 			<div className="col">
 				<div className="rec-card text-white">
-					<img className="card-img" src={shoes.image} alt={shoes.name} />
+					<img
+						className="card-img"
+						src={shoes.image}
+						alt={shoes.name}
+					/>
 				</div>
 			</div>
 		</div>
@@ -204,189 +241,299 @@ const RecommendDisplay = ({ top, bottom, shoes, accessory}) => {
 };
 
 const db = [
-    {
-      name: 'Richard Hendricks',
-      url: './img/richard.jpg'
-    },
-    {
-      name: 'Erlich Bachman',
-      url: './img/erlich.jpg'
-    },
-    {
-      name: 'Monica Hall',
-      url: './img/monica.jpg'
-    },
-    {
-      name: 'Jared Dunn',
-      url: './img/jared.jpg'
-    },
-    {
-      name: 'Dinesh Chugtai',
-      url: './img/dinesh.jpg'
-    }
-  ]
+	{
+		name: "Richard Hendricks",
+		url: "./img/richard.jpg",
+	},
+	{
+		name: "Erlich Bachman",
+		url: "./img/erlich.jpg",
+	},
+	{
+		name: "Monica Hall",
+		url: "./img/monica.jpg",
+	},
+	{
+		name: "Jared Dunn",
+		url: "./img/jared.jpg",
+	},
+	{
+		name: "Dinesh Chugtai",
+		url: "./img/dinesh.jpg",
+	},
+];
 
-export const ClothesCarousel = ({clothes}) => {
-    return (
-        <Container fluid>
-            <Row className="carousel-container">
-                <Carousel variant="dark" interval={null} indicators={false}>
-                    {Object.entries(clothes).map(([key, clothingItem], index) => {
-                                return (
-                                    <Carousel.Item key={key}>
-                                        <img
-                                            className="d-block w-100"
-                                            src={clothingItem.image}
-                                            alt={clothingItem.name}
-                                            />
-                                    </Carousel.Item>
-                                )
-                        })
-                    }
-                </Carousel>
-            </Row>
-        </Container>
-    )
-}
-
-export const OutfitCarousel = ({ tops, bottoms, shoes, accessories}) => {
-	return (
-		<div className="row justify-content-center mt-2">
-			<div className="col-lg-4 col-6">
-				<div className="row">
-					<div className="rec-card text-white">
-                        <ClothesCarousel clothes={accessories} />
-					</div>
-				</div>
-				<div className="row">
-					<div className="rec-card text-white">
-                        <ClothesCarousel clothes={tops} />
-					</div>
-				</div>
-				<div className="row">
-					<div className="rec-card text-white mt-4">
-                        <ClothesCarousel clothes={bottoms} />
-					</div>
-				</div>
-				<div className="row">
-					<div className="rec-card text-white">
-                        <ClothesCarousel clothes={shoes} />
-					</div>
-				</div>
-			</div>
-		</div>
-	);
+const responsive = {
+	superLargeDesktop: {
+		breakpoint: { max: 4000, min: 3000 },
+		items: 1,
+	},
+	desktop: {
+		breakpoint: { max: 3000, min: 1024 },
+		items: 1,
+	},
+	tablet: {
+		breakpoint: { max: 1024, min: 464 },
+		items: 1,
+	},
+	mobile: {
+		breakpoint: { max: 464, min: 0 },
+		items: 1,
+	},
 };
 
-export const SwipeCard = ({recs, shoes, tops, bottoms, accessories}) => {
-    const recLength = Object.keys(recs).length;
-    const [currentIndex, setCurrentIndex] = useState(recLength - 1);
-	const [lastDirection, setLastDirection] = useState();
-    
-    // used for outOfFrame closure
-	const currentIndexRef = useRef(currentIndex);
-
-    const childRefs = useMemo(
-		() =>
-			Array(recLength)
-				.fill(0)
-				.map((i) => React.createRef()),
-		[]
+// For responsive design
+const getWindowDimensions = () => {
+	const { innerWidth: width, innerHeight: height } = window;
+	return {
+		width,
+		height,
+	};
+};
+const useWindowDimensions = () => {
+	const [windowDimensions, setWindowDimensions] = useState(
+		getWindowDimensions()
 	);
 
-	const updateCurrentIndex = (val) => {
-		setCurrentIndex(val);
-		currentIndexRef.current = val;
-	};
-
-	const canGoBack = currentIndex < recLength - 1;
-
-	const canSwipe = currentIndex >= 0;
-
-	// set last direction and decrease current index
-	const swiped = (direction, nameToDelete, index) => {
-		setLastDirection(direction);
-		updateCurrentIndex(index - 1);
-	};
-
-	const outOfFrame = (name, idx) => {
-		console.log(`${name} (${idx}) left the screen!`, currentIndexRef.current);
-		// handle the case in which go back is pressed before card goes outOfFrame
-		currentIndexRef.current >= idx && childRefs[idx].current.restoreCard();
-	};
-
-	const swipe = async (dir) => {
-		if (canSwipe && currentIndex < recLength) {
-			await childRefs[currentIndex].current.swipe(dir); // Swipe the card!
+	useEffect(() => {
+		function handleResize() {
+			setWindowDimensions(getWindowDimensions());
 		}
-	};
 
-	// increase current index and show card
-	const goBack = async () => {
-		if (!canGoBack) return;
-		const newIndex = currentIndex + 1;
-		updateCurrentIndex(newIndex);
-		await childRefs[newIndex].current.restoreCard();
-	};
+		window.addEventListener("resize", handleResize);
+		return () => window.removeEventListener("resize", handleResize);
+	}, []);
 
-    return (
-		<div>
-			<div className="cardContainer">
-				{Object.entries(recs).map(([key, rec], index) => (
-					<TinderCard
-						ref={childRefs[index]}
-						className="swipe"
-						key={index}
-						onSwipe={(dir) => swiped(dir, rec, index)}
-						onCardLeftScreen={() => outOfFrame(key, index)}
-					>
-						<div className="rec-card-block container">
-							<RecommendDisplayBlock top={tops[rec.top]} bottom={bottoms[rec.bottom]} accessory={accessories[rec.accessory]} shoes={shoes[rec.shoes]} />
-						</div>
-					</TinderCard>
-				))}
-			</div>
-			<div className="rec-buttons container">
-				<div className="row text-center my-5">
-					<div className="col">
-						<button
-                            style={{ backgroundColor: !canGoBack && "#c3c4d3" }}
-							type="button"
-							className="btn btn-warning btn-circle btn-xl"
-							onClick={() => goBack("left")}
-						>
-							<i className="fas fa-undo align-middle"></i>
-						</button>
+	return windowDimensions;
+};
+
+export const ClothesCarousel = ({ clothes, type }) => {
+	return (
+		<Carousel
+			afterChange={(previousSlide, { currentSlide, onMove }) => {
+				console.log(currentSlide);
+				currentOutfit[type] = currentSlide;
+			}}
+			responsive={responsive}
+			centerMode={true}
+			infinite={false}
+			showDots={true}
+			focusOnSelect={true}
+			removeArrowOnDeviceType={["mobile"]}
+		>
+			{Object.entries(clothes).map(([key, clothingItem], index) => {
+				return (
+					<div key={key}>
+						<img
+							className="d-block w-100"
+							src={clothingItem.image}
+							alt={clothingItem.name}
+						/>
 					</div>
-					<div className="col align-items-middle">
-						<button
-							style={{ backgroundColor: !canSwipe && "#c3c4d3" }}
-							type="button"
-							className="btn btn-warning btn-circle btn-xl"
-							onClick={() => swipe("left")}
-						>
-							<i className="fa fa-times align-middle"></i>
-						</button>
-					</div>
-					<div className="col align-items-right">
-						<button
-							style={{ backgroundColor: !canSwipe && "#c3c4d3" }}
-							type="button"
-							className="btn btn-danger btn-circle btn-xl"
-							onClick={() => swipe("right")}
-						>
-							<i className="fa fa-heart align-middle"></i>
-						</button>
-					</div>
-				</div>
-			</div>
-			{lastDirection ? (
-				<h2 key={lastDirection} className="infoText">
-					You swiped {lastDirection}
-				</h2>
-			) : (
-				<h2 className="infoText"></h2>
-			)}
-		</div>
+				);
+			})}
+		</Carousel>
 	);
 };
+
+export const OutfitCarousel = ({ tops, bottoms, shoes, accessories }) => {
+	return (
+		<Container fluid>
+			<Row className="justify-content-center">
+				<Col className="col-carousel">
+					<Row>
+						<ClothesCarousel
+							clothes={accessories}
+							type={"accessories"}
+						/>
+					</Row>
+					<Row>
+						<ClothesCarousel clothes={tops} type={"tops"} />
+					</Row>
+					<Row>
+						<ClothesCarousel clothes={bottoms} type={"bottoms"} />
+					</Row>
+					<Row>
+						<ClothesCarousel clothes={shoes} type={"shoes"} />
+					</Row>
+				</Col>
+			</Row>
+		</Container>
+	);
+
+	// use this for shuffle button:
+	// 		<button
+	// 						type="button"
+	// 						className="btn btn-dark btn-circle btn-xl"
+	// 					>
+	// 						<i className="fas fa-random"></i>
+	// 		</button>
+};
+export const SaveButton = ({ tops, bottoms, shoes, accessories }) => {
+	return (
+		<Container>
+			<Row className="justify-content-center mt-2">
+				<Button
+					onClick={(evt) =>
+						saveOutfit(tops, bottoms, shoes, accessories)
+					}
+					type="button"
+					className="btn btn-danger btn-circle btn-xl"
+				>
+					<i className="fa fa-heart align-middle"></i>
+				</Button>
+			</Row>
+		</Container>
+	);
+};
+
+const saveOutfit = async (tops, bottoms, shoes, accessories) => {
+	let newuuid = uuidv4();
+	let parsed_uuid = newuuid.split("-");
+	let length = parsed_uuid.length;
+	let outfit_uuid = parsed_uuid[length - 1];
+
+	SavedOutfit["tops"] = Object.entries(tops)[currentOutfit["tops"]][0];
+	SavedOutfit["bottoms"] =
+		Object.entries(bottoms)[currentOutfit["bottoms"]][0];
+	SavedOutfit["shoes"] = Object.entries(shoes)[currentOutfit["shoes"]][0];
+	SavedOutfit["accessories"] =
+		Object.entries(accessories)[currentOutfit["accessories"]][0];
+
+	// push to firebase here
+	try {
+		await setData(`/Saved Outfits/${userId}/${outfit_uuid}`, {
+			Name: "Outfit",
+			Accessories: SavedOutfit["accessories"],
+			Tops: SavedOutfit["tops"],
+			Shoes: SavedOutfit["shoes"],
+			Bottoms: SavedOutfit["bottoms"],
+		});
+	} catch (error) {
+		alert(error);
+	}
+
+	return;
+};
+
+// export const SwipeCard = ({ recs, shoes, tops, bottoms, accessories }) => {
+// 	const recLength = Object.keys(recs).length;
+// 	const [currentIndex, setCurrentIndex] = useState(recLength - 1);
+// 	const [lastDirection, setLastDirection] = useState();
+
+// 	// used for outOfFrame closure
+// 	const currentIndexRef = useRef(currentIndex);
+
+// 	const childRefs = useMemo(
+// 		() =>
+// 			Array(recLength)
+// 				.fill(0)
+// 				.map((i) => React.createRef()),
+// 		[]
+// 	);
+
+// 	const updateCurrentIndex = (val) => {
+// 		setCurrentIndex(val);
+// 		currentIndexRef.current = val;
+// 	};
+
+// 	const canGoBack = currentIndex < recLength - 1;
+
+// 	const canSwipe = currentIndex >= 0;
+
+// 	// set last direction and decrease current index
+// 	const swiped = (direction, nameToDelete, index) => {
+// 		setLastDirection(direction);
+// 		updateCurrentIndex(index - 1);
+// 	};
+
+// 	const outOfFrame = (name, idx) => {
+// 		console.log(
+// 			`${name} (${idx}) left the screen!`,
+// 			currentIndexRef.current
+// 		);
+// 		// handle the case in which go back is pressed before card goes outOfFrame
+// 		currentIndexRef.current >= idx && childRefs[idx].current.restoreCard();
+// 	};
+
+// 	const swipe = async (dir) => {
+// 		if (canSwipe && currentIndex < recLength) {
+// 			await childRefs[currentIndex].current.swipe(dir); // Swipe the card!
+// 		}
+// 	};
+
+// 	// increase current index and show card
+// 	const goBack = async () => {
+// 		if (!canGoBack) return;
+// 		const newIndex = currentIndex + 1;
+// 		updateCurrentIndex(newIndex);
+// 		await childRefs[newIndex].current.restoreCard();
+// 	};
+
+// 	return (
+// 		<div>
+
+// 			<div className="cardContainer">
+// 				{Object.entries(recs).map(([key, rec], index) => (
+// 					<TinderCard
+// 						ref={childRefs[index]}
+// 						className="swipe"
+// 						key={index}
+// 						onSwipe={(dir) => swiped(dir, rec, index)}
+// 						onCardLeftScreen={() => outOfFrame(key, index)}
+// 					>
+// 						<div className="rec-card-block container">
+// 							<RecommendDisplayBlock
+// 								top={tops[rec.top]}
+// 								bottom={bottoms[rec.bottom]}
+// 								accessory={accessories[rec.accessory]}
+// 								shoes={shoes[rec.shoes]}
+// 							/>
+// 						</div>
+// 					</TinderCard>
+// 				))}
+// 			</div>
+// 			<div className="rec-buttons container">
+// 				<div className="row text-center my-5">
+// 					<div className="col">
+// 						<button
+// 							style={{ backgroundColor: !canGoBack && "#c3c4d3" }}
+// 							type="button"
+// 							className="btn btn-warning btn-circle btn-xl"
+// 							onClick={() => goBack("left")}
+// 						>
+// 							<i className="fas fa-undo align-middle"></i>
+// 						</button>
+// 					</div>
+// 					<div className="col align-items-middle">
+// 						<button
+// 							style={{ backgroundColor: !canSwipe && "#c3c4d3" }}
+// 							type="button"
+// 							className="btn btn-warning btn-circle btn-xl"
+// 							onClick={() => swipe("left")}
+// 						>
+// 							<i className="fa fa-times align-middle"></i>
+// 						</button>
+// 					</div>
+// 					<div className="col align-items-right">
+// 						<button
+// 							style={{ backgroundColor: !canSwipe && "#c3c4d3" }}
+// 							type="button"
+// 							className="btn btn-danger btn-circle btn-xl"
+// 							onClick={() => swipe("right")}
+// 						>
+// 							<i className="fa fa-heart align-middle"></i>
+// 						</button>
+// 					</div>
+// 				</div>
+// 			</div>
+// 			{lastDirection ? (
+// 				<h2 key={lastDirection} className="infoText">
+// 					You swiped {lastDirection}
+// 				</h2>
+// 			) : (
+// 				<h2 className="infoText"></h2>
+// 			)}
+// 		</div>
+// 	);
+// };
