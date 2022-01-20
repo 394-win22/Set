@@ -103,13 +103,19 @@ const OutfitsPage = () => {
 		<div>
 			<Header />
 			<div className="container">
-				<div className="album">
-					<div className="row">
-						{Object.entries(outfits).map(([key, outfit]) => (
-							<Outfit outfit={outfit} key={key} />
-						))}
+				{!outfits ? (
+					<p style={{ marginTop: "50%" }}>
+						<center>No saved outfits to show.</center>
+					</p>
+				) : (
+					<div className="album">
+						<div className="row">
+							{Object.entries(outfits).map(([key, outfit]) => (
+								<Outfit outfit={outfit} key={key} />
+							))}
+						</div>
 					</div>
-				</div>
+				)}
 			</div>
 		</div>
 	);

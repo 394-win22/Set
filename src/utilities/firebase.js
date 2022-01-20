@@ -46,16 +46,16 @@ export const useData = (path, transform) => {
 		const dbRef = ref(database, path);
 		const devMode =
 			!process.env.NODE_ENV || process.env.NODE_ENV === "development";
-		if (devMode) {
-			console.log(`loading ${path}`);
-		}
+		// if (devMode) {
+		// 	console.log(`loading ${path}`);
+		// }
 		return onValue(
 			dbRef,
 			(snapshot) => {
 				const val = snapshot.val();
-				if (devMode) {
-					console.log(val);
-				}
+				// if (devMode) {
+				// 	console.log(val);
+				// }
 				setlocalData(transform ? transform(val) : val);
 				setLoading(false);
 				setError(null);
