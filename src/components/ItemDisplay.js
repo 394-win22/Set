@@ -7,6 +7,7 @@ import {
 	Container,
 	Row,
 } from "react-bootstrap";
+import Modal from 'react-bootstrap/Modal'
 import { useData, getAllData, setData } from "../utilities/firebase.js";
 import Carousel from "react-multi-carousel";
 import { v4 as uuidv4 } from "uuid";
@@ -346,35 +347,122 @@ export const ClothesCarousel = ({ clothes, type }) => {
 };
 
 export const OutfitCarousel = ({ tops, bottoms, shoes, accessories }) => {
+	const [modalShow, setModalShow] = React.useState(false);
 	return (
 		<Container fluid>
-			<Row className="justify-content-center">
-				<Col className="col-carousel">
-					<Row>
-						<ClothesCarousel
-							clothes={accessories}
-							type={"accessories"}
-						/>
-					</Row>
-					<Row>
-						<ClothesCarousel clothes={tops} type={"tops"} />
-					</Row>
-					<Row>
-						<ClothesCarousel clothes={bottoms} type={"bottoms"} />
-					</Row>
-					<Row>
-						<ClothesCarousel clothes={shoes} type={"shoes"} />
-					</Row>
-				</Col>
-			</Row>
+		<div className="col-6 col-sm-4 col-md-3">
+		
+				<div>
+					<div className="row">
+						<div className="col-6">
+							<>
+								<Button variant="primary" onClick={() => setModalShow(true)}>
+									TOPS
+								</Button>
+
+								<MyVerticallyCenteredModal
+									show={modalShow}
+									onHide={() => setModalShow(false)}
+									clothes={tops} 
+									type={"tops"}
+								/>
+							</>
+						</div>
+						<div className="col-6">
+							<>
+								<Button variant="primary" onClick={() => setModalShow(true)}>
+									ACCESSORIES
+								</Button>
+
+								<MyVerticallyCenteredModal
+									show={modalShow}
+									onHide={() => setModalShow(false)}
+									clothes={accessories} 
+									type={"accessories"}
+								/>
+							</>
+						</div>
+					</div>
+					<div className="row">
+						<div className="col-6">
+							<>
+								<Button variant="primary" onClick={() => setModalShow(true)}>
+									BOTTOMS
+								</Button>
+
+								<MyVerticallyCenteredModal
+									show={modalShow}
+									onHide={() => setModalShow(false)}
+									clothes={bottoms} 
+									type={"bottoms"}
+								/>
+							</>
+						</div>
+						<div className="col-6">
+							<>
+								<Button variant="primary" onClick={() => setModalShow(true)}>
+									SHOES
+								</Button>
+
+								<MyVerticallyCenteredModal
+									show={modalShow}
+									onHide={() => setModalShow(false)}
+									clothes={shoes} 
+									type={"shoes"}
+								/>
+							</>
+						</div>
+					</div>
+				</div>
+
+				
+			</div>
+		
+		
+		
 		</Container>
 	);
+
+	//<ClothesCarousel clothes={tops} type={"tops"} />
 
 	// use this for shuffle button:
 	// <button type="button" className="btn btn-dark btn-circle btn-xl">
 	// 	<i className="fas fa-random"></i>
 	// </button>;
 };
+
+function MyVerticallyCenteredModal(props, clothes, type) {
+	return (
+	  <Modal
+		{...props}
+		size="lg"
+		aria-labelledby="contained-modal-title-vcenter"
+		centered
+	  >
+		<Modal.Header closeButton>
+		
+		</Modal.Header>
+		<Modal.Body>
+		  <p>
+			Carousel goes here!
+			Carousel goes here!
+			Carousel goes here!
+			Carousel goes here!
+			Carousel goes here!
+			Carousel goes here!
+			Carousel goes here!
+
+			Carousel goes here!
+			Carousel goes here!
+		  </p>
+		  <ClothesCarousel clothes={clothes} type={type}/>
+		</Modal.Body>
+		<Modal.Footer>
+		  <Button onClick={props.onHide}>Save</Button>
+		</Modal.Footer>
+	  </Modal>
+	);
+  }
 
 
 
