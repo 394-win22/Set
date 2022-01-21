@@ -73,12 +73,7 @@ export const useData = (path, transform) => {
 
 export const getAllData = (data) => data;
 
-export const getTopsFromUser = (userID) => `/Tops/${userID}`;
-export const getBottomsFromUser = (userID) => `/Bottoms/${userID}`;
-export const getAccessoriesFromUser = (userID) => `/Accessories/${userID}`;
-export const getShoesFromUser = (userID) => `/Shoes/${userID}`;
-
-export const getOutfitsFromUser = (userID) => `/Saved Outfits/${userID}`;
+export const getItemsFromUser = (userID, item) => `/${item}/${userID}`;
 
 export const getClothingItem = (type, userID, clothingID) => {
 	return `/${type}/${userID}/${clothingID}`;

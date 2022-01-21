@@ -3,7 +3,7 @@ import Header from "../components/Header";
 
 import {
 	useData,
-	getOutfitsFromUser,
+	getItemsFromUser,
 	getAllData,
 	userId,
 	getClothingItem,
@@ -92,8 +92,7 @@ const Outfit = ({ outfit }) => {
 
 const OutfitsPage = () => {
 	const [outfits, loadingOutfits, errorOutfits] = useData(
-		getOutfitsFromUser(userId),
-		getAllData
+		getItemsFromUser(userId, "Saved Outfits")
 	);
 
 	if (errorOutfits) return <h1>{errorOutfits}</h1>;
