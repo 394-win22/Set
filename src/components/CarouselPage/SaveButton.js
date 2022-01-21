@@ -10,6 +10,8 @@ import { userId, setData } from "../../utilities/firebase";
 export const savedOutfit = { accessories: 0, tops: 0, bottoms: 0, shoes: 0 };
 
 const saveOutfit = async (tops, bottoms, shoes, accessories, alert) => {
+	if (currentOutfit.includes(null)) return;
+
 	let newuuid = uuidv4();
 	let parsed_uuid = newuuid.split("-");
 	let length = parsed_uuid.length;
@@ -44,14 +46,20 @@ const SaveButton = ({ tops, bottoms, shoes, accessories }) => {
 			{/* <Button variant="dark" className="me-3">
 				<i className="fas fa-random me-2"></i>Shuffle
 			</Button> */}
-			<Button
-				onClick={(ev) => {
-					saveOutfit(tops, bottoms, shoes, accessories, alert);
-				}}
-				variant="danger"
-			>
-				<i className="fa fa-heart align-middle me-2"></i>Save
-			</Button>
+			{Object.values(currentOutfit).includes(null) ? (
+				<Button variant="danger" disabled>
+					<i className="fa fa-heart align-middle me-2"></i>Save
+				</Button>
+			) : (
+				<Button
+					onClick={(ev) => {
+						saveOutfit(tops, bottoms, shoes, accessories, alert);
+					}}
+					variant="danger"
+				>
+					<i className="fa fa-heart align-middle me-2"></i>Save
+				</Button>
+			)}
 		</div>
 	);
 };

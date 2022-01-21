@@ -14,7 +14,12 @@ import imgAccessories from "../../images/img_acc.png";
 import "./OutfitDisplay.css";
 import "react-multi-carousel/lib/styles.css";
 
-export const currentOutfit = { accessories: 0, tops: 0, bottoms: 0, shoes: 0 };
+export const currentOutfit = {
+	accessories: null,
+	tops: null,
+	bottoms: null,
+	shoes: null,
+};
 
 const ClothesCarousel = ({ clothes, type }) => {
 	return (
@@ -45,9 +50,10 @@ const ClothesCarousel = ({ clothes, type }) => {
 };
 
 const ClothingModal = (props) => {
+	const { onSelect, ...otherProps } = props;
 	return (
 		<Modal
-			{...props}
+			{...otherProps}
 			size="lg"
 			aria-labelledby="contained-modal-title-vcenter"
 			centered
@@ -57,7 +63,7 @@ const ClothingModal = (props) => {
 				<ClothesCarousel clothes={props.clothes} type={props.type} />
 			</Modal.Body>
 			<Modal.Footer>
-				<Button onClick={props.onSave}>Save</Button>
+				<Button onClick={props.onSelect}>Select</Button>
 			</Modal.Footer>
 		</Modal>
 	);
@@ -67,7 +73,8 @@ const ClothingItem = ({ obj, type, img }) => {
 	const [showModal, setShowModal] = useState(false);
 	const [displayImg, setDisplayImg] = useState(img);
 
-	const setNewDisplay = () => {
+	const setNewImg = () => {
+		console.log(currentOutfit);
 		setDisplayImg(Object.entries(obj)[currentOutfit[type]][1].image);
 		setShowModal(false);
 	};
@@ -82,7 +89,7 @@ const ClothingItem = ({ obj, type, img }) => {
 			<ClothingModal
 				show={showModal}
 				onHide={() => setShowModal(false)}
-				onSave={() => setNewDisplay()}
+				onSelect={() => setNewImg()}
 				clothes={obj}
 				type={type}
 			/>
