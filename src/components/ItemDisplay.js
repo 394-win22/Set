@@ -350,8 +350,7 @@ export const ClothesCarousel = ({ clothes, type }) => {
 
 export const OutfitCarousel = ({ tops, bottoms, shoes, accessories }) => {
 	const [modalShow, setModalShow] = React.useState(false);
-	console.log("topsss")
-	console.log(tops)
+	console.log(Object.entries(tops)[currentOutfit["tops"]][1].image)
 	return (
 		<Container fluid>
 		<div className="col-6 col-sm-4 col-md-3">
@@ -362,13 +361,18 @@ export const OutfitCarousel = ({ tops, bottoms, shoes, accessories }) => {
 							<>
 								<Button variant="primary" onClick={() => setModalShow(true)}>
 									<img src={Shirt} width="100%">
-										
+					
 									</img>
 								</Button>
 
 								<MyVerticallyCenteredModals
 									show={modalShow}
-									onHide={() => setModalShow(false)}
+									onHide={() => 
+										setModalShow(false)
+										
+											//console.log("HEREEEE")
+											//console.log(tops[currentOutfit["tops"]])}
+									}
 									clothes={tops} 
 									type={"tops"}
 								/>
@@ -443,9 +447,9 @@ export const OutfitCarousel = ({ tops, bottoms, shoes, accessories }) => {
 
 
 function MyVerticallyCenteredModals(props) {
-	console.log("inside modal")
-	console.log(props.clothes)
-	console.log(props.type)
+	// console.log("inside modal")
+	// console.log(props.clothes)
+	// console.log(props.type)
 	return (
 	  <Modal
 		{...props}
