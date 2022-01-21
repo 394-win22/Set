@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "../components/Header.js";
-import { OutfitCarousel, SaveButton } from "../components/ItemDisplay";
+import { OutfitCarousel, SaveButton } from "../components/OutfitDisplay";
 import "./RecommendPage.css";
 import {
 	useData,
@@ -11,16 +11,16 @@ import {
 	getAllData,
 	userId,
 } from "../utilities/firebase.js";
-import { Provider as AlertProvider } from 'react-alert'
-import AlertTemplate from 'react-alert-template-mui'
+import { Provider as AlertProvider } from "react-alert";
+import AlertTemplate from "react-alert-template-mui";
 
 const options = {
-	position: 'top center',
+	position: "top center",
 	timeout: 5000,
-	offset: '130px',
-	transition: 'scale',
-	type: 'success',
-  }
+	offset: "130px",
+	transition: "scale",
+	type: "success",
+};
 
 const CarouselPage = () => {
 	// get data from database
@@ -58,12 +58,12 @@ const CarouselPage = () => {
 					shoes={shoes}
 				/>
 				<AlertProvider template={AlertTemplate} {...options}>
-				<SaveButton
-					tops={tops}
-					bottoms={bottoms}
-					accessories={accessories}
-					shoes={shoes}
-				></SaveButton>
+					<SaveButton
+						tops={tops}
+						bottoms={bottoms}
+						accessories={accessories}
+						shoes={shoes}
+					></SaveButton>
 				</AlertProvider>
 			</div>
 		</div>

@@ -1,12 +1,12 @@
 import React from "react";
 import Header from "../components/Header";
-import { ItemList } from "../components/ItemDisplay";
+import { ClosetGrid } from "../components/ClosetDisplay";
 
 const ClosetPage = () => {
 	return (
 		<div>
 			<Header />
-			<ItemList />
+			<ClosetGrid />
 		</div>
 	);
 };
