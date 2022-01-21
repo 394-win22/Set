@@ -11,6 +11,7 @@ import Modal from 'react-bootstrap/Modal'
 import { useData, getAllData, setData } from "../utilities/firebase.js";
 import Carousel from "react-multi-carousel";
 import { v4 as uuidv4 } from "uuid";
+import Shirt from "../images/shirt.jpg"
 
 import "./ItemDisplay.css";
 import "react-multi-carousel/lib/styles.css";
@@ -323,6 +324,7 @@ export const ClothesCarousel = ({ clothes, type }) => {
 			afterChange={(previousSlide, { currentSlide, onMove }) => {
 				console.log(currentSlide);
 				currentOutfit[type] = currentSlide;
+
 			}}
 			responsive={responsive}
 			centerMode={true}
@@ -348,6 +350,8 @@ export const ClothesCarousel = ({ clothes, type }) => {
 
 export const OutfitCarousel = ({ tops, bottoms, shoes, accessories }) => {
 	const [modalShow, setModalShow] = React.useState(false);
+	console.log("topsss")
+	console.log(tops)
 	return (
 		<Container fluid>
 		<div className="col-6 col-sm-4 col-md-3">
@@ -357,10 +361,12 @@ export const OutfitCarousel = ({ tops, bottoms, shoes, accessories }) => {
 						<div className="col-6">
 							<>
 								<Button variant="primary" onClick={() => setModalShow(true)}>
-									TOPS
+									<img src={Shirt} width="100%">
+										
+									</img>
 								</Button>
 
-								<MyVerticallyCenteredModal
+								<MyVerticallyCenteredModals
 									show={modalShow}
 									onHide={() => setModalShow(false)}
 									clothes={tops} 
@@ -374,7 +380,7 @@ export const OutfitCarousel = ({ tops, bottoms, shoes, accessories }) => {
 									ACCESSORIES
 								</Button>
 
-								<MyVerticallyCenteredModal
+								<MyVerticallyCenteredModals
 									show={modalShow}
 									onHide={() => setModalShow(false)}
 									clothes={accessories} 
@@ -390,7 +396,7 @@ export const OutfitCarousel = ({ tops, bottoms, shoes, accessories }) => {
 									BOTTOMS
 								</Button>
 
-								<MyVerticallyCenteredModal
+								<MyVerticallyCenteredModals
 									show={modalShow}
 									onHide={() => setModalShow(false)}
 									clothes={bottoms} 
@@ -404,9 +410,12 @@ export const OutfitCarousel = ({ tops, bottoms, shoes, accessories }) => {
 									SHOES
 								</Button>
 
-								<MyVerticallyCenteredModal
+								<MyVerticallyCenteredModals
 									show={modalShow}
-									onHide={() => setModalShow(false)}
+									onHide={() => 
+										setModalShow(false)
+
+									}
 									clothes={shoes} 
 									type={"shoes"}
 								/>
@@ -431,7 +440,12 @@ export const OutfitCarousel = ({ tops, bottoms, shoes, accessories }) => {
 	// </button>;
 };
 
-function MyVerticallyCenteredModal(props, clothes, type) {
+
+
+function MyVerticallyCenteredModals(props) {
+	console.log("inside modal")
+	console.log(props.clothes)
+	console.log(props.type)
 	return (
 	  <Modal
 		{...props}
@@ -443,19 +457,7 @@ function MyVerticallyCenteredModal(props, clothes, type) {
 		
 		</Modal.Header>
 		<Modal.Body>
-		  <p>
-			Carousel goes here!
-			Carousel goes here!
-			Carousel goes here!
-			Carousel goes here!
-			Carousel goes here!
-			Carousel goes here!
-			Carousel goes here!
-
-			Carousel goes here!
-			Carousel goes here!
-		  </p>
-		  <ClothesCarousel clothes={clothes} type={type}/>
+		  <ClothesCarousel clothes={props.clothes} type={props.type}/>
 		</Modal.Body>
 		<Modal.Footer>
 		  <Button onClick={props.onHide}>Save</Button>
