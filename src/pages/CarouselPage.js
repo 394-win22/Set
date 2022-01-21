@@ -39,7 +39,7 @@ const CarouselPage = () => {
 		return <h1>Loading...</h1>;
 
 	return (
-		<div>
+		<>
 			<Header />
 			<div>
 				<OutfitDisplay
@@ -57,7 +57,7 @@ const CarouselPage = () => {
 					></SaveButton>
 				</AlertProvider>
 			</div>
-		</div>
+		</>
 	);
 };
 

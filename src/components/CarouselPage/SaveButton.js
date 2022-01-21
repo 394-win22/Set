@@ -40,19 +40,19 @@ const saveOutfit = async (tops, bottoms, shoes, accessories, alert) => {
 const SaveButton = ({ tops, bottoms, shoes, accessories }) => {
 	const alert = useAlert();
 	return (
-		<Container>
-			<Row className="justify-content-center mt-2">
-				<Button
-					onClick={(ev) => {
-						saveOutfit(tops, bottoms, shoes, accessories, alert);
-					}}
-					type="button"
-					className="btn btn-danger btn-circle btn-xl"
-				>
-					<i className="fa fa-heart align-middle"></i>
-				</Button>
-			</Row>
-		</Container>
+		<div className="mt-5 text-center">
+			{/* <Button variant="dark" className="me-3">
+				<i className="fas fa-random me-2"></i>Shuffle
+			</Button> */}
+			<Button
+				onClick={(ev) => {
+					saveOutfit(tops, bottoms, shoes, accessories, alert);
+				}}
+				variant="danger"
+			>
+				<i className="fa fa-heart align-middle me-2"></i>Save
+			</Button>
+		</div>
 	);
 };
 

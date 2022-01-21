@@ -125,11 +125,6 @@ const OutfitDisplay = ({ tops, bottoms, shoes, accessories }) => {
 			</Row>
 		</Container>
 	);
-
-	// use this for shuffle button:
-	// <button type="button" className="btn btn-dark btn-circle btn-xl">
-	// 	<i className="fas fa-random"></i>
-	// </button>;
 };
 
 export default OutfitDisplay;
