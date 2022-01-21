@@ -7,23 +7,23 @@ import {
 	Container,
 	Row,
 } from "react-bootstrap";
-import Modal from 'react-bootstrap/Modal'
+import Modal from "react-bootstrap/Modal";
 import { useData, getAllData, setData } from "../utilities/firebase.js";
 import Carousel from "react-multi-carousel";
 import { v4 as uuidv4 } from "uuid";
-import Shirt from "../images/shirt.jpg"
+import Shirt from "../images/shirt.jpg";
 
 import "./ItemDisplay.css";
 import "react-multi-carousel/lib/styles.css";
 
-import { useAlert } from 'react-alert'
+import { useAlert } from "react-alert";
 
 const options = {
-	position: 'bottom center',
+	position: "bottom center",
 	timeout: 500000,
-	offset: '30px',
-	transition: 'scale'
-  }
+	offset: "30px",
+	transition: "scale",
+};
 
 const currentOutfit = { accessories: 0, tops: 0, bottoms: 0, shoes: 0 };
 export const SavedOutfit = { accessories: 0, tops: 0, bottoms: 0, shoes: 0 };
@@ -324,7 +324,6 @@ export const ClothesCarousel = ({ clothes, type }) => {
 			afterChange={(previousSlide, { currentSlide, onMove }) => {
 				console.log(currentSlide);
 				currentOutfit[type] = currentSlide;
-
 			}}
 			responsive={responsive}
 			centerMode={true}
@@ -350,44 +349,50 @@ export const ClothesCarousel = ({ clothes, type }) => {
 
 export const OutfitCarousel = ({ tops, bottoms, shoes, accessories }) => {
 	const [modalShow, setModalShow] = React.useState(false);
-	console.log(Object.entries(tops)[currentOutfit["tops"]][1].image)
+	const foo = () => {
+		console.log("hello");
+		setModalShow(false);
+	};
+	// console.log(Object.entries(tops)[currentOutfit["tops"]][1].image);
 	return (
 		<Container fluid>
-		<div className="col-6 col-sm-4 col-md-3">
-		
+			<div className="col-6 col-sm-4 col-md-3">
 				<div>
 					<div className="row">
 						<div className="col-6">
 							<>
-								<Button variant="primary" onClick={() => setModalShow(true)}>
-									<img src={Shirt} width="100%">
-					
-									</img>
+								<Button
+									variant="primary"
+									onClick={() => setModalShow(true)}
+								>
+									<img src={Shirt} width="100%"></img>
 								</Button>
 
 								<MyVerticallyCenteredModals
 									show={modalShow}
-									onHide={() => 
-										setModalShow(false)
-										
-											//console.log("HEREEEE")
-											//console.log(tops[currentOutfit["tops"]])}
+									onHide={
+										() => foo()
+										//console.log("HEREEEE")
+										//console.log(tops[currentOutfit["tops"]])}
 									}
-									clothes={tops} 
+									clothes={tops}
 									type={"tops"}
 								/>
 							</>
 						</div>
 						<div className="col-6">
 							<>
-								<Button variant="primary" onClick={() => setModalShow(true)}>
+								<Button
+									variant="primary"
+									onClick={() => setModalShow(true)}
+								>
 									ACCESSORIES
 								</Button>
 
 								<MyVerticallyCenteredModals
 									show={modalShow}
-									onHide={() => setModalShow(false)}
-									clothes={accessories} 
+									onHide={() => foo()}
+									clothes={accessories}
 									type={"accessories"}
 								/>
 							</>
@@ -396,43 +401,41 @@ export const OutfitCarousel = ({ tops, bottoms, shoes, accessories }) => {
 					<div className="row">
 						<div className="col-6">
 							<>
-								<Button variant="primary" onClick={() => setModalShow(true)}>
+								<Button
+									variant="primary"
+									onClick={() => setModalShow(true)}
+								>
 									BOTTOMS
 								</Button>
 
 								<MyVerticallyCenteredModals
 									show={modalShow}
-									onHide={() => setModalShow(false)}
-									clothes={bottoms} 
+									onHide={() => foo()}
+									clothes={bottoms}
 									type={"bottoms"}
 								/>
 							</>
 						</div>
 						<div className="col-6">
 							<>
-								<Button variant="primary" onClick={() => setModalShow(true)}>
+								<Button
+									variant="primary"
+									onClick={() => setModalShow(true)}
+								>
 									SHOES
 								</Button>
 
 								<MyVerticallyCenteredModals
 									show={modalShow}
-									onHide={() => 
-										setModalShow(false)
-
-									}
-									clothes={shoes} 
+									onHide={() => foo()}
+									clothes={shoes}
 									type={"shoes"}
 								/>
 							</>
 						</div>
 					</div>
 				</div>
-
-				
 			</div>
-		
-		
-		
 		</Container>
 	);
 
@@ -444,33 +447,27 @@ export const OutfitCarousel = ({ tops, bottoms, shoes, accessories }) => {
 	// </button>;
 };
 
-
-
-function MyVerticallyCenteredModals(props) {
+const MyVerticallyCenteredModals = (props) => {
 	// console.log("inside modal")
 	// console.log(props.clothes)
 	// console.log(props.type)
 	return (
-	  <Modal
-		{...props}
-		size="lg"
-		aria-labelledby="contained-modal-title-vcenter"
-		centered
-	  >
-		<Modal.Header closeButton>
-		
-		</Modal.Header>
-		<Modal.Body>
-		  <ClothesCarousel clothes={props.clothes} type={props.type}/>
-		</Modal.Body>
-		<Modal.Footer>
-		  <Button onClick={props.onHide}>Save</Button>
-		</Modal.Footer>
-	  </Modal>
+		<Modal
+			{...props}
+			size="lg"
+			aria-labelledby="contained-modal-title-vcenter"
+			centered
+		>
+			<Modal.Header closeButton></Modal.Header>
+			<Modal.Body>
+				<ClothesCarousel clothes={props.clothes} type={props.type} />
+			</Modal.Body>
+			<Modal.Footer>
+				<Button onClick={props.onHide}>Save</Button>
+			</Modal.Footer>
+		</Modal>
 	);
-  }
-
-
+};
 
 export const SaveButton = ({ tops, bottoms, shoes, accessories }) => {
 	const alert = useAlert();
@@ -516,6 +513,6 @@ const saveOutfit = async (tops, bottoms, shoes, accessories, alert) => {
 	} catch (error) {
 		alert.show(error);
 	}
-	alert.show('Outfit Saved');
+	alert.show("Outfit Saved");
 	return;
 };
