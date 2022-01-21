@@ -1,15 +1,15 @@
 import React, { useState } from "react";
+import { Button, Card, Col, Container, Modal, Row } from "react-bootstrap";
 import Carousel from "react-multi-carousel";
-
-import { Button, Container } from "react-bootstrap";
-import Modal from "react-bootstrap/Modal";
 
 import { responsive } from "../../utilities/responsiveness.js";
 
-import Shirt from "../../images/shirt.jpg";
-import Pants from "../../images/pants.jpg";
-import Shoes from "../../images/shoes.jpg";
-import Accessories from "../../images/accessories.jpg";
+// icons from https://www.flaticon.com/authors/bqlqn
+
+import imgTops from "../../images/img_top.png";
+import imgBottoms from "../../images/img_bottoms.png";
+import imgShoes from "../../images/img_shoes.png";
+import imgAccessories from "../../images/img_acc.png";
 
 import "./OutfitDisplay.css";
 import "react-multi-carousel/lib/styles.css";
@@ -74,9 +74,11 @@ const ClothingItem = ({ obj, type, img }) => {
 
 	return (
 		<>
-			<Button variant="primary" onClick={() => setShowModal(true)}>
-				<img src={displayImg} width="100%"></img>
-			</Button>
+			<Card className="p-2" onClick={() => setShowModal(true)}>
+				<Card.Body style={{ textAlign: "center" }}>
+					<img src={displayImg} width="100%" />
+				</Card.Body>
+			</Card>
 			<ClothingModal
 				show={showModal}
 				onHide={() => setShowModal(false)}
@@ -90,47 +92,39 @@ const ClothingItem = ({ obj, type, img }) => {
 
 const OutfitDisplay = ({ tops, bottoms, shoes, accessories }) => {
 	return (
-		<Container fluid>
-			<div className="col-6 col-sm-4 col-md-3">
-				<div>
-					<div className="row">
-						<div className="col-6">
-							<ClothingItem
-								obj={tops}
-								type="tops"
-								img={Shirt}
-							></ClothingItem>
-						</div>
-						<div className="col-6">
-							<ClothingItem
-								obj={accessories}
-								type="accessories"
-								img={Accessories}
-							></ClothingItem>
-						</div>
-					</div>
-					<div className="row">
-						<div className="col-6">
-							<ClothingItem
-								obj={bottoms}
-								type="bottoms"
-								img={Pants}
-							></ClothingItem>
-						</div>
-						<div className="col-6">
-							<ClothingItem
-								obj={shoes}
-								type="shoes"
-								img={Shoes}
-							></ClothingItem>
-						</div>
-					</div>
+		<Container className="px-4">
+			<Row xs={2} className="g-4">
+				<Col>
+					<ClothingItem
+						obj={tops}
+						type="tops"
+						img={imgTops}
+					></ClothingItem>
+				</Col>
+				<div className="col">
+					<ClothingItem
+						obj={accessories}
+						type="accessories"
+						img={imgAccessories}
+					></ClothingItem>
 				</div>
-			</div>
+				<div className="col">
+					<ClothingItem
+						obj={bottoms}
+						type="bottoms"
+						img={imgBottoms}
+					></ClothingItem>
+				</div>
+				<div className="col">
+					<ClothingItem
+						obj={shoes}
+						type="shoes"
+						img={imgShoes}
+					></ClothingItem>
+				</div>
+			</Row>
 		</Container>
 	);
-
-	//<ClothesCarousel clothes={tops} type={"tops"} />
 
 	// use this for shuffle button:
 	// <button type="button" className="btn btn-dark btn-circle btn-xl">
