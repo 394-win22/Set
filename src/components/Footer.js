@@ -47,7 +47,6 @@ function Footer() {
 	}
 	const [value, setValue] = React.useState(routeIndex);
 	if (pathname === "/login") return null;
-
 	return (
 		<Box sx={{ pb: 7}}>
 			<CssBaseline />
@@ -80,7 +79,6 @@ function Footer() {
 						);
 					})}
 				</BottomNavigation>
-				<div className="footer-margin-mobile"></div>
 			</Paper>
 		</Box>
 	);
