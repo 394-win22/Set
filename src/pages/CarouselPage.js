@@ -1,4 +1,4 @@
-import React from "react";
+import {React, useState} from "react";
 
 import Header from "../components/Header";
 import SaveButton from "../components/CarouselPage/SaveButton";
@@ -31,6 +31,13 @@ const CarouselPage = () => {
 		getItemsFromUser(userId, "Shoes")
 	);
 
+	// const [currOutfit, setCurrOutfit] = useState({
+	// 	accessories: null,
+	// 	tops: null,
+	// 	bottoms: null,
+	// 	shoes: null,
+	// });
+
 	if (errorTops || errorBottoms || errorAccessories || errorShoes)
 		return (
 			<h1>{(errorTops, errorBottoms, errorAccessories, errorShoes)}</h1>
@@ -48,14 +55,14 @@ const CarouselPage = () => {
 					accessories={accessories}
 					shoes={shoes}
 				/>
-				<AlertProvider template={AlertTemplate} {...alertOptions}>
+				{/* <AlertProvider template={AlertTemplate} {...alertOptions}>
 					<SaveButton
 						tops={tops}
 						bottoms={bottoms}
 						accessories={accessories}
 						shoes={shoes}
 					></SaveButton>
-				</AlertProvider>
+				</AlertProvider> */}
 			</div>
 		</>
 	);

@@ -4,6 +4,10 @@ import Carousel from "react-multi-carousel";
 
 import { responsive } from "../../utilities/responsiveness.js";
 
+import AlertTemplate from "react-alert-template-mui";
+import { Provider as AlertProvider } from "react-alert";
+import SaveButton from "./SaveButton";
+
 // icons from https://www.flaticon.com/authors/bqlqn
 
 import imgTops from "../../images/img_top.png";
@@ -21,11 +25,19 @@ export const currentOutfit = {
 	shoes: null,
 };
 
-const ClothesCarousel = ({ clothes, type }) => {
+const alertOptions = {
+	position: "top center",
+	timeout: 5000,
+	offset: "130px",
+	transition: "scale",
+	type: "success",
+};
+
+const ClothesCarousel = ({ clothes, type, changeOutfit }) => {
 	return (
 		<Carousel
 			afterChange={(previousSlide, { currentSlide, onMove }) => {
-				currentOutfit[type] = currentSlide;
+				changeOutfit(type, currentSlide);
 			}}
 			responsive={responsive}
 			centerMode={true}
@@ -60,7 +72,7 @@ const ClothingModal = (props) => {
 		>
 			<Modal.Header closeButton></Modal.Header>
 			<Modal.Body>
-				<ClothesCarousel clothes={props.clothes} type={props.type} />
+				<ClothesCarousel clothes={props.clothes} type={props.type} changeOutfit={props.setOutfit} />
 			</Modal.Body>
 			<Modal.Footer>
 				<Button onClick={props.onSelect}>Select</Button>
@@ -69,13 +81,13 @@ const ClothingModal = (props) => {
 	);
 };
 
-const ClothingItem = ({ obj, type, img }) => {
+const ClothingItem = ({ obj, type, img, setOutfit, currOutfit }) => {
 	const [showModal, setShowModal] = useState(false);
 	const [displayImg, setDisplayImg] = useState(img);
 
 	const setNewImg = () => {
-		console.log(currentOutfit);
-		setDisplayImg(Object.entries(obj)[currentOutfit[type]][1].image);
+		let temp = currOutfit[type]
+		setDisplayImg(Object.entries(obj)[temp][1].image);
 		setShowModal(false);
 	};
 
@@ -92,12 +104,26 @@ const ClothingItem = ({ obj, type, img }) => {
 				onSelect={() => setNewImg()}
 				clothes={obj}
 				type={type}
+				setOutfit={setOutfit}
 			/>
 		</>
 	);
 };
 
 const OutfitDisplay = ({ tops, bottoms, shoes, accessories }) => {
+	const [currOutfit, setCurrOutfit] = useState({
+		"accessories": null,
+		"tops": null,
+		"bottoms": null,
+		"shoes": null,
+	});
+	const changeOutfit = (type, currentSlide) => {
+		setCurrOutfit((outfit) => {
+			let temp = {...outfit};
+			temp[type] = currentSlide;
+			return temp
+		})
+	}
 	return (
 		<Container className="px-4">
 			<Row xs={2} className="g-4">
@@ -106,6 +132,8 @@ const OutfitDisplay = ({ tops, bottoms, shoes, accessories }) => {
 						obj={tops}
 						type="tops"
 						img={imgTops}
+						setOutfit={changeOutfit}
+						currOutfit={currOutfit}
 					></ClothingItem>
 				</Col>
 				<div className="col">
@@ -113,6 +141,8 @@ const OutfitDisplay = ({ tops, bottoms, shoes, accessories }) => {
 						obj={accessories}
 						type="accessories"
 						img={imgAccessories}
+						setOutfit={changeOutfit}
+						currOutfit={currOutfit}
 					></ClothingItem>
 				</div>
 				<div className="col">
@@ -120,6 +150,8 @@ const OutfitDisplay = ({ tops, bottoms, shoes, accessories }) => {
 						obj={bottoms}
 						type="bottoms"
 						img={imgBottoms}
+						setOutfit={changeOutfit}
+						currOutfit={currOutfit}
 					></ClothingItem>
 				</div>
 				<div className="col">
@@ -127,8 +159,23 @@ const OutfitDisplay = ({ tops, bottoms, shoes, accessories }) => {
 						obj={shoes}
 						type="shoes"
 						img={imgShoes}
+						setOutfit={changeOutfit}
+						currOutfit={currOutfit}
 					></ClothingItem>
 				</div>
+			</Row>
+			<Row xs={2} className="g-4">
+				<Col>
+					<AlertProvider template={AlertTemplate} {...alertOptions}>
+						<SaveButton
+							tops={tops}
+							bottoms={bottoms}
+							accessories={accessories}
+							shoes={shoes}
+							currOutfit={currOutfit}
+						></SaveButton>
+					</AlertProvider>
+				</Col>
 			</Row>
 		</Container>
 	);
