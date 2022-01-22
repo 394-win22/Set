@@ -2,192 +2,14 @@ import React, { useState } from "react";
 import Header from "../components/Header";
 import { storage } from "../utilities/firebase";
 import { ref, uploadBytes } from "firebase/storage";
-import HorizontalLinearStepper from "../components/Stepper";
 import { DropzoneArea } from 'material-ui-dropzone';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
 import {
 	Button,
 	Col,
-	DropdownButton,
-	Dropdown,
 	Container,
-	Row,
-  Form,
+	Row
 } from "react-bootstrap";
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import Box from '@mui/material/Box';
-import { useTheme } from '@mui/material/styles';
-import Chip from '@mui/material/Chip';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import SaveNewItem from '../utilities/SaveNewItem';
-
-
-const itemTypes = ["Top", "Bottom", "Shoes", "Accessories"]
-const colors = [
-	"Brown",
-	"Red",
-	"Orange",
-	"Yellow",
-	"Green",
-	"Blue",
-	"Purple",
-	"Black",
-	"Pink",
-	"Gray",
-	"White",
-	"Beige",
-	"Gold",
-	"Silver",
-	"Multicolored",
-];
-const occasions = [
-	"Business Casual",
-	"Going Out",
-	"Business Formal",
-	"Everyday Wear",
-	"Comfortable",
-	"Black Tie",
-];
-const weathers = [
-	"Sunny and Warm",
-	"Hot and Humid",
-	"Fall Breeze",
-	"Winter Chill",
-	"Rain",
-	"Snow",
-];
-
-const FilterSelector = ({items, legend}) => {
-    const [selectedItem, setItem] = React.useState('');
-
-    const handleChange = (event) => {
-        setItem(event.target.value);
-    };
-
-    return (
-    <FormControl fullWidth>
-        <InputLabel id="legend">{legend}</InputLabel>
-        <Select
-            labelId="filter-select"
-            id="filter-select"
-            value={selectedItem}
-            label={legend}
-            onChange={handleChange}
-    >
-        {
-            items.map((type, index) => (
-                <MenuItem value={type} key={type}>{type}</MenuItem>
-            ))
-        }
-    </Select>
-    </FormControl>
-);}
-
-const ChipSelector = ({items, legend}) => {
-    const ITEM_HEIGHT = 48;
-    const ITEM_PADDING_TOP = 8;
-    const MenuProps = {
-        PaperProps: {
-        style: {
-            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP
-            },
-        },
-    };
-
-    function getStyles(name, personName, theme) {
-        return {
-            fontWeight:
-                personName.indexOf(name) === -1
-                ? theme.typography.fontWeightRegular
-                : theme.typography.fontWeightMedium,
-        };
-    }
-
-  const theme = useTheme();
-  const [itemName, setItem] = React.useState([]);
-
-  const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setItem(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
-    );
-  };
-
-  return (
-      <FormControl sx={{ width: "100%" }}>
-        <InputLabel id="multiple-chip-label">{legend}</InputLabel>
-        <Select
-          labelId="multiple-chip-label"
-          id="multiple-chip"
-          multiple
-          value={itemName}
-          onChange={handleChange}
-          input={<OutlinedInput id="select-multiple-chip" label={legend} />}
-          renderValue={(selected) => (
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-              {selected.map((value) => (
-                <Chip key={value} label={value} />
-              ))}
-            </Box>
-          )}
-          MenuProps={MenuProps}
-        >
-          {items.map((item) => (
-            <MenuItem
-              key={item}
-              value={item}
-              style={getStyles(item, itemName, theme)}
-            >
-              {item}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-  );
-}
-
-const weatherIcons = {
-  "Sunny and Warm": "fas fa-sun fa-2x",
-	"Hot and Humid": "fas fa-cloud-sun fa-2x",
-	"Fall Breeze": "fas fa-wind fa-2x",
-	"Winter Chill": "fas fa-icicles fa-2x",
-	"Rain": "fas fa-cloud-showers-heavy fa-2x",
-	"Snow": "fas fa-snowflake fa-2x",
-}
-
-const ButtonSelector = ({items, legend}) => {
-    const [formats, setFormats] = React.useState(() => []);
-
-    const handleFormat = (event, newFormats) => {
-        setFormats(newFormats);
-    };
-
-    return (
-    <ToggleButtonGroup
-        color="primary"
-        value={formats}
-        onChange={handleFormat}
-        className="justify-content-center"
-    >
-        {
-            Object.entries(items).map((pair, index) => (
-                <ToggleButton value={pair[0]} key={index}>
-                    <i className={pair[1]}></i>
-                </ToggleButton>
-            ))
-        }
-    </ToggleButtonGroup>
-    )
-}
+import {NewItemForm} from '../components/NewItemForm'
 
 const NewItemPage = () => {
   const [file, setFile] = useState(null);
@@ -222,30 +44,7 @@ const NewItemPage = () => {
             //   })}
         />
       </div> */}
-      <Container>
-        <Row>
-            <Col>
-                <Row>
-                    <TextField required id="outlined-required" label="Item Name" className="mb-3"/>
-                </Row>
-                <Row>
-                    <TextField required id="outlined-required" label="Link to Image" className="mb-3"/>
-                </Row>
-                <Row className="mb-3">
-                    <FilterSelector items={itemTypes} legend={"Item Type"}/>
-                </Row>
-                <Row className="mb-3">
-                    <ChipSelector items={occasions} legend={"Occasions"} />
-                </Row>
-                <Row className="mb-3">
-                    <ButtonSelector items={weatherIcons} legend={"Weathers"} />
-                </Row>
-                <Row>
-                    <Button size="large">Save</Button>
-                </Row>
-            </Col>
-        </Row>
-      </Container>
+      <NewItemForm/>
       </Container>
     </div>
   );

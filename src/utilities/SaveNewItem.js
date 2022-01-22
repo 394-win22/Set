@@ -1,9 +1,31 @@
 
+import { ContactMailOutlined } from "@mui/icons-material";
 import { v4 as uuidv4 } from "uuid";
 import { setData, userId } from "../utilities/firebase.js";
+import { useAlert, Provider as AlertProvider } from 'react-alert'
 
-const SaveNewItem = async (itemType, itemName, imageLink, itemWeathers, itemOccasions, alert) => {
-	let newuuid = uuidv4();
+export const NewItem = {type: "", name: "", image: "", occasion: [], weather: [] };
+
+function isURL(str) {
+    const pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+      '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+      '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+      '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+    return !!pattern.test(str);
+}
+
+export const SaveNewItem = async (itemType, itemName, imageLink, itemWeathers, itemOccasions, alert) => {
+	if (itemName == "" || imageLink == "" || itemWeathers == [] || itemOccasions == []) {
+        alert.show("An input is missing!");
+        return;
+    } else if (!isURL(imageLink)) {
+        alert.show("Image URL format is incorrect!");
+        return;
+    }
+
+    let newuuid = uuidv4();
 	let parsed_uuid = newuuid.split("-");
 	let length = parsed_uuid.length;
 	let item_uuid = parsed_uuid[length - 1];
@@ -13,14 +35,13 @@ const SaveNewItem = async (itemType, itemName, imageLink, itemWeathers, itemOcca
 		await setData(`/${itemType}/${userId}/${item_uuid}`, {
 			Name: itemName,
 			image: imageLink,
+            color: ["unknown"],
 			weather: itemWeathers,
 			occasion: itemOccasions,
 		});
 	} catch (error) {
 		alert.show(error);
 	}
-	alert.show('Outfit Saved');
+	alert.show('Item Successfully Added');
 	return;
 };
-
-export default SaveNewItem;
