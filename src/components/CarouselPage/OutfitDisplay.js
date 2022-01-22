@@ -87,8 +87,15 @@ const ClothingItem = ({ obj, type, img, setOutfit, currOutfit }) => {
 
 	const setNewImg = () => {
 		let temp = currOutfit[type]
-		setDisplayImg(Object.entries(obj)[temp][1].image);
-		setShowModal(false);
+		if(temp==null){
+			setOutfit(type, 0)
+			setDisplayImg(Object.entries(obj)[0][1].image);
+			setShowModal(false);
+		} else {
+			setDisplayImg(Object.entries(obj)[temp][1].image);
+			setShowModal(false);
+		}
+		
 	};
 
 	return (
