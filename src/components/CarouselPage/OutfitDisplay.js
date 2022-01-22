@@ -17,6 +17,7 @@ import imgAccessories from "../../images/img_acc.png";
 
 import "./OutfitDisplay.css";
 import "react-multi-carousel/lib/styles.css";
+import { AlignVerticalCenter } from "@mui/icons-material";
 
 export const currentOutfit = {
 	accessories: null,
@@ -78,7 +79,7 @@ const ClothingModal = (props) => {
 				<ClothesCarousel clothes={props.clothes} type={props.type} changeOutfit={props.setOutfit} />
 			</Modal.Body>
 			<Modal.Footer>
-				<Button onClick={props.onSelect}>Select</Button>
+				<Button variant="secondary" onClick={props.onSelect}>Select</Button>
 			</Modal.Footer>
 		</Modal>
 	);
@@ -177,8 +178,8 @@ const OutfitDisplay = ({ tops, bottoms, shoes, accessories }) => {
 					></ClothingItem>
 				</div>
 			</Row>
-			<Row xs={2} className="g-4">
-				<Col>
+			<Row className="g-4">
+			
 					<AlertProvider template={AlertTemplate} {...alertOptions}>
 						<SaveButton
 							tops={tops}
@@ -188,7 +189,7 @@ const OutfitDisplay = ({ tops, bottoms, shoes, accessories }) => {
 							currOutfit={currOutfit}
 						></SaveButton>
 					</AlertProvider>
-				</Col>
+		
 			</Row>
 		</Container>
 	);

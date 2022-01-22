@@ -47,7 +47,7 @@ const SaveButton = ({ tops, bottoms, shoes, accessories, currOutfit }) => {
 				<i className="fas fa-random me-2"></i>Shuffle
 			</Button> */}
 			{Object.values(currOutfit).includes(null) ? (
-				<Button variant="danger" disabled>
+				<Button variant="danger" disabled style = {{width: "80%"}}>
 					<i className="fa fa-heart align-middle me-2"></i>Save
 				</Button>
 			) : (
@@ -56,6 +56,7 @@ const SaveButton = ({ tops, bottoms, shoes, accessories, currOutfit }) => {
 						saveOutfit(tops, bottoms, shoes, accessories, alert, currOutfit);
 					}}
 					variant="danger"
+					style = {{width: "80%"}}
 				>
 					<i className="fa fa-heart align-middle me-2"></i>Save
 				</Button>
