@@ -37,7 +37,10 @@ const ClothesCarousel = ({ clothes, type, changeOutfit }) => {
 	return (
 		<Carousel
 			afterChange={(previousSlide, { currentSlide, onMove }) => {
-				changeOutfit(type, currentSlide);
+				console.log("current slide")
+				console.log(currentSlide)
+				currentOutfit[type] = currentSlide;
+				//changeOutfit(type, currentSlide);
 			}}
 			responsive={responsive}
 			centerMode={true}
@@ -86,12 +89,15 @@ const ClothingItem = ({ obj, type, img, setOutfit, currOutfit }) => {
 	const [displayImg, setDisplayImg] = useState(img);
 
 	const setNewImg = () => {
-		let temp = currOutfit[type]
+		const currentSlide = currentOutfit[type]
+		let temp = currentSlide
+		//currOutfit[type]
 		if(temp==null){
 			setOutfit(type, 0)
 			setDisplayImg(Object.entries(obj)[0][1].image);
 			setShowModal(false);
 		} else {
+			setOutfit(type,currentSlide);
 			setDisplayImg(Object.entries(obj)[temp][1].image);
 			setShowModal(false);
 		}
