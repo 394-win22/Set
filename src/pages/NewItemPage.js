@@ -224,6 +224,7 @@ const NewItemPage = () => {
         />
       </div> */}
       <Row className="justify-content-center">
+        <TextField required id="standard-required" label="Item Name" variant="standard" className="mb-3"/>
         <TextField required id="standard-required" label="Link to Image" variant="standard" className="mb-3"/>
         <FilterSelector items={itemTypes} legend={"Item Type"} />
         <ButtonSelector items={weatherIcons} legend={"Weathers"} />
