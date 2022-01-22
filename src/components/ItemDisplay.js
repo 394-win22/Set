@@ -26,7 +26,7 @@ const options = {
 const currentOutfit = { accessories: 0, tops: 0, bottoms: 0, shoes: 0 };
 export const SavedOutfit = { accessories: 0, tops: 0, bottoms: 0, shoes: 0 };
 
-const color = [
+const colors = [
 	"Brown",
 	"Red",
 	"Orange",
@@ -43,7 +43,7 @@ const color = [
 	"Silver",
 	"Multicolored",
 ];
-const material = [
+const materials = [
 	"Leather",
 	"Wool",
 	"Linen",
@@ -56,7 +56,7 @@ const material = [
 	"Suede",
 	"Sequins",
 ];
-const occasion = [
+const occasions = [
 	"Business Casual",
 	"Going Out",
 	"Business Formal",
@@ -64,7 +64,7 @@ const occasion = [
 	"Comfortable",
 	"Black Tie",
 ];
-const weather = [
+const weathers = [
 	"Sunny and Warm",
 	"Hot and Humid",
 	"Fall Breeze",
@@ -72,9 +72,9 @@ const weather = [
 	"Rain",
 	"Snow",
 ];
-const audience = ["Women", "Men", "Unisex", "Children"];
+const audiences = ["Women", "Men", "Unisex", "Children"];
 
-const topType = [
+const topTypes = [
 	"T-Shirt",
 	"Blouse",
 	"Crop Top",
@@ -84,7 +84,7 @@ const topType = [
 	"Button-down",
 	"Bodysuit",
 ];
-const bottomType = [
+const bottomTypes = [
 	"Jeans",
 	"Shorts",
 	"Sweatpants",
@@ -94,10 +94,10 @@ const bottomType = [
 	"Midi Skirt",
 	"Leggings",
 ];
-const shoeType = ["Sneakers", "Flats", "Boots", "Heels", "Loafers", "Sandals"];
-const accessoryType = ["Hats", "Scarves", "Handbags"];
+const shoeTypes = ["Sneakers", "Flats", "Boots", "Heels", "Loafers", "Sandals"];
+const accessoryTypes = ["Hats", "Scarves", "Handbags"];
 
-const types = {
+export const types = {
 	T: "Tops",
 	B: "Bottoms",
 	S: "Shoes",
