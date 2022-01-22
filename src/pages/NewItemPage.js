@@ -25,6 +25,8 @@ import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 import Chip from '@mui/material/Chip';
 import OutlinedInput from '@mui/material/OutlinedInput';
+import SaveNewItem from '../utilities/SaveNewItem';
+
 
 const itemTypes = ["Top", "Bottom", "Shoes", "Accessories"]
 const colors = [
@@ -60,6 +62,7 @@ const weathers = [
 	"Rain",
 	"Snow",
 ];
+
 const FilterSelector = ({items, legend}) => {
     const [selectedItem, setItem] = React.useState('');
 
@@ -120,8 +123,7 @@ const ChipSelector = ({items, legend}) => {
   };
 
   return (
-    <div>
-      <FormControl sx={{ m: 1, width: "100%" }}>
+      <FormControl sx={{ width: "100%" }}>
         <InputLabel id="multiple-chip-label">{legend}</InputLabel>
         <Select
           labelId="multiple-chip-label"
@@ -150,7 +152,6 @@ const ChipSelector = ({items, legend}) => {
           ))}
         </Select>
       </FormControl>
-    </div>
   );
 }
 
@@ -171,12 +172,11 @@ const ButtonSelector = ({items, legend}) => {
     };
 
     return (
-    <>
-    <Typography component="legend">{legend}</Typography>
     <ToggleButtonGroup
         color="primary"
         value={formats}
         onChange={handleFormat}
+        className="justify-content-center"
     >
         {
             Object.entries(items).map((pair, index) => (
@@ -186,7 +186,6 @@ const ButtonSelector = ({items, legend}) => {
             ))
         }
     </ToggleButtonGroup>
-    </>
     )
 }
 
@@ -223,17 +222,30 @@ const NewItemPage = () => {
             //   })}
         />
       </div> */}
-      <Row className="justify-content-center">
-        <TextField required id="standard-required" label="Item Name" variant="standard" className="mb-3"/>
-        <TextField required id="standard-required" label="Link to Image" variant="standard" className="mb-3"/>
-        <FilterSelector items={itemTypes} legend={"Item Type"} />
-        <ButtonSelector items={weatherIcons} legend={"Weathers"} />
-        <ChipSelector items={occasions} legend={"Occasions"} />
-      </Row>
-      {/* <HorizontalLinearStepper /> */}
-      <Row>
-        <Button size="large">Save</Button>
-      </Row>
+      <Container>
+        <Row>
+            <Col>
+                <Row>
+                    <TextField required id="outlined-required" label="Item Name" className="mb-3"/>
+                </Row>
+                <Row>
+                    <TextField required id="outlined-required" label="Link to Image" className="mb-3"/>
+                </Row>
+                <Row className="mb-3">
+                    <FilterSelector items={itemTypes} legend={"Item Type"}/>
+                </Row>
+                <Row className="mb-3">
+                    <ChipSelector items={occasions} legend={"Occasions"} />
+                </Row>
+                <Row className="mb-3">
+                    <ButtonSelector items={weatherIcons} legend={"Weathers"} />
+                </Row>
+                <Row>
+                    <Button size="large">Save</Button>
+                </Row>
+            </Col>
+        </Row>
+      </Container>
       </Container>
     </div>
   );

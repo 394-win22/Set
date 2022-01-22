@@ -123,7 +123,7 @@ const FilterSelector = ({ setType }) => (
 );
 
 const AddButton = () => (
-	<Button variant="secondary">Upload clothing item</Button>
+	<Button variant="secondary" href="./additem">Upload clothing item</Button>
 );
 
 export const ItemList = () => {
