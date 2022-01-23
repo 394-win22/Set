@@ -33,17 +33,19 @@ const NewItemPage = () => {
     <div>
       <Header />
       <Container>
-      {/* <div>
-        <DropzoneArea
-            acceptedFiles={['image/*']}
-            dropzoneText={"Drag and drop an image here or click"}
-            filesLimit={1}
-            // onChange={(files) => handleUpload({
-            //     blobUrl: URL.createObjectURL(files[0]),
-            //     name: `${file.name}_${Date.now()}`
-            //   })}
-        />
-      </div> */}
+          <Row className="mb-3">
+              <Col>
+                <DropzoneArea
+                    acceptedFiles={['image/*']}
+                    dropzoneText={"Drag and drop an image here or click"}
+                    filesLimit={1}
+                    // onChange={(files) => handleUpload({
+                    //     blobUrl: URL.createObjectURL(files[0]),
+                    //     name: `${file.name}_${Date.now()}`
+                    //   })}
+                />
+            </Col>
+          </Row>
       <NewItemForm/>
       </Container>
     </div>

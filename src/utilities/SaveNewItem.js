@@ -1,8 +1,5 @@
-
-import { ContactMailOutlined } from "@mui/icons-material";
 import { v4 as uuidv4 } from "uuid";
 import { setData, userId } from "../utilities/firebase.js";
-import { useAlert, Provider as AlertProvider } from 'react-alert'
 
 export const NewItem = {type: "", name: "", image: "", occasion: [], weather: [] };
 
