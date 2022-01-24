@@ -13,6 +13,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import Paper from "@mui/material/Paper";
+import {isMobileSafari} from 'react-device-detect';
 
 const tabs = [
 	{
@@ -47,6 +48,45 @@ function Footer() {
 			routeIndex = i;
 		}
 	}
+
+	if (isMobileSafari) {
+		return (
+		<Box sx={{ pb: 7}}>
+			<CssBaseline />
+			<Paper
+				sx={{
+					position: "fixed",
+					bottom: 0,
+					left: 0,
+					right: 0,
+					zIndex: 101,
+				}}
+				elevation={4}
+			>
+				<BottomNavigation
+					value={value}
+					onChange={(event, newValue) => {
+						setValue(newValue);
+					}}
+				>
+					{tabs.map((tab, index) => {
+						const Icon = tab.icon;
+						return (
+							<BottomNavigationAction
+								key={`tab-${index}`}
+								component={Link}
+								to={tab.route}
+								label={tab.label}
+								icon={<Icon />}
+							/>
+						);
+					})}
+				</BottomNavigation>
+				<div className="footer-margin-mobile"></div>
+			</Paper>
+		</Box>
+		);
+	} else {
 	return (
 		<Box sx={{ pb: 7}}>
 			<CssBaseline />
@@ -81,7 +121,7 @@ function Footer() {
 				</BottomNavigation>
 			</Paper>
 		</Box>
-	);
+	);}
 }
 
 export default Footer;

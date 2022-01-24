@@ -23,6 +23,10 @@
     height: 6rem;
 }
 
+.footer-margin-mobile {
+    height: 1.5rem;
+}
+
 .footer {
     background-color: #f7ebda;
     text-align: center;

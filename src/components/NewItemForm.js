@@ -16,6 +16,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { DropzoneArea } from 'mui-file-dropzone';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
+import {isMobileSafari} from 'react-device-detect';
 
 const itemTypes = ["Tops", "Bottoms", "Shoes", "Accessories"]
 const occasions = [
@@ -53,15 +54,25 @@ export const NewItemForm = () => {
     };
 
     const alert = useAlert();
-
+    let AddIconButton;
+    if (isMobileSafari) {
+        AddIconButton = () => (<Fab sx={{ zIndex: 1050, position: 'fixed', bottom: '3.5rem', right:  'calc(50% - 24px)' }}
+        color="primary" 
+        aria-label="add"
+        onClick={handleClickOpen}>
+        <AddIcon />
+        </Fab>)
+    } else {
+        AddIconButton = () => (<Fab sx={{ zIndex: 1050, position: 'fixed', bottom: { xs: 40, sm: 30 }, right:  'calc(50% - 24px)' }}
+        color="primary" 
+        aria-label="add"
+        onClick={handleClickOpen}>
+        <AddIcon />
+        </Fab>)
+    }
     return (
         <div>
-		<Fab sx={{ zIndex: 1050, position: 'fixed', bottom: { xs: 40, sm: 30 }, right:  'calc(50% - 24px)' }}
-					 color="primary" 
-					 aria-label="add"
-                     onClick={handleClickOpen}>
-			<AddIcon />
-		</Fab>
+		<AddIconButton />
         <Dialog open={open} onClose={handleClose}>
           <DialogTitle>Add</DialogTitle>
           <DialogContent>

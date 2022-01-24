@@ -46,8 +46,7 @@ const CarouselPage = () => {
 	// 	return <h1>Loading...</h1>;
 
 	return (
-		<>
-			<div>
+			<div className="position-fixed">
 				<OutfitDisplay
 					tops={tops}
 					bottoms={bottoms}
@@ -63,7 +62,6 @@ const CarouselPage = () => {
 					></SaveButton>
 				</AlertProvider> */}
 			</div>
-		</>
 	);
 };
 
