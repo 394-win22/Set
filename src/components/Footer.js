@@ -51,7 +51,7 @@ function Footer() {
 
 	if (isMobileSafari) {
 		return (
-		<Box sx={{ pb: 7}}>
+		<Box className="footer" sx={{ pb: 7}}>
 			<CssBaseline />
 			<Paper
 				sx={{

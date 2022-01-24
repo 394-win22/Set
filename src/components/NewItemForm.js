@@ -56,7 +56,7 @@ export const NewItemForm = () => {
     const alert = useAlert();
     let AddIconButton;
     if (isMobileSafari) {
-        AddIconButton = () => (<Fab sx={{ zIndex: 1050, position: 'fixed', bottom: '3.5rem', right:  'calc(50% - 24px)' }}
+        AddIconButton = () => (<Fab sx={{ zIndex: 1050, position: 'fixed', bottom: 'calc(30px + env(safe-area-inset-bottom))', right:  'calc(50% - 24px)' }}
         color="primary" 
         aria-label="add"
         onClick={handleClickOpen}>

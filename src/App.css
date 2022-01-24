@@ -1,3 +1,11 @@
 .card {
 	height: 100% !important; /* .h-100 aka makes cards in one row the same height */
 }
+
+#root {
+	height: 100vh;
+}
+
+.slide-routes {
+	padding-top: env(safe-area-inset-top);
+}

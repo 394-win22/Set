@@ -24,10 +24,5 @@
 }
 
 .footer-margin-mobile {
-    height: 1.5rem;
-}
-
-.footer {
-    background-color: #f7ebda;
-    text-align: center;
+    height: env(safe-area-inset-bottom);
 }
