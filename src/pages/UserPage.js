@@ -5,7 +5,6 @@ import UserBox from '../components/UserBox'
 const UserPage = (props) => {
 return (
     <div>
-      <Header />
       <UserBox />
     </div>
   )

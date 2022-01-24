@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-import { Button, Card, Col, Container, Modal, Row } from "react-bootstrap";
+import { Button, Card, Col, Modal, Row } from "react-bootstrap";
 import Carousel from "react-multi-carousel";
-
-import { responsive } from "../../utilities/responsiveness.js";
-
 import AlertTemplate from "react-alert-template-mui";
 import { Provider as AlertProvider } from "react-alert";
 import SaveButton from "./SaveButton";
+import {Container} from '@mui/material'
 
 // icons from https://www.flaticon.com/authors/bqlqn
 
@@ -17,7 +15,6 @@ import imgAccessories from "../../images/img_acc.png";
 
 import "./OutfitDisplay.css";
 import "react-multi-carousel/lib/styles.css";
-import { AlignVerticalCenter } from "@mui/icons-material";
 
 export const currentOutfit = {
 	accessories: null,
@@ -34,6 +31,13 @@ const alertOptions = {
 	type: "success",
 };
 
+const responsive = {
+	devices: {
+		breakpoint: { max: 4000, min: 0 },
+	  items: 1
+	}
+  };
+
 const ClothesCarousel = ({ clothes, type, changeOutfit }) => {
 	return (
 		<Carousel
@@ -43,12 +47,12 @@ const ClothesCarousel = ({ clothes, type, changeOutfit }) => {
 				currentOutfit[type] = currentSlide;
 				//changeOutfit(type, currentSlide);
 			}}
-			responsive={responsive}
 			centerMode={true}
 			infinite={false}
 			showDots={true}
 			focusOnSelect={true}
 			removeArrowOnDeviceType={["mobile"]}
+			responsive={responsive}
 		>
 			{Object.entries(clothes).map(([key, clothingItem], index) => {
 				return (
@@ -139,7 +143,7 @@ const OutfitDisplay = ({ tops, bottoms, shoes, accessories }) => {
 		})
 	}
 	return (
-		<Container className="px-4">
+		<Container className="px-4" maxWidth="sm">
 			<Row xs={2} className="g-4">
 				<Col>
 					<ClothingItem

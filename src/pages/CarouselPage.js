@@ -42,13 +42,11 @@ const CarouselPage = () => {
 		return (
 			<h1>{(errorTops, errorBottoms, errorAccessories, errorShoes)}</h1>
 		);
-	if (loadingTops || loadingBottoms || loadingAccessories || loadingShoes)
-		return <h1>Loading...</h1>;
+	// if (loadingTops || loadingBottoms || loadingAccessories || loadingShoes)
+	// 	return <h1>Loading...</h1>;
 
 	return (
-		<>
-			<Header />
-			<div>
+			<div className="position-fixed">
 				<OutfitDisplay
 					tops={tops}
 					bottoms={bottoms}
@@ -64,7 +62,6 @@ const CarouselPage = () => {
 					></SaveButton>
 				</AlertProvider> */}
 			</div>
-		</>
 	);
 };
 

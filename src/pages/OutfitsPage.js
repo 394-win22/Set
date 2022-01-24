@@ -9,7 +9,7 @@ import {
 	getClothingItem,
 } from "../utilities/firebase.js";
 
-const Outfit = ({ outfit }) => {
+const Outfit = ({ outfit, index }) => {
 	const [top, loadingTop, errorTop] = useData(
 		getClothingItem("Tops", userId, outfit["Tops"]),
 		getAllData
@@ -67,7 +67,7 @@ const Outfit = ({ outfit }) => {
 				</div>
 
 				<div className="card-body">
-					<p className="card-text">{outfit["Name"]}</p>
+					<p className="card-text">{`${outfit["Name"]} ${index + 1}`}</p>
 					{/* <div className="d-flex justify-content-between align-items-center">
 						<div className="btn-group">
 							<button
@@ -100,7 +100,6 @@ const OutfitsPage = () => {
 
 	return (
 		<div>
-			<Header />
 			<div className="container px-4">
 				{!outfits ? (
 					<p style={{ marginTop: "50%" }}>
@@ -109,8 +108,8 @@ const OutfitsPage = () => {
 				) : (
 					<div className="album">
 						<div className="row">
-							{Object.entries(outfits).map(([key, outfit]) => (
-								<Outfit outfit={outfit} key={key} />
+							{Object.entries(outfits).map(([key, outfit], index) => (
+								<Outfit outfit={outfit} key={key} index={index}/>
 							))}
 						</div>
 					</div>

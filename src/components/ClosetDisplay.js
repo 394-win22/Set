@@ -24,10 +24,6 @@ const FilterSelector = ({ setType }) => (
 	</DropdownButton>
 );
 
-const AddButton = () => (
-	<Button variant="secondary">Upload clothing item</Button>
-);
-
 export const ClosetGrid = () => {
 	// User Specific Database functions
 	const [closet, loading, error] = useData("/", getAllData);
