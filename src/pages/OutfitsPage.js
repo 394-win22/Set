@@ -3,7 +3,7 @@ import Header from "../components/Header";
 
 import {
 	useData,
-	getOutfitsFromUser,
+	getItemsFromUser,
 	getAllData,
 	userId,
 	getClothingItem,
@@ -33,7 +33,7 @@ const Outfit = ({ outfit }) => {
 		return <h1>Loading...</h1>;
 
 	return (
-		<div className="col-6 col-sm-4 col-md-3">
+		<div className="col-6 col-sm-4 col-md-3 py-3">
 			<div className="card mb-4">
 				<div>
 					<div className="row">
@@ -68,7 +68,7 @@ const Outfit = ({ outfit }) => {
 
 				<div className="card-body">
 					<p className="card-text">{outfit["Name"]}</p>
-					<div className="d-flex justify-content-between align-items-center">
+					{/* <div className="d-flex justify-content-between align-items-center">
 						<div className="btn-group">
 							<button
 								type="button"
@@ -83,7 +83,7 @@ const Outfit = ({ outfit }) => {
 								Edit
 							</button>
 						</div>
-					</div>
+					</div> */}
 				</div>
 			</div>
 		</div>
@@ -92,8 +92,7 @@ const Outfit = ({ outfit }) => {
 
 const OutfitsPage = () => {
 	const [outfits, loadingOutfits, errorOutfits] = useData(
-		getOutfitsFromUser(userId),
-		getAllData
+		getItemsFromUser(userId, "Saved Outfits")
 	);
 
 	if (errorOutfits) return <h1>{errorOutfits}</h1>;
@@ -102,7 +101,7 @@ const OutfitsPage = () => {
 	return (
 		<div>
 			<Header />
-			<div className="container">
+			<div className="container px-4">
 				{!outfits ? (
 					<p style={{ marginTop: "50%" }}>
 						<center>No saved outfits to show.</center>

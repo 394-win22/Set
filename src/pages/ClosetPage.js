@@ -1,9 +1,9 @@
 import React from "react";
 import Header from "../components/Header";
-import { ItemList } from "../components/ItemDisplay";
 import { NewItemForm } from "../components/NewItemForm"
-import { useAlert, Provider as AlertProvider } from 'react-alert'
+import { Provider as AlertProvider } from 'react-alert'
 import AlertTemplate from 'react-alert-template-mui'
+import { ClosetGrid } from "../components/ClosetDisplay";
 
 const options = {
 	position: 'top center',
@@ -18,7 +18,7 @@ const ClosetPage = () => {
 		<AlertProvider template={AlertTemplate} {...options}>
 		<div>
 			<Header />
-			<ItemList />
+			<ClosetGrid />
 			<NewItemForm />
 		</div>
 		</AlertProvider>
