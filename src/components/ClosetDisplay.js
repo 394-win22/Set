@@ -31,7 +31,7 @@ export const ClosetGrid = () => {
 	if (error) return <h1>{error}</h1>;
 	if (loading) return <h1>Loading closet...</h1>;
 	return (
-		<div className="container px-4">
+		<div className="container">
 			<div className="col-md-12 text-center">
 				{/* <AddButton /> */}
 				<FilterSelector setType={setType} />
