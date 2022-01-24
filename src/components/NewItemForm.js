@@ -7,6 +7,10 @@ import { useAlert, Provider as AlertProvider } from 'react-alert'
 import AlertTemplate from 'react-alert-template-mui'
 import {SaveNewItem} from '../utilities/SaveNewItem';
 import TextField from '@mui/material/TextField';
+import { DropzoneArea } from 'material-ui-dropzone';
+
+import { storage, userId } from "../utilities/firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const itemTypes = ["Tops", "Bottoms", "Shoes", "Accessories"]
 const occasions = [
@@ -26,11 +30,23 @@ const weatherIcons = {
 	"Snow": "fas fa-snowflake fa-2x",
 }
 
-const SubmitButton = ({ type, name, imagelink, formats, itemName }) => {
+async function UploadOneImage(imageBlob, blobCategory, theUserID, uploadedURL) {
+    if (!imageBlob || !blobCategory || !theUserID) return null;
+    const storageRef = ref(storage, `/images/${theUserID}/${blobCategory}/${Date.now()}_${imageBlob["name"]}`);
+    let snapshot = await uploadBytes(storageRef, imageBlob);
+    let URL = await getDownloadURL(snapshot.ref);
+    console.log('File available at', URL);
+    return URL;
+  }
+
+const SubmitButton = ({ type, name, imageBlob, formats, itemName}) => {
+    console.log(itemName);
     const alert = useAlert();
     return (
         <Button size="large" onClick={(evt) => 
-            {SaveNewItem(type, name, imagelink, formats, itemName, alert)}}>
+            {UploadOneImage(imageBlob, type, userId)
+                .then((URL) => SaveNewItem(type, name, URL, formats, itemName, alert));
+            }}>
             Save
         </Button>
     )
@@ -40,8 +56,10 @@ export const NewItemForm = () => {
     const [name, setName] = useState("");
     const [imagelink, setImageLink] = useState("");
     const [type, setType] = useState('');
-    const [itemName, setItemName] = useState([]);
-    const [formats, setFormats] = useState(() => []);
+    const [occasions_Set, setOccasions] = useState([]);
+    const [weathers, setWeathers] = useState(() => []);
+    const [file, setFile] = useState(null);
+
     const options = {
         position: 'top center',
         timeout: 5000,
@@ -52,29 +70,41 @@ export const NewItemForm = () => {
     return (
         <AlertProvider template={AlertTemplate} {...options}>
         <Container>
+        <Row className="mb-3">
+              <Col>
+                <DropzoneArea
+                    acceptedFiles={['image/*']}
+                    dropzoneText={"Drag and drop an image here or click"}
+                    filesLimit={1}
+                    onChange={(files) => {console.log(files);if (files.length == 1) {console.log(files[0]["path"]);
+                      setFile(files[0]);
+                    }}}
+                />
+            </Col>
+        </Row>
         <Row>
             <Col>
                 <Row>
-                    <TextField required id="outlined-required" label="Item Name" className="mb-3" onChange={(e) => {
+                    <TextField id="outlined-required" label="Item Name" className="mb-3" onChange={(e) => {
                                                                                                     setName(e.target.value);
                                                                                                     }}/>
                 </Row>
-                <Row>
+                {/* <Row>
                     <TextField required id="outlined-required" label="Link to Image" className="mb-3" onChange={(e) => {
                                                                                                     setImageLink(e.target.value);
                                                                                                     }}/>
-                </Row>
+                </Row> */}
                 <Row className="mb-3">
                     <FilterSelector items={itemTypes} legend={"Item Type"} selectedItem={type} setType={setType} />
                 </Row>
                 <Row className="mb-3">
-                    <ChipSelector items={occasions} legend={"Occasions"} itemName={itemName} setItem={setItemName} />
+                    <ChipSelector items={occasions} legend={"Occasions"} itemName={occasions_Set} setItem={setOccasions} />
                 </Row>
                 <Row className="mb-3">
-                    <ToggleButtonSelector items={weatherIcons} formats={formats} setFormats={setFormats} />
+                    <ToggleButtonSelector items={weatherIcons} formats={weathers} setFormats={setWeathers} />
                 </Row>
                 <Row>
-                    <SubmitButton type={type} name={name} imagelink={imagelink} formats={formats} itemName={itemName}/>
+                    <SubmitButton type={type} name={name} imageBlob={file} formats={weathers} itemName={occasions}/>
                 </Row>
             </Col>
         </Row>

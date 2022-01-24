@@ -30,7 +30,7 @@ export const SaveNewItem = async (itemType, itemName, imageLink, itemWeathers, i
 	// push to firebase here
 	try {
 		await setData(`/${itemType}/${userId}/${item_uuid}`, {
-			Name: itemName,
+			name: itemName,
 			image: imageLink,
             color: ["unknown"],
 			weather: itemWeathers,
