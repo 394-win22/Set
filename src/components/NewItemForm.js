@@ -125,7 +125,12 @@ export const NewItemForm = () => {
             <Button size="large" onClick={(evt) => 
                 {handleClose();
                     UploadOneImage(file, type, userId)
-                    .then((URL) => SaveNewItem(type, name, URL, weathers, occasions, alert));
+                    .then((URL) => SaveNewItem(type, name, URL, weathers, occasions, alert)
+                    .then(()=>{setName("");
+                               setType("");
+                               setOccasions([]);
+                               setWeathers([]);
+                               setFile(null);}));
             }}>
                 Save
             </Button>
