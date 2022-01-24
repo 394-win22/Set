@@ -1,12 +1,28 @@
+import {useState} from 'react'
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import Snackbar from '@mui/material/Snackbar';
+import Fade from '@mui/material/Fade';
 
 const ToggleButtonSelector = ({items, formats, setFormats}) => {
+    const [state, setState] = useState(false);
+
     const handleFormat = (event, newFormats) => {
         setFormats(newFormats);
+        setState(true);
     };
 
     return (
+    <>
+    <Snackbar
+        open={state}
+        onClose={(event, eventName) => {if(eventName == "timeout"||formats.length == 0){setState(false)}}}
+        TransitionComponent={Fade}
+        autoHideDuration={2000}
+        message={formats[formats.length-1]}
+        key="snapbar-Fade"
+        sx={{ bottom: { xs: 90, sm: 0, width: 'auto' } }}
+      />
     <ToggleButtonGroup
         color="primary"
         value={formats}
@@ -21,6 +37,7 @@ const ToggleButtonSelector = ({items, formats, setFormats}) => {
             ))
         }
     </ToggleButtonGroup>
+    </>
     )
 }
 

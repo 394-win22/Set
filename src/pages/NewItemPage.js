@@ -13,7 +13,7 @@ const NewItemPage = () => {
     <div>
       <Header />
       <Container>
-      <NewItemForm/>
+        <NewItemForm/>
       </Container>
     </div>
   );

@@ -109,7 +109,7 @@ const userId = "C0XdX2OmOQZKzVknueo4xGtsgvI2";
 
 const FilterSelector = ({ setType }) => (
 	<DropdownButton
-		className="my-3"
+		className="mb-3"
 		id="items-dropdown"
 		variant="secondary"
 		title="Filter By"
@@ -122,21 +122,18 @@ const FilterSelector = ({ setType }) => (
 	</DropdownButton>
 );
 
-const AddButton = () => (
-	<Button variant="secondary" href="./additem">Upload clothing item</Button>
-);
-
 export const ItemList = () => {
 	// User Specific Database functions
 	const [closet, loading, error] = useData("/", getAllData);
 	const [type, setType] = useState("Tops");
+	const [open, setOpen] = React.useState(false);
 	if (error) return <h1>{error}</h1>;
 	if (loading) return <h1>Loading closet...</h1>;
+	
 	return (
 		<>
 			<div className="container">
 				<div className="col-md-12 text-center">
-					<AddButton />
 					<FilterSelector setType={setType} />
 				</div>
 			</div>
