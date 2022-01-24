@@ -6,7 +6,6 @@ import ToggleButtonSelector from './inputs/ToggleButtonSelector'
 import { useAlert } from 'react-alert'
 import {SaveNewItem} from '../utilities/SaveNewItem';
 import TextField from '@mui/material/TextField';
-import { DropzoneArea } from 'material-ui-dropzone';
 import UploadOneImage from '../utilities/UploadOneImage'
 import { userId } from "../utilities/firebase";
 import Dialog from '@mui/material/Dialog';
@@ -14,6 +13,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { DropzoneArea } from 'mui-file-dropzone';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 

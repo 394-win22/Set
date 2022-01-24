@@ -1,4 +1,4 @@
-import { storage, userId } from "../utilities/firebase";
+import { storage } from "../utilities/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 async function UploadOneImage(imageBlob, blobCategory, theUserID) {
