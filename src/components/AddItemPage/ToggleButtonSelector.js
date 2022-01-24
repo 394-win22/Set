@@ -20,8 +20,9 @@ const ToggleButtonSelector = ({items, formats, setFormats}) => {
         TransitionComponent={Fade}
         autoHideDuration={2000}
         message={formats[formats.length-1]}
+        anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
         key="snapbar-Fade"
-        sx={{ bottom: { xs: 90, sm: 0, width: 'auto' } }}
+        sx={{ top: { xs: 90, sm: 30, width: 'auto' } }}
       />
     <ToggleButtonGroup
         color="primary"
