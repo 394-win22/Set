@@ -56,7 +56,7 @@ export const NewItemForm = () => {
 
     return (
         <div>
-		<Fab sx={{ zIndex: 1050, position: 'fixed', bottom: { xs: 90, sm: 30 }, right:  { xs: 16, sm: 'calc(50% - 24px)' } }}
+		<Fab sx={{ zIndex: 1050, position: 'fixed', bottom: { xs: 40, sm: 30 }, right:  'calc(50% - 24px)' }}
 					 color="primary" 
 					 aria-label="add"
                      onClick={handleClickOpen}>
