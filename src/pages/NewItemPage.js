@@ -6,7 +6,6 @@ import { NewItemForm } from '../components/NewItemForm'
 const NewItemPage = () => {
   return (
     <div>
-      <Header />
       <Container>
         <NewItemForm/>
       </Container>

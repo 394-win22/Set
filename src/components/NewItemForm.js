@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import {Button, Col, Container, Row} from "react-bootstrap";
-import FilterSelector from './inputs/FilterSelector'
-import ChipSelector from './inputs/ChipSelector'
-import ToggleButtonSelector from './inputs/ToggleButtonSelector'
+import FilterSelector from './AddItemPage/FilterSelector'
+import ChipSelector from './AddItemPage/ChipSelector'
+import ToggleButtonSelector from './AddItemPage/ToggleButtonSelector'
 import { useAlert } from 'react-alert'
 import {SaveNewItem} from '../utilities/SaveNewItem';
 import TextField from '@mui/material/TextField';

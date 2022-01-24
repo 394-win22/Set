@@ -100,7 +100,6 @@ const OutfitsPage = () => {
 
 	return (
 		<div>
-			<Header />
 			<div className="container px-4">
 				{!outfits ? (
 					<p style={{ marginTop: "50%" }}>

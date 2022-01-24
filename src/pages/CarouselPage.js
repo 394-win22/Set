@@ -42,12 +42,11 @@ const CarouselPage = () => {
 		return (
 			<h1>{(errorTops, errorBottoms, errorAccessories, errorShoes)}</h1>
 		);
-	if (loadingTops || loadingBottoms || loadingAccessories || loadingShoes)
-		return <h1>Loading...</h1>;
+	// if (loadingTops || loadingBottoms || loadingAccessories || loadingShoes)
+	// 	return <h1>Loading...</h1>;
 
 	return (
 		<>
-			<Header />
 			<div>
 				<OutfitDisplay
 					tops={tops}

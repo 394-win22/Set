@@ -40,13 +40,13 @@ const tabs = [
 function Footer() {
 	const { pathname } = useLocation();
 	let routeIndex = 0;
+	const [value, setValue] = React.useState(routeIndex);
+	if (pathname === "/login") return null;
 	for (let i = 0; i < tabs.length; i++) {
 		if (pathname === tabs[i].route) {
 			routeIndex = i;
 		}
 	}
-	const [value, setValue] = React.useState(routeIndex);
-	if (pathname === "/login") return null;
 	return (
 		<Box sx={{ pb: 7}}>
 			<CssBaseline />
