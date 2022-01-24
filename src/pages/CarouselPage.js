@@ -46,7 +46,7 @@ const CarouselPage = () => {
 	// 	return <h1>Loading...</h1>;
 
 	return (
-			<div className="position-fixed">
+			<div>
 				<OutfitDisplay
 					tops={tops}
 					bottoms={bottoms}
