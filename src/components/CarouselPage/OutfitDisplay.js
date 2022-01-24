@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Button, Card, Col, Container, Modal, Row } from "react-bootstrap";
+import { Button, Card, Col, Modal, Row } from "react-bootstrap";
 import Carousel from "react-multi-carousel";
 import AlertTemplate from "react-alert-template-mui";
 import { Provider as AlertProvider } from "react-alert";
 import SaveButton from "./SaveButton";
+import {Container} from '@mui/material'
 
 // icons from https://www.flaticon.com/authors/bqlqn
 
@@ -142,7 +143,7 @@ const OutfitDisplay = ({ tops, bottoms, shoes, accessories }) => {
 		})
 	}
 	return (
-		<Container className="px-4">
+		<Container className="px-4" maxWidth="sm">
 			<Row xs={2} className="g-4">
 				<Col>
 					<ClothingItem
