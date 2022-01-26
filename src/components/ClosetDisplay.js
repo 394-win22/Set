@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button, Container, Row, DropdownButton, Dropdown, Modal } from "react-bootstrap";
+import { parse } from "uuid";
 import { userId, useData, getAllData } from "../utilities/firebase.js";
 
 const filterTypes = {
@@ -49,7 +50,32 @@ export const ClosetGrid = () => {
 
 export const ClosetItem = ({ item }) => {
 	const [showModal, setShowModal] = useState(false);
-	console.log(item);
+	let parsed_occasion_string = ""
+	if (item.occasion != null){
+		let numOccasions = Object.entries(item.occasion).length
+		for (const occasion in item.occasion){
+			if (numOccasions == 1){
+				parsed_occasion_string += item.occasion[occasion]
+			} else {
+				parsed_occasion_string += item.occasion[occasion] + ", "
+			}
+			numOccasions -= 1
+		}
+	}
+	
+	let parsed_weather_string = ""
+	if (item.weather != null){
+		let numWeather = Object.entries(item.weather).length
+		for (const weather in item.weather){
+			if (numWeather == 1){
+				parsed_weather_string += item.weather[weather]
+			} else {
+				parsed_weather_string += item.weather[weather] + ", "
+			}
+			numWeather -= 1
+		}
+	}
+	
 
 	return (
 		<>
@@ -102,8 +128,8 @@ export const ClosetItem = ({ item }) => {
 					<center>{item.name}</center>
 				</p>
 				<Container>
-					<Row>Occasion: {item.occasion}</Row>
-					<Row>Weather: {item.weather}</Row>
+					<Row>Occasion: {parsed_occasion_string}</Row>
+					<Row>Weather: {parsed_weather_string}</Row>
 				</Container>
 
 
