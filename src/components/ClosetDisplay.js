@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Button, DropdownButton, Dropdown } from "react-bootstrap";
+import { Button, DropdownButton, Dropdown, Modal } from "react-bootstrap";
 import { userId, useData, getAllData } from "../utilities/firebase.js";
+
 
 const filterTypes = {
 	T: "Tops",
@@ -48,35 +49,57 @@ export const ClosetGrid = () => {
 };
 
 export const ClosetItem = ({ item }) => {
+	const [showModal, setShowModal] = useState(false);
+
 	return (
-		<div className="col-6 col-sm-4 col-md-3 py-3">
-			<div className="card">
+		<>
+			<div className="col-6 col-sm-4 col-md-3 py-3" onClick={() => {
+				setShowModal(true);
+			}}>
+				<div className="card">
+					<img
+						className="card-img-top"
+						src={item.image}
+						alt={item.name}
+					/>
+					<div className="card-body">
+						<p className="card-text">{item.name}</p>
+						{/* <div className="d-flex justify-content-between align-items-center">
+							<div className="btn-group">
+								<button
+									type="button"
+									className="btn btn-sm btn-outline-secondary"
+								>
+									View
+								</button>
+								<button
+									type="button"
+									className="btn btn-sm btn-outline-secondary"
+								>
+									Edit
+								</button>
+							</div>
+							<small className="text-muted">{item.type}</small>
+						</div> */}
+					</div>
+				</div>
+			</div>
+			<Modal
+				show={showModal}
+				onHide={() => setShowModal(false)}
+				size="lg"
+				aria-labelledby="contained-modal-title-vcenter"
+				centered
+			>
+			<Modal.Header closeButton></Modal.Header>
+			<Modal.Body>
 				<img
 					className="card-img-top"
 					src={item.image}
 					alt={item.name}
 				/>
-				<div className="card-body">
-					<p className="card-text">{item.name}</p>
-					{/* <div className="d-flex justify-content-between align-items-center">
-						<div className="btn-group">
-							<button
-								type="button"
-								className="btn btn-sm btn-outline-secondary"
-							>
-								View
-							</button>
-							<button
-								type="button"
-								className="btn btn-sm btn-outline-secondary"
-							>
-								Edit
-							</button>
-						</div>
-						<small className="text-muted">{item.type}</small>
-					</div> */}
-				</div>
-			</div>
-		</div>
+			</Modal.Body>
+		</Modal>
+		</>
 	);
 };
