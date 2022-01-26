@@ -8,15 +8,11 @@ import {SaveNewItem} from '../utilities/SaveNewItem';
 import TextField from '@mui/material/TextField';
 import UploadOneImage from '../utilities/UploadOneImage'
 import { userId } from "../utilities/firebase";
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 import { DropzoneArea } from 'mui-file-dropzone';
-import Fab from '@mui/material/Fab';
+import {Fab, Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText} from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import {isMobileSafari} from 'react-device-detect';
+import { ConsoleSqlOutlined } from "@ant-design/icons/lib/icons";
 
 const itemTypes = ["Tops", "Bottoms", "Shoes", "Accessories"]
 const occasions = [
@@ -70,6 +66,7 @@ export const NewItemForm = () => {
         <AddIcon />
         </Fab>)
     }
+
     return (
         <div>
 		<AddIconButton />
@@ -122,16 +119,17 @@ export const NewItemForm = () => {
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
-            <Button size="large" onClick={(evt) => 
-                {handleClose();
+            <Button size="large" onClick={(event) => 
+                {   handleClose();
                     UploadOneImage(file, type, userId)
-                    .then((URL) => SaveNewItem(type, name, URL, weathers, occasions, alert)
+                    .then((URL) => SaveNewItem(type, name, URL, weathers, occasions_Set, alert)
                     .then(()=>{setName("");
                                setType("");
                                setOccasions([]);
                                setWeathers([]);
                                setFile(null);}));
-            }}>
+                            }}
+                disabled={(type == '' || name == '' || weathers == [] || occasions_Set == [])}>
                 Save
             </Button>
           </DialogActions>

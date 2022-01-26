@@ -22,7 +22,7 @@ const ToggleButtonSelector = ({items, formats, setFormats}) => {
         message={formats[formats.length-1]}
         anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
         key="snapbar-Fade"
-        sx={{ top: { xs: 90, sm: 30, width: 'auto' } }}
+        sx={{ top: { xs: 60, sm: 30, width: 'auto' } }}
       />
     <ToggleButtonGroup
         color="primary"
