@@ -192,6 +192,7 @@ const OutfitsPage = () => {
 				{!outfits ? (
 					<p style={{ marginTop: "50%" }}>
 						<center>No saved outfits to show.</center>
+						<center>Click on the Create tab to style your first outfit.</center>
 					</p>
 				) : (
 					<div className="album">

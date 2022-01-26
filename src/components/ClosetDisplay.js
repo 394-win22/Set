@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Button, DropdownButton, Dropdown, Modal } from "react-bootstrap";
+import { Button, Container, Row, DropdownButton, Dropdown, Modal } from "react-bootstrap";
 import { userId, useData, getAllData } from "../utilities/firebase.js";
-
 
 const filterTypes = {
 	T: "Tops",
@@ -50,6 +49,7 @@ export const ClosetGrid = () => {
 
 export const ClosetItem = ({ item }) => {
 	const [showModal, setShowModal] = useState(false);
+	console.log(item);
 
 	return (
 		<>
@@ -98,6 +98,15 @@ export const ClosetItem = ({ item }) => {
 					src={item.image}
 					alt={item.name}
 				/>
+				<p style={{ fontSize: "20px", fontWeight: "bold", }}>
+					<center>{item.name}</center>
+				</p>
+				<Container>
+					<Row>Occasion: {item.occasion}</Row>
+					<Row>Weather: {item.weather}</Row>
+				</Container>
+
+
 			</Modal.Body>
 		</Modal>
 		</>
