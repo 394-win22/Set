@@ -1,5 +1,6 @@
 import React from "react";
 import Header from "../components/Header";
+import imgAccessories from "../images/img_acc.png";
 
 import {
 	useData,
@@ -22,6 +23,7 @@ const Outfit = ({ outfit, index }) => {
 		getClothingItem("Shoes", userId, outfit["Shoes"]),
 		getAllData
 	);
+
 	const [accessories, loadingAccessories, errorAccessories] = useData(
 		getClothingItem("Accessories", userId, outfit["Accessories"]),
 		getAllData
@@ -41,11 +43,19 @@ const Outfit = ({ outfit, index }) => {
 							<img width="100%" src={top.image} alt={top.name} />
 						</div>
 						<div className="col-6">
+						{accessories == null ? (
+							<img
+								width="100%"
+								src={imgAccessories}
+								alt="placeholderAccessory"
+							/>
+						) : (
 							<img
 								width="100%"
 								src={accessories.image}
 								alt={accessories.name}
 							/>
+						)}
 						</div>
 					</div>
 					<div className="row">
