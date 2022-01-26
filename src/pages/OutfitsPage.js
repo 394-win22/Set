@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "../components/Header";
 import imgAccessories from "../images/img_acc.png";
+import { DeleteOutlined } from '@ant-design/icons'
 
 import {
 	useData,
@@ -8,9 +9,10 @@ import {
 	getAllData,
 	userId,
 	getClothingItem,
+	setData
 } from "../utilities/firebase.js";
 
-const Outfit = ({ outfit, index }) => {
+const Outfit = ({ outfit, id, index }) => {
 	const [top, loadingTop, errorTop] = useData(
 		getClothingItem("Tops", userId, outfit["Tops"]),
 		getAllData
@@ -33,6 +35,10 @@ const Outfit = ({ outfit, index }) => {
 		return <h1>{(errorTop, errorBottom, errorAccessories, errorShoes)}</h1>;
 	if (loadingTop || loadingBottom || loadingShoes || loadingAccessories)
 		return <h1>Loading...</h1>;
+
+	const removeOutfit = () => {
+		setData(`/Saved Outfits/${userId}/${id}`, null);
+	}
 
 	return (
 		<div className="col-6 col-sm-4 col-md-3 py-3">
@@ -78,22 +84,19 @@ const Outfit = ({ outfit, index }) => {
 
 				<div className="card-body">
 					<p className="card-text">{`${outfit["Name"]} ${index + 1}`}</p>
-					{/* <div className="d-flex justify-content-between align-items-center">
+					<div className="d-flex justify-content-between align-items-center">
 						<div className="btn-group">
 							<button
 								type="button"
 								className="btn btn-sm btn-outline-secondary"
+								onClick={(ev) => {
+									removeOutfit()
+								}}
 							>
-								View
-							</button>
-							<button
-								type="button"
-								className="btn btn-sm btn-outline-secondary"
-							>
-								Edit
+								<DeleteOutlined />
 							</button>
 						</div>
-					</div> */}
+					</div>
 				</div>
 			</div>
 		</div>
@@ -118,9 +121,10 @@ const OutfitsPage = () => {
 				) : (
 					<div className="album">
 						<div className="row">
-							{Object.entries(outfits).map(([key, outfit], index) => (
-								<Outfit outfit={outfit} key={key} index={index}/>
-							))}
+							{Object.entries(outfits).map(([key, outfit], index) => {
+								return (
+								<Outfit outfit={outfit} key={key} id={key} index={index}/>
+							)})}
 						</div>
 					</div>
 				)}
