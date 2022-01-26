@@ -29,7 +29,7 @@ const tabs = [
 	{
 		route: "/carousel",
 		icon: Assistant,
-		label: "Carousel",
+		label: "Create",
 	},
 	{
 		route: "/user",
