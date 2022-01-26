@@ -10,7 +10,8 @@ import { userId, setData } from "../../utilities/firebase";
 export const savedOutfit = { accessories: 0, tops: 0, bottoms: 0, shoes: 0 };
 
 const saveOutfit = async (tops, bottoms, shoes, accessories, alert, currOutfit) => {
-	if (Object.values(currOutfit).includes(null)) return;
+	if (currOutfit["tops"] == null || currOutfit["bottoms"] == null || currOutfit["shoes"] == null) return;
+	// if (Object.values(currOutfit).includes(null)) return;
 
 	let newuuid = uuidv4();
 	let parsed_uuid = newuuid.split("-");
@@ -21,17 +22,30 @@ const saveOutfit = async (tops, bottoms, shoes, accessories, alert, currOutfit) 
 	savedOutfit["bottoms"] =
 		Object.entries(bottoms)[currOutfit["bottoms"]][0];
 	savedOutfit["shoes"] = Object.entries(shoes)[currOutfit["shoes"]][0];
-	savedOutfit["accessories"] =
-		Object.entries(accessories)[currOutfit["accessories"]][0];
+
+	let accessorySelected = false;
+	if (currOutfit["accessories"] != null){
+		savedOutfit["accessories"] = Object.entries(accessories)[currOutfit["accessories"]][0];
+		accessorySelected = true;
+	}
 
 	try {
-		await setData(`/Saved Outfits/${userId}/${outfit_uuid}`, {
-			Name: "Outfit",
-			Accessories: savedOutfit["accessories"],
-			Tops: savedOutfit["tops"],
-			Shoes: savedOutfit["shoes"],
-			Bottoms: savedOutfit["bottoms"],
-		});
+		if (accessorySelected){
+			await setData(`/Saved Outfits/${userId}/${outfit_uuid}`, {
+				Name: "Outfit",
+				Accessories: savedOutfit["accessories"],
+				Tops: savedOutfit["tops"],
+				Shoes: savedOutfit["shoes"],
+				Bottoms: savedOutfit["bottoms"],
+			});
+		} else {
+			await setData(`/Saved Outfits/${userId}/${outfit_uuid}`, {
+				Name: "Outfit",
+				Tops: savedOutfit["tops"],
+				Shoes: savedOutfit["shoes"],
+				Bottoms: savedOutfit["bottoms"],
+			});
+		}
 	} catch (error) {
 		alert.show(error);
 	}
@@ -41,12 +55,17 @@ const saveOutfit = async (tops, bottoms, shoes, accessories, alert, currOutfit) 
 
 const SaveButton = ({ tops, bottoms, shoes, accessories, currOutfit }) => {
 	const alert = useAlert();
+	let render = false
+	if (currOutfit["tops"] != null && currOutfit["bottoms"] != null && currOutfit["shoes"] != null){
+		render = true
+	}
+	// Object.values(currOutfit).includes(null)
 	return (
 		<div className="mt-5 text-center">
 			{/* <Button variant="dark" className="me-3">
 				<i className="fas fa-random me-2"></i>Shuffle
 			</Button> */}
-			{Object.values(currOutfit).includes(null) ? (
+			{!render ? (
 				<Button variant="danger" disabled style = {{width: "80%"}}>
 					<i className="fa fa-heart align-middle me-2"></i>Save
 				</Button>
