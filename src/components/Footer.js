@@ -72,7 +72,6 @@ function Footer() {
 						const Icon = tab.icon;
 						return (
 							<BottomNavigationAction
-								showLabels
 								key={`tab-${index}`}
 								component={Link}
 								to={tab.route}
