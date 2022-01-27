@@ -6,7 +6,7 @@ import { Provider as AlertProvider } from "react-alert";
 import SaveButton from "./SaveButton";
 import {Container} from '@mui/material'
 import { Swiper, SwiperSlide } from "swiper/react";
-
+import { Virtual } from 'swiper';
 // icons from https://www.flaticon.com/authors/bqlqn
 
 import imgTops from "../../images/img_top.png";
@@ -45,29 +45,21 @@ const alertOptions = {
 	type: "success",
 };
 
-const responsive = {
-	devices: {
-		breakpoint: { max: 4000, min: 0 },
-	  items: 1
-	}
-  };
-
 const ClothesCarousel = ({ clothes, type, changeOutfit }) => {
 	return (
 		<Swiper slidesPerView={3} spaceBetween={30} pagination={{
 			"clickable": true
 		  } } navigation={true} className="mySwiper"
-		  centeredSlides={true} loop={true}>
+		  centeredSlides={true} loop={true}
+		  onRealIndexChange={ (swiper) => {console.log(swiper.realIndex);currentOutfit[type] = swiper.realIndex;}}>
 			{Object.entries(clothes).map(([key, clothingItem], index) => {
 				return (
-					<SwiperSlide>
-					<div key={key}>
+					<SwiperSlide key={key} virtualIndex={index}>
 						<img
 							className="d-block w-100"
 							src={clothingItem.image}
 							alt={clothingItem.name}
 						/>
-					</div>
 					</SwiperSlide>
 				);
 			})}
