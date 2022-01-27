@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import { Button, Card, Col, Modal, Row } from "react-bootstrap";
-import Carousel from "react-multi-carousel";
 import AlertTemplate from "react-alert-template-mui";
 import { Provider as AlertProvider } from "react-alert";
 import SaveButton from "./SaveButton";
 import {Container} from '@mui/material'
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Virtual } from 'swiper';
 // icons from https://www.flaticon.com/authors/bqlqn
 
 import imgTops from "../../images/img_top.png";
@@ -19,16 +17,17 @@ import "react-multi-carousel/lib/styles.css";
 
 // Import Swiper styles
 import "swiper/css";
-import "swiper/css/navigation"
-import "swiper/css/pagination"
+import "swiper/css/free-mode"
+import "swiper/css/effect-coverflow"
+import "swiper/css/scrollbar"
 
 // import Swiper core and required modules
 import SwiperCore, {
-Navigation,Pagination
+	FreeMode, EffectCoverflow, Mousewheel, Scrollbar
 } from 'swiper';
 
 // install Swiper modules
-SwiperCore.use([Pagination, Navigation]);
+SwiperCore.use([FreeMode, EffectCoverflow, Mousewheel, Scrollbar]);
 
 export const currentOutfit = {
 	accessories: null,
@@ -47,10 +46,21 @@ const alertOptions = {
 
 const ClothesCarousel = ({ clothes, type, changeOutfit }) => {
 	return (
-		<Swiper slidesPerView={3} spaceBetween={30} pagination={{
-			"clickable": true
-		  } } navigation={true} className="mySwiper"
-		  centeredSlides={true} loop={true}
+		<Swiper grabCursor={true} mousewheel={{sensitivity:2}} centeredSlides={true} effect={'coverflow'} slidesPerView={3} className={`swiper-${type}`}
+		  loop={true} freeMode={{
+			enabled: true,
+			sticky: true,
+		  }}
+		  coverflowEffect={{
+			"rotate": 50,
+			"stretch": 0,
+			"depth": 80,
+			"modifier": 1,
+			"slideShadows": true
+		  }}
+		  scrollbar={{
+			"hide": true
+		  }}
 		  onRealIndexChange={ (swiper) => {console.log(swiper.realIndex);currentOutfit[type] = swiper.realIndex;}}>
 			{Object.entries(clothes).map(([key, clothingItem], index) => {
 				return (
