@@ -12,7 +12,6 @@ import { DropzoneArea } from 'mui-file-dropzone';
 import {Fab, Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText} from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import {isMobileSafari} from 'react-device-detect';
-import { ConsoleSqlOutlined } from "@ant-design/icons/lib/icons";
 
 const itemTypes = ["Tops", "Bottoms", "Shoes", "Accessories"]
 const occasions = [

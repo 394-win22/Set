@@ -30,6 +30,7 @@
     "react-scripts": "5.0.0",
     "react-slide-routes": "^2.0.0",
     "reactstrap": "^9.0.1",
+    "swiper": "^7.4.1",
     "uuid": "^8.3.2",
     "web-vitals": "^2.1.3"
   },

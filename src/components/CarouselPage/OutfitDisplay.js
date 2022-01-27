@@ -5,6 +5,7 @@ import AlertTemplate from "react-alert-template-mui";
 import { Provider as AlertProvider } from "react-alert";
 import SaveButton from "./SaveButton";
 import {Container} from '@mui/material'
+import { Swiper, SwiperSlide } from "swiper/react";
 
 // icons from https://www.flaticon.com/authors/bqlqn
 
@@ -15,6 +16,19 @@ import imgAccessories from "../../images/img_acc.png";
 
 import "./OutfitDisplay.css";
 import "react-multi-carousel/lib/styles.css";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation"
+import "swiper/css/pagination"
+
+// import Swiper core and required modules
+import SwiperCore, {
+Navigation,Pagination
+} from 'swiper';
+
+// install Swiper modules
+SwiperCore.use([Pagination, Navigation]);
 
 export const currentOutfit = {
 	accessories: null,
@@ -40,22 +54,13 @@ const responsive = {
 
 const ClothesCarousel = ({ clothes, type, changeOutfit }) => {
 	return (
-		<Carousel
-			afterChange={(previousSlide, { currentSlide, onMove }) => {
-				console.log("current slide")
-				console.log(currentSlide)
-				currentOutfit[type] = currentSlide;
-				//changeOutfit(type, currentSlide);
-			}}
-			centerMode={true}
-			infinite={false}
-			showDots={true}
-			focusOnSelect={true}
-			removeArrowOnDeviceType={["mobile"]}
-			responsive={responsive}
-		>
+		<Swiper slidesPerView={3} spaceBetween={30} pagination={{
+			"clickable": true
+		  } } navigation={true} className="mySwiper"
+		  centeredSlides={true} loop={true}>
 			{Object.entries(clothes).map(([key, clothingItem], index) => {
 				return (
+					<SwiperSlide>
 					<div key={key}>
 						<img
 							className="d-block w-100"
@@ -63,9 +68,10 @@ const ClothesCarousel = ({ clothes, type, changeOutfit }) => {
 							alt={clothingItem.name}
 						/>
 					</div>
+					</SwiperSlide>
 				);
 			})}
-		</Carousel>
+		</Swiper>
 	);
 };
 
