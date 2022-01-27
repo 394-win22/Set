@@ -46,22 +46,44 @@ const alertOptions = {
 
 const ClothesCarousel = ({ clothes, type, changeOutfit }) => {
 	return (
-		<Swiper grabCursor={true} mousewheel={{sensitivity:2}} centeredSlides={true} effect={'coverflow'} slidesPerView={3} className={`swiper-${type}`}
-		  loop={true} freeMode={{
+		<Swiper 
+		// Responsive breakpoints
+		breakpoints={{
+			// when window width is >= 480px
+			480: {
+			  slidesPerView: 3,
+			  spaceBetween: 30
+			},
+			// when window width is >= 640px
+			640: {
+			  slidesPerView: 3,
+			  spaceBetween: 40
+			}
+		  }
+		}
+		grabCursor={true} 
+		mousewheel={{sensitivity:2}} 
+		centeredSlides={true} 
+		effect={'coverflow'} 
+		slidesPerView={1} 
+		spaceBetween={10}
+		className={`swiper-${type}`}
+		loop={true} 
+		freeMode={{
 			enabled: true,
 			sticky: true,
 		  }}
-		  coverflowEffect={{
-			"rotate": 50,
+		coverflowEffect={{
+			"rotate": 30,
 			"stretch": 0,
 			"depth": 80,
 			"modifier": 1,
 			"slideShadows": true
 		  }}
-		  scrollbar={{
+		scrollbar={{
 			"hide": true
 		  }}
-		  onRealIndexChange={ (swiper) => {console.log(swiper.realIndex);currentOutfit[type] = swiper.realIndex;}}>
+		onRealIndexChange={ (swiper) => {console.log(swiper.realIndex);currentOutfit[type] = swiper.realIndex;}}>
 			{Object.entries(clothes).map(([key, clothingItem], index) => {
 				return (
 					<SwiperSlide key={key} virtualIndex={index}>
