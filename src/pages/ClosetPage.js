@@ -18,7 +18,6 @@ const ClosetPage = () => {
 		<AlertProvider template={AlertTemplate} {...options}>
 		<div>
 			<ClosetGrid />
-			<NewItemForm />
 		</div>
 		</AlertProvider>
 	);

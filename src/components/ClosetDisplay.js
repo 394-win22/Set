@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Container, Row, DropdownButton, Dropdown, Modal } from "react-bootstrap";
 import { parse } from "uuid";
 import { userId, useData, getAllData } from "../utilities/firebase.js";
+import {NewItemForm} from "./NewItemForm.js";
 
 const filterTypes = {
 	T: "Tops",
@@ -11,18 +12,20 @@ const filterTypes = {
 };
 
 const FilterSelector = ({ setType }) => (
-	<DropdownButton
-		className="mb-3"
-		id="items-dropdown"
-		variant="secondary"
-		title="Filter By "
-	>
-		{Object.values(filterTypes).map((type, index) => (
-			<Dropdown.Item onClick={() => setType(type)} key={index}>
-				{type}
-			</Dropdown.Item>
-		))}
-	</DropdownButton>
+	<>
+		<DropdownButton
+			className="mb-3"
+			id="items-dropdown"
+			variant="secondary"
+			title="Filter By "
+		>
+			{Object.values(filterTypes).map((type, index) => (
+				<Dropdown.Item onClick={() => setType(type)} key={index}>
+					{type}
+				</Dropdown.Item>
+			))}
+		</DropdownButton>
+	</>
 );
 
 export const ClosetGrid = () => {
@@ -34,7 +37,7 @@ export const ClosetGrid = () => {
 	return (
 		<div className="container">
 			<div className="col-md-12 text-center">
-				{/* <AddButton /> */}
+				<NewItemForm></NewItemForm>
 				<FilterSelector setType={setType} />
 			</div>
 			<div className="album">
