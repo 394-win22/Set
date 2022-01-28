@@ -21,14 +21,7 @@ const filterTypes = {
 
 const FilterSelector = ({ setType }) => (
 	<>
-		{/* <NavDropdown title="Filter By" id="items-dropdown">
-			{Object.values(filterTypes).map((type, index) => (
-				<NavDropdown.Item onClick={() => setType(type)} key={index}>
-					{type}
-				</NavDropdown.Item>
-			))}
-		</NavDropdown> */}
-		<DropdownButton id="items-dropdown" title="Filter By ">
+		<DropdownButton id="closet-header-dropdown" title="Filter By ">
 			{Object.values(filterTypes).map((type, index) => (
 				<Dropdown.Item onClick={() => setType(type)} key={index}>
 					{type}
@@ -39,7 +32,7 @@ const FilterSelector = ({ setType }) => (
 );
 
 const ClosetHeader = (props) => (
-	<div className="closet-header text-center">
+	<div className="closet-header">
 		<NewItemForm />
 		<FilterSelector setType={props.filterType} />
 	</div>

@@ -22,6 +22,7 @@ import { isMobileSafari } from "react-device-detect";
 import { ConsoleSqlOutlined } from "@ant-design/icons/lib/icons";
 
 const itemTypes = ["Tops", "Bottoms", "Shoes", "Accessories"];
+
 const occasions = [
 	"Business Casual",
 	"Going Out",
@@ -30,6 +31,7 @@ const occasions = [
 	"Comfortable",
 	"Black Tie",
 ];
+
 const weatherIcons = {
 	"Sunny and Warm": "fas fa-sun fa-2x",
 	"Hot and Humid": "fas fa-cloud-sun fa-2x",
@@ -60,7 +62,9 @@ export const NewItemForm = () => {
 
 	return (
 		<>
-			<div className="btn add-clothing-item" onClick={handleClickOpen}>Add Clothing Item</div>
+			<div className="btn" onClick={handleClickOpen}>
+				Add Clothing Item
+			</div>
 			<Dialog open={open} onClose={handleClose}>
 				<DialogTitle>Add</DialogTitle>
 				<DialogContent>
