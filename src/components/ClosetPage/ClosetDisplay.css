@@ -14,17 +14,26 @@
 
 .closet-header,
 .closet-header > * {
-	background-color: #7b82a2;
+	background-color: var(--cool-grey);
 	color: #fff;
 	text-align: center;
+	border-radius: 0;
 }
 
 #closet-header-dropdown {
 	width: 100%;
 	margin: 0;
-	background-color: #7b82a2;
-	border-color: #7b82a2;
+	background-color: var(--cool-grey);
+	border-color: var(--cool-grey);
 	border-top-color: white;
+}
+
+.dropdown-menu {
+	transform: translate3d(0px, 38px, 0px) !important;
+	width: 100%;
+	border-radius: 0;
+	border-left: none;
+	border-right: none;
 }
 
 .closet-modal {
