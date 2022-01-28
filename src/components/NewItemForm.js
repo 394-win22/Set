@@ -59,10 +59,8 @@ export const NewItemForm = () => {
 	const alert = useAlert();
 
 	return (
-		<div>
-			<Button variant="primary" onClick={handleClickOpen}>
-				Add Clothing Item
-			</Button>
+		<>
+			<div onClick={handleClickOpen}>Add Clothing Item</div>
 			<Dialog open={open} onClose={handleClose}>
 				<DialogTitle>Add</DialogTitle>
 				<DialogContent>
@@ -163,6 +161,6 @@ export const NewItemForm = () => {
 					</Button>
 				</DialogActions>
 			</Dialog>
-		</div>
+		</>
 	);
 };

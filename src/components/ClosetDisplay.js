@@ -1,8 +1,16 @@
 import React, { useState } from "react";
-import { Button, Container, Row, DropdownButton, Dropdown, Modal } from "react-bootstrap";
+import {
+	Button,
+	Container,
+	Row,
+	DropdownButton,
+	Dropdown,
+	Modal,
+	NavDropdown,
+} from "react-bootstrap";
 import { parse } from "uuid";
 import { userId, useData, getAllData } from "../utilities/firebase.js";
-import {NewItemForm} from "./NewItemForm.js";
+import { NewItemForm } from "./NewItemForm.js";
 
 const filterTypes = {
 	T: "Tops",
@@ -13,8 +21,14 @@ const filterTypes = {
 
 const FilterSelector = ({ setType }) => (
 	<>
+		{/* <NavDropdown title="Filter By" id="items-dropdown">
+			{Object.values(filterTypes).map((type, index) => (
+				<NavDropdown.Item onClick={() => setType(type)} key={index}>
+					{type}
+				</NavDropdown.Item>
+			))}
+		</NavDropdown> */}
 		<DropdownButton
-			className="mb-3"
 			id="items-dropdown"
 			variant="secondary"
 			title="Filter By "
@@ -28,6 +42,13 @@ const FilterSelector = ({ setType }) => (
 	</>
 );
 
+const ClosetHeader = (filterType) => (
+	<div className="closet-header text-center">
+		<NewItemForm />
+		<FilterSelector setType={filterType} />
+	</div>
+);
+
 export const ClosetGrid = () => {
 	// User Specific Database functions
 	const [closet, loading, error] = useData("/", getAllData);
@@ -35,56 +56,59 @@ export const ClosetGrid = () => {
 	if (error) return <h1>{error}</h1>;
 	if (loading) return <h1>Loading closet...</h1>;
 	return (
-		<div className="container">
-			<div className="col-md-12 text-center">
-				<NewItemForm></NewItemForm>
-				<FilterSelector setType={setType} />
-			</div>
-			<div className="album">
-				<div className="row">
-					{Object.entries(closet[type][userId]).map(([key, item]) => (
-						<ClosetItem item={item} key={key} />
-					))}
+		<>
+			<ClosetHeader filterType={setType} />
+			<div className="container">
+				<div className="album">
+					<div className="row">
+						{Object.entries(closet[type][userId]).map(
+							([key, item]) => (
+								<ClosetItem item={item} key={key} />
+							)
+						)}
+					</div>
 				</div>
 			</div>
-		</div>
+		</>
 	);
 };
 
 export const ClosetItem = ({ item }) => {
 	const [showModal, setShowModal] = useState(false);
-	let parsed_occasion_string = ""
-	if (item.occasion != null){
-		let numOccasions = Object.entries(item.occasion).length
-		for (const occasion in item.occasion){
-			if (numOccasions == 1){
-				parsed_occasion_string += item.occasion[occasion]
+	let parsed_occasion_string = "";
+	if (item.occasion != null) {
+		let numOccasions = Object.entries(item.occasion).length;
+		for (const occasion in item.occasion) {
+			if (numOccasions == 1) {
+				parsed_occasion_string += item.occasion[occasion];
 			} else {
-				parsed_occasion_string += item.occasion[occasion] + ", "
+				parsed_occasion_string += item.occasion[occasion] + ", ";
 			}
-			numOccasions -= 1
+			numOccasions -= 1;
 		}
 	}
-	
-	let parsed_weather_string = ""
-	if (item.weather != null){
-		let numWeather = Object.entries(item.weather).length
-		for (const weather in item.weather){
-			if (numWeather == 1){
-				parsed_weather_string += item.weather[weather]
+
+	let parsed_weather_string = "";
+	if (item.weather != null) {
+		let numWeather = Object.entries(item.weather).length;
+		for (const weather in item.weather) {
+			if (numWeather == 1) {
+				parsed_weather_string += item.weather[weather];
 			} else {
-				parsed_weather_string += item.weather[weather] + ", "
+				parsed_weather_string += item.weather[weather] + ", ";
 			}
-			numWeather -= 1
+			numWeather -= 1;
 		}
 	}
-	
 
 	return (
 		<>
-			<div className="col-6 col-sm-4 col-md-3 py-3" onClick={() => {
-				setShowModal(true);
-			}}>
+			<div
+				className="col-6 col-sm-4 col-md-3 py-3"
+				onClick={() => {
+					setShowModal(true);
+				}}
+			>
 				<div className="card">
 					<img
 						className="card-img-top"
@@ -120,24 +144,22 @@ export const ClosetItem = ({ item }) => {
 				aria-labelledby="contained-modal-title-vcenter"
 				centered
 			>
-			<Modal.Header closeButton></Modal.Header>
-			<Modal.Body>
-				<img
-					className="card-img-top"
-					src={item.image}
-					alt={item.name}
-				/>
-				<p style={{ fontSize: "20px", fontWeight: "bold", }}>
-					<center>{item.name}</center>
-				</p>
-				<Container>
-					<Row>Occasion: {parsed_occasion_string}</Row>
-					<Row>Weather: {parsed_weather_string}</Row>
-				</Container>
-
-
-			</Modal.Body>
-		</Modal>
+				<Modal.Header closeButton></Modal.Header>
+				<Modal.Body>
+					<img
+						className="card-img-top"
+						src={item.image}
+						alt={item.name}
+					/>
+					<p style={{ fontSize: "20px", fontWeight: "bold" }}>
+						<center>{item.name}</center>
+					</p>
+					<Container>
+						<Row>Occasion: {parsed_occasion_string}</Row>
+						<Row>Weather: {parsed_weather_string}</Row>
+					</Container>
+				</Modal.Body>
+			</Modal>
 		</>
 	);
 };

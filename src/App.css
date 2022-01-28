@@ -2,20 +2,15 @@
 	height: 100vh;
 }
 
+.closet-header {
+	color: #fff;
+	background-color: #7b82a2;
+}
+
 .card {
 	height: 100% !important; /* .h-100 aka makes cards in one row the same height */
 }
 
 .slide-routes {
 	padding-top: env(safe-area-inset-top);
-}
-
-.btn-primary {
-	background-color: #7b82a2;
-	border-color: #7b82a2;
-}
-.btn-primary:hover{
-	background-color: #7b82a2;
-	border-color: #7b82a2;
-
 }
