@@ -28,10 +28,7 @@ const FilterSelector = ({ setType }) => (
 				</NavDropdown.Item>
 			))}
 		</NavDropdown> */}
-		<DropdownButton
-			id="items-dropdown"
-			title="Filter By "
-		>
+		<DropdownButton id="items-dropdown" title="Filter By ">
 			{Object.values(filterTypes).map((type, index) => (
 				<Dropdown.Item onClick={() => setType(type)} key={index}>
 					{type}
@@ -41,19 +38,20 @@ const FilterSelector = ({ setType }) => (
 	</>
 );
 
-const ClosetHeader = (filterType) => (
+const ClosetHeader = (props) => (
 	<div className="closet-header text-center">
 		<NewItemForm />
-		<FilterSelector setType={filterType} />
+		<FilterSelector setType={props.filterType} />
 	</div>
 );
 
 export const ClosetGrid = () => {
-	// User Specific Database functions
 	const [closet, loading, error] = useData("/", getAllData);
 	const [type, setType] = useState("Tops");
+
 	if (error) return <h1>{error}</h1>;
 	if (loading) return <h1>Loading closet...</h1>;
+
 	return (
 		<>
 			<ClosetHeader filterType={setType} />
@@ -116,23 +114,6 @@ export const ClosetItem = ({ item }) => {
 					/>
 					<div className="card-body">
 						<p className="card-text">{item.name}</p>
-						{/* <div className="d-flex justify-content-between align-items-center">
-							<div className="btn-group">
-								<button
-									type="button"
-									className="btn btn-sm btn-outline-secondary"
-								>
-									View
-								</button>
-								<button
-									type="button"
-									className="btn btn-sm btn-outline-secondary"
-								>
-									Edit
-								</button>
-							</div>
-							<small className="text-muted">{item.type}</small>
-						</div> */}
 					</div>
 				</div>
 			</div>
@@ -150,9 +131,7 @@ export const ClosetItem = ({ item }) => {
 						src={item.image}
 						alt={item.name}
 					/>
-					<p style={{ fontSize: "20px", fontWeight: "bold" }}>
-						<center>{item.name}</center>
-					</p>
+					<p className="closet-modal">{item.name}</p>
 					<Container>
 						<Row>Occasion: {parsed_occasion_string}</Row>
 						<Row>Weather: {parsed_weather_string}</Row>
