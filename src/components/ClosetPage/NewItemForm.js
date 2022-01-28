@@ -4,10 +4,10 @@ import FilterSelector from "./AddItemPage/FilterSelector";
 import ChipSelector from "./AddItemPage/ChipSelector";
 import ToggleButtonSelector from "./AddItemPage/ToggleButtonSelector";
 import { useAlert } from "react-alert";
-import { SaveNewItem } from "../utilities/SaveNewItem";
+import { SaveNewItem } from "../../utilities/SaveNewItem";
 import TextField from "@mui/material/TextField";
-import UploadOneImage from "../utilities/UploadOneImage";
-import { userId } from "../utilities/firebase";
+import UploadOneImage from "../../utilities/UploadOneImage";
+import { userId } from "../../utilities/firebase";
 import { DropzoneArea } from "mui-file-dropzone";
 import {
 	Fab,

@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import {
-	Button,
 	Container,
 	Row,
 	DropdownButton,
 	Dropdown,
 	Modal,
-	NavDropdown,
 } from "react-bootstrap";
-import { parse } from "uuid";
-import { userId, useData, getAllData } from "../utilities/firebase.js";
+
+import { userId, useData, getAllData } from "../../utilities/firebase.js";
 import { NewItemForm } from "./NewItemForm.js";
+
+import "./ClosetDisplay.css";
 
 const filterTypes = {
 	T: "Tops",
