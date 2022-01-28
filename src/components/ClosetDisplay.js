@@ -30,7 +30,6 @@ const FilterSelector = ({ setType }) => (
 		</NavDropdown> */}
 		<DropdownButton
 			id="items-dropdown"
-			variant="secondary"
 			title="Filter By "
 		>
 			{Object.values(filterTypes).map((type, index) => (

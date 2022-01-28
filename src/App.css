@@ -14,3 +14,15 @@
 .slide-routes {
 	padding-top: env(safe-area-inset-top);
 }
+
+#items-dropdown {
+	width: 100%;
+	margin: 0;
+	background-color:#7b82a2;
+	border-color: #7b82a2;
+	border-top-color: white;
+}
+
+.add-clothing-item{
+	color: white;
+}

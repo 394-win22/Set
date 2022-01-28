@@ -60,7 +60,7 @@ export const NewItemForm = () => {
 
 	return (
 		<>
-			<div onClick={handleClickOpen}>Add Clothing Item</div>
+			<div className="btn add-clothing-item" onClick={handleClickOpen}>Add Clothing Item</div>
 			<Dialog open={open} onClose={handleClose}>
 				<DialogTitle>Add</DialogTitle>
 				<DialogContent>
