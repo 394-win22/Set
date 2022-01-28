@@ -13,7 +13,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import Paper from "@mui/material/Paper";
-import {isMobileSafari} from 'react-device-detect';
+import { isMobileSafari } from "react-device-detect";
 
 const tabs = [
 	{
@@ -49,7 +49,7 @@ function Footer() {
 		}
 	}
 	return (
-		<Box sx={{ pb: 7}}>
+		<Box sx={{ pb: 7 }}>
 			<CssBaseline />
 			<Paper
 				sx={{
@@ -72,7 +72,6 @@ function Footer() {
 						const Icon = tab.icon;
 						return (
 							<BottomNavigationAction
-								showLabels
 								key={`tab-${index}`}
 								component={Link}
 								to={tab.route}

@@ -32,10 +32,13 @@ const FilterSelector = ({ setType }) => (
 );
 
 const ClosetHeader = (props) => (
-	<div className="closet-header">
-		<NewItemForm />
-		<FilterSelector setType={props.filterType} />
-	</div>
+	<>
+		<div className="closet-header">
+			<NewItemForm />
+			<FilterSelector setType={props.filterType} />
+		</div>
+		<div className="closet-header-margin"></div>
+	</>
 );
 
 export const ClosetGrid = () => {

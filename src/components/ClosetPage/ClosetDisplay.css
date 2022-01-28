@@ -1,9 +1,15 @@
-#closet-header-dropdown {
+.closet-header {
+	position: fixed;
 	width: 100%;
-	margin: 0;
-	background-color: #7b82a2;
-	border-color: #7b82a2;
-	border-top-color: white;
+	top: 118px;
+	background-color: #fff;
+	border-top: 1px solid #fff;
+	border-bottom: 1px solid #fff;
+	z-index: 999;
+}
+
+.closet-header-margin {
+	height: 4rem;
 }
 
 .closet-header,
@@ -11,6 +17,14 @@
 	background-color: #7b82a2;
 	color: #fff;
 	text-align: center;
+}
+
+#closet-header-dropdown {
+	width: 100%;
+	margin: 0;
+	background-color: #7b82a2;
+	border-color: #7b82a2;
+	border-top-color: white;
 }
 
 .closet-modal {
