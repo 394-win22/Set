@@ -34,10 +34,17 @@ import SwiperCore, {
 SwiperCore.use([FreeMode, EffectCoverflow, Mousewheel, Pagination, Navigation]);
 
 export const currentOutfit = {
-	accessories: null,
-	tops: null,
-	bottoms: null,
-	shoes: null,
+	accessories: 0,
+	tops: 0,
+	bottoms: 0,
+	shoes: 0,
+};
+
+export const currentOutfit2 = {
+	accessories: 0,
+	tops: 0,
+	bottoms: 0,
+	shoes: 0,
 };
 
 const alertOptions = {
@@ -88,7 +95,8 @@ const ClothesCarousel = ({ clothes, type, changeOutfit }) => {
 				"modifier": 1,
 				"slideShadows": true
 			}}
-			onRealIndexChange={ (swiper) => {console.log(swiper.realIndex);currentOutfit[type] = swiper.activeIndex - 1;}}>
+			onInit={(swiper)=> {console.log("reinatlizingggg");console.log("curent outfit");console.log(currentOutfit[type]);swiper.slideTo(currentOutfit[type]+1,0.5)}}
+			onRealIndexChange={ (swiper) => {console.log(swiper.realIndex);console.log("index chnage");currentOutfit2[type] = swiper.realIndex;}}>
 				{Object.entries(clothes).map(([key, clothingItem], index) => {
 					return (
 						<SwiperSlide key={key} virtualIndex={index}>
@@ -100,6 +108,7 @@ const ClothesCarousel = ({ clothes, type, changeOutfit }) => {
 						</SwiperSlide>
 					);
 				})}
+			
 			</Swiper>
 		);
 	} else {
@@ -154,6 +163,7 @@ const ClothesCarousel = ({ clothes, type, changeOutfit }) => {
 					</SwiperSlide>
 				);
 			})}
+		
 		</Swiper>
 	);}
 };
@@ -183,6 +193,11 @@ const ClothingItem = ({ obj, type, img, setOutfit, currOutfit }) => {
 	const [displayImg, setDisplayImg] = useState(img);
 
 	const setNewImg = () => {
+		console.log("before updating")
+		console.log(currentOutfit2[type])
+		currentOutfit[type] = currentOutfit2[type]
+		console.log("updated outfit")
+		console.log(currentOutfit[type])
 		const currentSlide = currentOutfit[type]
 		let temp = currentSlide
 		//currOutfit[type]
