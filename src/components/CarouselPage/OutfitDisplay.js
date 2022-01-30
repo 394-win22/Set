@@ -12,6 +12,8 @@ import imgBottoms from "../../images/img_bottoms.png";
 import imgShoes from "../../images/img_shoes.png";
 import imgAccessories from "../../images/img_acc.png";
 
+import {isMobile} from 'react-device-detect';
+
 import "./OutfitDisplay.css";
 import "react-multi-carousel/lib/styles.css";
 
@@ -19,15 +21,17 @@ import "react-multi-carousel/lib/styles.css";
 import "swiper/css";
 import "swiper/css/free-mode"
 import "swiper/css/effect-coverflow"
-import "swiper/css/scrollbar"
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+
 
 // import Swiper core and required modules
 import SwiperCore, {
-	FreeMode, EffectCoverflow, Mousewheel, Scrollbar
+	FreeMode, EffectCoverflow, Mousewheel, Pagination, Navigation
 } from 'swiper';
 
 // install Swiper modules
-SwiperCore.use([FreeMode, EffectCoverflow, Mousewheel, Scrollbar]);
+SwiperCore.use([FreeMode, EffectCoverflow, Mousewheel, Pagination, Navigation]);
 
 export const currentOutfit = {
 	accessories: null,
@@ -45,22 +49,80 @@ const alertOptions = {
 };
 
 const ClothesCarousel = ({ clothes, type, changeOutfit }) => {
+	if (isMobile) {
+		return (
+			<Swiper 
+			// Responsive breakpoints
+			breakpoints={{
+				// when window width is >= 480px
+				480: {
+					slidesPerView: 3,
+					spaceBetween: 30
+				},
+				// when window width is >= 640px
+				640: {
+					slidesPerView: 3,
+					spaceBetween: 40
+				}
+			}}
+			pagination={{
+				type: "fraction",
+			}}
+			modules={[Pagination]}
+			grabCursor={true} 
+			mousewheel={{sensitivity:2}} 
+			centeredSlides={true} 
+			effect={'coverflow'} 
+			slidesPerView={1} 
+			spaceBetween={10}
+			className={`swiper-${type}`}
+			loop={true} 
+			freeMode={{
+				enabled: true,
+				sticky: true,
+			}}
+			coverflowEffect={{
+				"rotate": 30,
+				"stretch": 0,
+				"depth": 80,
+				"modifier": 1,
+				"slideShadows": true
+			}}
+			onRealIndexChange={ (swiper) => {console.log(swiper.realIndex);currentOutfit[type] = swiper.realIndex;}}>
+				{Object.entries(clothes).map(([key, clothingItem], index) => {
+					return (
+						<SwiperSlide key={key} virtualIndex={index}>
+							<img
+								className="d-block w-100"
+								src={clothingItem.image}
+								alt={clothingItem.name}
+							/>
+						</SwiperSlide>
+					);
+				})}
+			</Swiper>
+		);
+	} else {
 	return (
 		<Swiper 
 		// Responsive breakpoints
 		breakpoints={{
 			// when window width is >= 480px
 			480: {
-			  slidesPerView: 3,
-			  spaceBetween: 30
+				slidesPerView: 3,
+				spaceBetween: 30
 			},
 			// when window width is >= 640px
 			640: {
-			  slidesPerView: 3,
-			  spaceBetween: 40
+				slidesPerView: 3,
+				spaceBetween: 40
 			}
-		  }
-		}
+		}}
+		pagination={{
+			type: "fraction",
+		}}
+		modules={[Pagination, Navigation]}
+		navigation={true}
 		grabCursor={true} 
 		mousewheel={{sensitivity:2}} 
 		centeredSlides={true} 
@@ -72,17 +134,14 @@ const ClothesCarousel = ({ clothes, type, changeOutfit }) => {
 		freeMode={{
 			enabled: true,
 			sticky: true,
-		  }}
+		}}
 		coverflowEffect={{
 			"rotate": 30,
 			"stretch": 0,
 			"depth": 80,
 			"modifier": 1,
 			"slideShadows": true
-		  }}
-		scrollbar={{
-			"hide": true
-		  }}
+		}}
 		onRealIndexChange={ (swiper) => {console.log(swiper.realIndex);currentOutfit[type] = swiper.realIndex;}}>
 			{Object.entries(clothes).map(([key, clothingItem], index) => {
 				return (
@@ -96,7 +155,7 @@ const ClothesCarousel = ({ clothes, type, changeOutfit }) => {
 				);
 			})}
 		</Swiper>
-	);
+	);}
 };
 
 const ClothingModal = (props) => {

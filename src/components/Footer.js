@@ -13,7 +13,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import Paper from "@mui/material/Paper";
-import {isMobileSafari} from 'react-device-detect';
 
 const tabs = [
 	{
