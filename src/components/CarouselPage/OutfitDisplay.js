@@ -88,7 +88,7 @@ const ClothesCarousel = ({ clothes, type, changeOutfit }) => {
 				"modifier": 1,
 				"slideShadows": true
 			}}
-			onRealIndexChange={ (swiper) => {console.log(swiper.realIndex);currentOutfit[type] = swiper.realIndex;}}>
+			onRealIndexChange={ (swiper) => {console.log(swiper.realIndex);currentOutfit[type] = swiper.activeIndex - 1;}}>
 				{Object.entries(clothes).map(([key, clothingItem], index) => {
 					return (
 						<SwiperSlide key={key} virtualIndex={index}>
