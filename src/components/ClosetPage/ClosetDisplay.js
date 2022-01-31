@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {
 	Container,
 	Row,
+	Col,
 	DropdownButton,
 	Dropdown,
 	Modal,
@@ -21,9 +22,9 @@ const filterTypes = {
 
 const FilterSelector = ({ setType }) => (
 	<>
-		<DropdownButton id="closet-header-dropdown" title="Filter By ">
+		<DropdownButton variant="closet" className="px-0" id="closet-header-dropdown" title="Filter By">
 			{Object.values(filterTypes).map((type, index) => (
-				<Dropdown.Item onClick={() => setType(type)} key={index}>
+				<Dropdown.Item id="dropdown-closet" onClick={() => setType(type)} key={index}>
 					{type}
 				</Dropdown.Item>
 			))}
@@ -32,13 +33,12 @@ const FilterSelector = ({ setType }) => (
 );
 
 const ClosetHeader = (props) => (
-	<>
-		<div className="closet-header">
+	<Container className="mx-0 px-0">
+		<Row className="mx-auto text-center d-grid closet-header-btns mx-0">
 			<NewItemForm />
 			<FilterSelector setType={props.filterType} />
-		</div>
-		<div className="closet-header-margin"></div>
-	</>
+		</Row>
+	</Container>
 );
 
 export const ClosetGrid = () => {
@@ -122,15 +122,17 @@ export const ClosetItem = ({ item }) => {
 			>
 				<Modal.Header closeButton></Modal.Header>
 				<Modal.Body>
+					<Container className="closet-modal">
 					<img
 						className="card-img-top"
 						src={item.image}
 						alt={item.name}
 					/>
-					<p className="closet-modal">{item.name}</p>
+					<p className="closet-modal-item-name">{item.name}</p>
 					<Container>
 						<Row>Occasion: {parsed_occasion_string}</Row>
 						<Row>Weather: {parsed_weather_string}</Row>
+					</Container>
 					</Container>
 				</Modal.Body>
 			</Modal>

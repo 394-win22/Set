@@ -21,5 +21,15 @@
 }
 
 .header-margin {
-	height: 9rem;
+	height: 8.5rem;
+}
+
+.btn-closet {
+	background-color: #8C92AC;
+	color: white;
+	margin-bottom: 1px;
+}
+
+#dropdown-closet:active {
+	background-color: #8C92AC;
 }

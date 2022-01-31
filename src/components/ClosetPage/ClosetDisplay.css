@@ -1,43 +1,21 @@
-.closet-header {
+.closet-header-btns{
 	position: fixed;
 	width: 100%;
 	top: 118px;
-	background-color: #fff;
-	border-top: 1px solid #fff;
-	border-bottom: 1px solid #fff;
+	left: 0%;
+	background-color:#f7ebda;
 	z-index: 999;
 }
 
-.closet-header-margin {
-	height: 4rem;
-}
-
-.closet-header,
-.closet-header > * {
-	background-color: var(--cool-grey);
-	color: #fff;
-	text-align: center;
-	border-radius: 0;
-}
-
-#closet-header-dropdown {
-	width: 100%;
-	margin: 0;
-	background-color: var(--cool-grey);
-	border-color: var(--cool-grey);
-	border-top-color: white;
-}
-
-.dropdown-menu {
-	transform: translate3d(0px, 38px, 0px) !important;
-	width: 100%;
-	border-radius: 0;
-	border-left: none;
-	border-right: none;
-}
-
 .closet-modal {
+	max-width: 600px;
+}
+
+.closet-modal-item-name {
 	text-align: center;
 	font-size: 20px;
 	font-weight: bold;
 }
+
+#closet-header-dropdown {width: 100%;}
+.closet-header-btns .show .dropdown-menu {transform:translate3d(0,40px,0) !important;}
