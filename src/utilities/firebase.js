@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getDatabase, onValue, ref, set } from "firebase/database";
+import { getDatabase, onValue, ref, push, set } from "firebase/database";
 import { getStorage } from "firebase/storage";
 import { useState, useEffect } from "react";
 import {
@@ -35,7 +35,8 @@ export const storage = getStorage(app);
 // This is a hardcoded test user id
 export const userId = "C0XdX2OmOQZKzVknueo4xGtsgvI2";
 
-export const setData = (path, value) => set(ref(database, path), value);
+export const setData = (path, value) => {
+	push(ref(database, path), value)};
 
 export const useData = (path, transform) => {
 	const [localData, setlocalData] = useState();
