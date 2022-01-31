@@ -20,9 +20,5 @@
 }
 
 .footer-margin {
-    height: 6rem;
-}
-
-.footer-margin-mobile {
     height: env(safe-area-inset-bottom);
 }
