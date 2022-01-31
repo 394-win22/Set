@@ -2,21 +2,14 @@ import React from "react";
 
 import { Button, Container, Row } from "react-bootstrap";
 import { useAlert } from "react-alert";
-import { v4 as uuidv4 } from "uuid";
 
-import { currentOutfit } from "./OutfitDisplay";
-import { userId, setData } from "../../utilities/firebase";
+import { userId, pushData } from "../../utilities/firebase";
 
 export const savedOutfit = { accessories: 0, tops: 0, bottoms: 0, shoes: 0 };
 
 const saveOutfit = async (tops, bottoms, shoes, accessories, alert, currOutfit) => {
 	if (currOutfit["tops"] == null || currOutfit["bottoms"] == null || currOutfit["shoes"] == null) return;
 	// if (Object.values(currOutfit).includes(null)) return;
-
-	let newuuid = uuidv4();
-	let parsed_uuid = newuuid.split("-");
-	let length = parsed_uuid.length;
-	let outfit_uuid = parsed_uuid[length - 1];
 
 	savedOutfit["tops"] = Object.entries(tops)[currOutfit["tops"]][0];
 	savedOutfit["bottoms"] =
@@ -31,7 +24,7 @@ const saveOutfit = async (tops, bottoms, shoes, accessories, alert, currOutfit) 
 
 	try {
 		if (accessorySelected){
-			await setData(`/Saved Outfits/${userId}/${outfit_uuid}`, {
+			await pushData(`/Saved Outfits/${userId}`, {
 				Name: "Outfit",
 				Accessories: savedOutfit["accessories"],
 				Tops: savedOutfit["tops"],
@@ -39,7 +32,7 @@ const saveOutfit = async (tops, bottoms, shoes, accessories, alert, currOutfit) 
 				Bottoms: savedOutfit["bottoms"],
 			});
 		} else {
-			await setData(`/Saved Outfits/${userId}/${outfit_uuid}`, {
+			await pushData(`/Saved Outfits/${userId}`, {
 				Name: "Outfit",
 				Tops: savedOutfit["tops"],
 				Shoes: savedOutfit["shoes"],

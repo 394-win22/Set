@@ -1,5 +1,4 @@
-import { v4 as uuidv4 } from "uuid";
-import { setData, userId } from "../utilities/firebase.js";
+import { pushData, userId } from "../utilities/firebase.js";
 
 export const NewItem = {type: "", name: "", image: "", occasion: [], weather: [] };
 
@@ -22,14 +21,9 @@ export const SaveNewItem = async (itemType, itemName, imageLink, itemWeathers, i
         return;
     }
 
-    let newuuid = uuidv4();
-	let parsed_uuid = newuuid.split("-");
-	let length = parsed_uuid.length;
-	let item_uuid = parsed_uuid[length - 1];
-
 	// push to firebase here
 	try {
-		await setData(`/${itemType}/${userId}`, {
+		await pushData(`/${itemType}/${userId}`, {
 			name: itemName,
 			image: imageLink,
             color: ["unknown"],

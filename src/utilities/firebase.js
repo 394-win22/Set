@@ -35,8 +35,17 @@ export const storage = getStorage(app);
 // This is a hardcoded test user id
 export const userId = "C0XdX2OmOQZKzVknueo4xGtsgvI2";
 
+export const deleteData = (path) => {
+	set(ref(database, path), null)
+};
+
 export const setData = (path, value) => {
-	push(ref(database, path), value)};
+	set(ref(database, path), value)
+};
+
+export const pushData = (path, value) => {
+	push(ref(database, path), value)
+};
 
 export const useData = (path, transform) => {
 	const [localData, setlocalData] = useState();

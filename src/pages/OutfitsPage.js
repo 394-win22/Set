@@ -10,7 +10,7 @@ import {
 	getAllData,
 	userId,
 	getClothingItem,
-	setData
+	deleteData
 } from "../utilities/firebase.js";
 
 const Outfit = ({ outfit, id, index }) => {
@@ -41,7 +41,7 @@ const Outfit = ({ outfit, id, index }) => {
 		return <h1>Loading...</h1>;
 
 	const removeOutfit = () => {
-		setData(`/Saved Outfits/${userId}/${id}`, null);
+		deleteData(`/Saved Outfits/${userId}/${id}`);
 	}
 
 	return (
