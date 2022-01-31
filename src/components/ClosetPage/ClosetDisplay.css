@@ -7,6 +7,20 @@
 	z-index: 999;
 }
 
+.mt-6 {
+	margin-top: 4rem !important;
+}
+
+.btn-closet {
+	background-color: #8C92AC;
+	color: white;
+	margin-bottom: 1px;
+}
+
+#dropdown-closet:active {
+	background-color: #8C92AC;
+}
+
 .closet-modal {
 	max-width: 600px;
 }

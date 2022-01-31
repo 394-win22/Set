@@ -51,7 +51,7 @@ export const ClosetGrid = () => {
 	return (
 		<>
 			<ClosetHeader filterType={setType} />
-			<div className="container">
+			<div className="container mt-6">
 				<div className="album">
 					<div className="row">
 						{Object.entries(closet[type][userId]).map(
