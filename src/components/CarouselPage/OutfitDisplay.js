@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button, Card, Col, Modal, Row } from "react-bootstrap";
 import AlertTemplate from "react-alert-template-mui";
 import { Provider as AlertProvider } from "react-alert";
 import SaveButton from "./SaveButton";
 import {Container} from '@mui/material'
 import { Swiper, SwiperSlide } from "swiper/react";
-// icons from https://www.flaticon.com/authors/bqlqn
 
+// icons from https://www.flaticon.com/authors/bqlqn
 import imgTops from "../../images/img_top.png";
 import imgBottoms from "../../images/img_bottoms.png";
 import imgShoes from "../../images/img_shoes.png";
@@ -95,8 +95,9 @@ const ClothesCarousel = ({ clothes, type, changeOutfit }) => {
 				"modifier": 1,
 				"slideShadows": true
 			}}
-			onInit={(swiper)=> {console.log("reinatlizingggg");console.log("curent outfit");console.log(currentOutfit[type]);swiper.slideTo(currentOutfit[type]+1,0.5)}}
-			onRealIndexChange={ (swiper) => {console.log(swiper.realIndex);console.log("index chnage");currentOutfit2[type] = swiper.realIndex;}}>
+			onInit={(swiper)=> {swiper.slideTo(currentOutfit[type]+1,0.5)}}
+			onSlideChange={ (swiper) => {//If checking to avoid real indexing issues
+				if (swiper.realIndex != swiper.activeIndex) {currentOutfit2[type] = swiper.realIndex;}}}>
 				{Object.entries(clothes).map(([key, clothingItem], index) => {
 					return (
 						<SwiperSlide key={key} virtualIndex={index}>
@@ -114,56 +115,58 @@ const ClothesCarousel = ({ clothes, type, changeOutfit }) => {
 	} else {
 	return (
 		<Swiper 
-		// Responsive breakpoints
-		breakpoints={{
-			// when window width is >= 480px
-			480: {
-				slidesPerView: 3,
-				spaceBetween: 30
-			},
-			// when window width is >= 640px
-			640: {
-				slidesPerView: 3,
-				spaceBetween: 40
-			}
-		}}
-		pagination={{
-			type: "fraction",
-		}}
-		modules={[Pagination, Navigation]}
-		navigation={true}
-		grabCursor={true} 
-		mousewheel={{sensitivity:2}} 
-		centeredSlides={true} 
-		effect={'coverflow'} 
-		slidesPerView={1} 
-		spaceBetween={10}
-		className={`swiper-${type}`}
-		loop={true} 
-		freeMode={{
-			enabled: true,
-			sticky: true,
-		}}
-		coverflowEffect={{
-			"rotate": 30,
-			"stretch": 0,
-			"depth": 80,
-			"modifier": 1,
-			"slideShadows": true
-		}}
-		onRealIndexChange={ (swiper) => {console.log(swiper.realIndex);currentOutfit[type] = swiper.realIndex;}}>
-			{Object.entries(clothes).map(([key, clothingItem], index) => {
-				return (
-					<SwiperSlide key={key} virtualIndex={index}>
-						<img
-							className="d-block w-100"
-							src={clothingItem.image}
-							alt={clothingItem.name}
-						/>
-					</SwiperSlide>
-				);
-			})}
-		
+			// Responsive breakpoints
+			breakpoints={{
+				// when window width is >= 480px
+				480: {
+					slidesPerView: 3,
+					spaceBetween: 30
+				},
+				// when window width is >= 640px
+				640: {
+					slidesPerView: 3,
+					spaceBetween: 40
+				}
+			}}
+			pagination={{
+				type: "fraction",
+			}}
+			modules={[Pagination, Navigation]}
+			navigation={true}
+			grabCursor={true} 
+			mousewheel={{sensitivity:2}} 
+			centeredSlides={true} 
+			effect={'coverflow'} 
+			slidesPerView={1} 
+			spaceBetween={10}
+			className={`swiper-${type}`}
+			loop={true} 
+			freeMode={{
+				enabled: true,
+				sticky: true,
+			}}
+			coverflowEffect={{
+				"rotate": 30,
+				"stretch": 0,
+				"depth": 80,
+				"modifier": 1,
+				"slideShadows": true
+			}}
+			onInit={(swiper)=> {swiper.slideTo(currentOutfit[type]+3,0.5)}}
+			onSlideChange={ (swiper) => {//If checking to avoid real indexing issues
+				if (swiper.realIndex != swiper.activeIndex) {currentOutfit2[type] = swiper.realIndex;}}}>
+				{Object.entries(clothes).map(([key, clothingItem], index) => {
+					return (
+						<SwiperSlide key={key} virtualIndex={index}>
+							<img
+								className="d-block w-100"
+								src={clothingItem.image}
+								alt={clothingItem.name}
+							/>
+						</SwiperSlide>
+					);
+				})}
+			
 		</Swiper>
 	);}
 };
@@ -193,11 +196,8 @@ const ClothingItem = ({ obj, type, img, setOutfit, currOutfit }) => {
 	const [displayImg, setDisplayImg] = useState(img);
 
 	const setNewImg = () => {
-		console.log("before updating")
-		console.log(currentOutfit2[type])
+		// Swapping index position for saving the location
 		currentOutfit[type] = currentOutfit2[type]
-		console.log("updated outfit")
-		console.log(currentOutfit[type])
 		const currentSlide = currentOutfit[type]
 		let temp = currentSlide
 		//currOutfit[type]

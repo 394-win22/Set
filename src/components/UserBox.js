@@ -1,4 +1,3 @@
-import React from "react";
 import { signOut } from "../utilities/firebase";
 import { getAuth } from "firebase/auth";
 import "./UserBox.css";

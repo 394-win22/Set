@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button, Container, Row, DropdownButton, Dropdown, Modal } from "react-bootstrap";
 import { parse } from "uuid";
 import { userId, useData, getAllData } from "../utilities/firebase.js";
@@ -124,8 +124,8 @@ export const ClosetItem = ({ item }) => {
 					src={item.image}
 					alt={item.name}
 				/>
-				<p style={{ fontSize: "20px", fontWeight: "bold", }}>
-					<center>{item.name}</center>
+				<p style={{ fontSize: "20px", fontWeight: "bold", justifyContent: "center", textAlign: "center" }}>
+					{item.name}
 				</p>
 				<Container>
 					<Row>Occasion: {parsed_occasion_string}</Row>

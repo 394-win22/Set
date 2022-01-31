@@ -4,9 +4,9 @@
 
 #root {
 	height: 100vh;
+	-webkit-touch-callout: none;
 }
 
 .slide-routes {
 	padding-top: env(safe-area-inset-top);
 }
-

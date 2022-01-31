@@ -80,6 +80,7 @@ function Footer() {
 						);
 					})}
 				</BottomNavigation>
+				<div className="footer-margin"></div>
 			</Paper>
 		</Box>
 	);
