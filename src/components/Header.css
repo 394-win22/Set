@@ -1,13 +1,14 @@
 .header {
+	padding: 1rem;
+	padding-top: calc(1rem + env(safe-area-inset-top));
+	font-family: "Prata", serif;
+	color: #1c3580;
+	background-color: #f7ebda;
+	text-align: center;
+	z-index: 999;
 	position: fixed;
 	width: 100%;
 	top: 0px;
-	padding: 1rem;
-	background-color: #f7ebda;
-	color: #1c3580;
-	text-align: center;
-	font-family: "Prata", serif;
-	z-index: 999;
 }
 
 .header > h1 {

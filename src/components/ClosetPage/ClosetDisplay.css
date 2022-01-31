@@ -1,7 +1,7 @@
 .closet-header-btns{
 	position: fixed;
 	width: 100%;
-	top: 118px;
+	top: calc(117px + env(safe-area-inset-top));
 	left: 0%;
 	background-color:#f7ebda;
 	z-index: 999;
