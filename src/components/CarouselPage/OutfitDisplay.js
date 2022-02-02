@@ -95,7 +95,7 @@ const ClothesCarousel = ({ clothes, type, changeOutfit }) => {
 				"modifier": 1,
 				"slideShadows": true
 			}}
-			onInit={(swiper)=> {swiper.slideTo(currentOutfit[type]+1,0.5)}}
+			onInit={(swiper)=> {swiper.slideTo(currentOutfit[type]+swiper.activeIndex,0.5)}}
 			onSlideChange={ (swiper) => {//If checking to avoid real indexing issues
 				if (swiper.realIndex != swiper.activeIndex) {currentOutfit2[type] = swiper.realIndex;}}}>
 				{Object.entries(clothes).map(([key, clothingItem], index) => {
@@ -152,7 +152,7 @@ const ClothesCarousel = ({ clothes, type, changeOutfit }) => {
 				"modifier": 1,
 				"slideShadows": true
 			}}
-			onInit={(swiper)=> {swiper.slideTo(currentOutfit[type]+3,0.5)}}
+			onInit={(swiper)=> {swiper.slideTo(currentOutfit[type]+swiper.activeIndex,0.5)}}
 			onSlideChange={ (swiper) => {//If checking to avoid real indexing issues
 				if (swiper.realIndex != swiper.activeIndex) {currentOutfit2[type] = swiper.realIndex;}}}>
 				{Object.entries(clothes).map(([key, clothingItem], index) => {
