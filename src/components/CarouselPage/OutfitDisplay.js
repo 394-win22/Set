@@ -55,6 +55,16 @@ const alertOptions = {
 	type: "success",
 };
 
+const filterTypes = {
+	SW: "Sunny and Warm",
+	H: "Hot and Humid",
+	F: "Fall Breeze",
+	W: "Winter Chill",
+	R: "Rain",
+	S: "Snow",
+	C: "Clear Filter",
+};
+
 const ClothesCarousel = ({ clothes, type, changeOutfit }) => {
 	if (isMobile) {
 		return (
@@ -232,7 +242,16 @@ const ClothingItem = ({ obj, type, img, setOutfit, currOutfit }) => {
 	);
 };
 
+const OutfitHeader = (props) => (
+	<Container className="mx-0 px-0">
+		<Row className="mx-auto text-center d-grid closet-header-btns mx-0">
+			<WeatherFilter setType={props.filterType} />
+		</Row>
+	</Container>
+);
+
 const OutfitDisplay = ({ tops, bottoms, shoes, accessories }) => {
+	const [weatherType, setWeatherType] = useState("Clear Filter");
 	const [currOutfit, setCurrOutfit] = useState({
 		"accessories": null,
 		"tops": null,
@@ -247,7 +266,12 @@ const OutfitDisplay = ({ tops, bottoms, shoes, accessories }) => {
 		})
 	}
 	return (
+		<>
+		<OutfitHeader filterType={setType} />
 		<Container className="px-4" maxWidth="sm">
+			<Row className="g-4">
+				<WeatherFilter setType={"Clear Filter"}/>
+			</Row>
 			<Row xs={2} className="g-4">
 				<Col>
 					<ClothingItem
@@ -300,7 +324,22 @@ const OutfitDisplay = ({ tops, bottoms, shoes, accessories }) => {
 		
 			</Row>
 		</Container>
+	</>
 	);
 };
+
+const WeatherFilter = (setType) => {
+	return (
+	<>
+		<DropdownButton variant="closet" className="px-0" id="closet-header-dropdown" title="Filter By">
+			{Object.values(filterTypes).map((type, index) => (
+				<Dropdown.Item id="dropdown-closet" onClick={() => setType(type)} key={index}>
+					{type}
+				</Dropdown.Item>
+			))}
+		</DropdownButton>
+	</>
+	);
+}
 
 export default OutfitDisplay;
