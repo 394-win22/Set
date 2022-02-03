@@ -44,7 +44,6 @@ function Footer() {
 	for (let i = 0; i < tabs.length; i++) {
 		if (pathname === tabs[i].route) {
 			routeIndex = i;
-			console.log(routeIndex);
 		}
 	}
 
