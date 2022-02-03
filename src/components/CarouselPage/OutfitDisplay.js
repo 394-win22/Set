@@ -62,7 +62,7 @@ const filterTypes = {
 	W: "Winter Chill",
 	R: "Rain",
 	S: "Snow",
-	C: "Clear",
+	C: "Clear Filter",
 };
 
 const ClothesCarousel = ({ clothes, type, changeOutfit }) => {
@@ -242,7 +242,16 @@ const ClothingItem = ({ obj, type, img, setOutfit, currOutfit }) => {
 	);
 };
 
+const OutfitHeader = (props) => (
+	<Container className="mx-0 px-0">
+		<Row className="mx-auto text-center d-grid closet-header-btns mx-0">
+			<WeatherFilter setType={props.filterType} />
+		</Row>
+	</Container>
+);
+
 const OutfitDisplay = ({ tops, bottoms, shoes, accessories }) => {
+	const [weatherType, setWeatherType] = useState("Clear Filter");
 	const [currOutfit, setCurrOutfit] = useState({
 		"accessories": null,
 		"tops": null,
@@ -257,9 +266,11 @@ const OutfitDisplay = ({ tops, bottoms, shoes, accessories }) => {
 		})
 	}
 	return (
+		<>
+		<OutfitHeader filterType={setType} />
 		<Container className="px-4" maxWidth="sm">
 			<Row className="g-4">
-				<FilterSelector setType={"Tops"}/>
+				<WeatherFilter setType={"Clear Filter"}/>
 			</Row>
 			<Row xs={2} className="g-4">
 				<Col>
@@ -269,6 +280,7 @@ const OutfitDisplay = ({ tops, bottoms, shoes, accessories }) => {
 						img={imgTops}
 						setOutfit={changeOutfit}
 						currOutfit={currOutfit}
+						weather={weatherType}
 					></ClothingItem>
 				</Col>
 				<div className="col">
@@ -313,11 +325,11 @@ const OutfitDisplay = ({ tops, bottoms, shoes, accessories }) => {
 		
 			</Row>
 		</Container>
+		</>
 	);
 };
 
-const FilterSelector = () => {
-	const [type, setType] = useState("Clear");
+const WeatherFilter = (setType) => {
 
 	return (
 	<>
