@@ -242,6 +242,20 @@ const ClothingItem = ({ obj, type, img, setOutfit, currOutfit }) => {
 	);
 };
 
+const WeatherFilter = (weatherType) => {
+	return (
+	<>
+		<DropdownButton variant="closet" className="px-0" id="closet-header-dropdown" title="Filter By">
+			{Object.values(filterTypes).map((type, index) => (
+				<Dropdown.Item id="dropdown-closet" onClick={() => weatherType(type)} key={index}>
+					{type}
+				</Dropdown.Item>
+			))}
+		</DropdownButton>
+	</>
+	);
+}
+
 const OutfitHeader = (props) => (
 	<Container className="mx-0 px-0">
 		<Row className="mx-auto text-center d-grid closet-header-btns mx-0">
@@ -252,6 +266,7 @@ const OutfitHeader = (props) => (
 
 const OutfitDisplay = ({ tops, bottoms, shoes, accessories }) => {
 	const [weatherType, setWeatherType] = useState("Clear Filter");
+	const [filterTop, setTops] = useState(tops)
 	const [currOutfit, setCurrOutfit] = useState({
 		"accessories": null,
 		"tops": null,
@@ -267,12 +282,13 @@ const OutfitDisplay = ({ tops, bottoms, shoes, accessories }) => {
 	}
 	return (
 		<>
-		<OutfitHeader filterType={setType} />
+		<OutfitHeader filterType={setWeatherType} />
 		<Container className="px-4" maxWidth="sm">
 			<Row className="g-4">
-				<WeatherFilter setType={"Clear Filter"}/>
+				<OutfitHeader filterType={setType} />
 			</Row>
 			<Row xs={2} className="g-4">
+				//
 				<Col>
 					<ClothingItem
 						obj={tops}
@@ -327,19 +343,5 @@ const OutfitDisplay = ({ tops, bottoms, shoes, accessories }) => {
 	</>
 	);
 };
-
-const WeatherFilter = (setType) => {
-	return (
-	<>
-		<DropdownButton variant="closet" className="px-0" id="closet-header-dropdown" title="Filter By">
-			{Object.values(filterTypes).map((type, index) => (
-				<Dropdown.Item id="dropdown-closet" onClick={() => setType(type)} key={index}>
-					{type}
-				</Dropdown.Item>
-			))}
-		</DropdownButton>
-	</>
-	);
-}
 
 export default OutfitDisplay;
