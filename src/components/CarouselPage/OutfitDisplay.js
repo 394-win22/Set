@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Card, Col, Modal, Row } from "react-bootstrap";
+import { Button, Card, Col, Modal, Row, DropdownButton, Dropdown, } from "react-bootstrap";
 import AlertTemplate from "react-alert-template-mui";
 import { Provider as AlertProvider } from "react-alert";
 import SaveButton from "./SaveButton";
@@ -53,6 +53,16 @@ const alertOptions = {
 	offset: "130px",
 	transition: "scale",
 	type: "success",
+};
+
+const filterTypes = {
+	SW: "Sunny and Warm",
+	H: "Hot and Humid",
+	F: "Fall Breeze",
+	W: "Winter Chill",
+	R: "Rain",
+	S: "Snow",
+	C: "Clear",
 };
 
 const ClothesCarousel = ({ clothes, type, changeOutfit }) => {
@@ -248,6 +258,9 @@ const OutfitDisplay = ({ tops, bottoms, shoes, accessories }) => {
 	}
 	return (
 		<Container className="px-4" maxWidth="sm">
+			<Row className="g-4">
+				<FilterSelector setType={"Tops"}/>
+			</Row>
 			<Row xs={2} className="g-4">
 				<Col>
 					<ClothingItem
@@ -302,5 +315,21 @@ const OutfitDisplay = ({ tops, bottoms, shoes, accessories }) => {
 		</Container>
 	);
 };
+
+const FilterSelector = () => {
+	const [type, setType] = useState("Clear");
+
+	return (
+	<>
+		<DropdownButton variant="closet" className="px-0" id="closet-header-dropdown" title="Filter By">
+			{Object.values(filterTypes).map((type, index) => (
+				<Dropdown.Item id="dropdown-closet" onClick={() => setType(type)} key={index}>
+					{type}
+				</Dropdown.Item>
+			))}
+		</DropdownButton>
+	</>
+);
+}
 
 export default OutfitDisplay;
