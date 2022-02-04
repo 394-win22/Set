@@ -186,7 +186,7 @@ const ClothingModal = (props) => {
 		>
 		<Modal.Header closeButton></Modal.Header>
 		<Modal.Body>
-			<Row className="justify-content-center text-center">No items to show...Please add more items in your clost first :)</Row>
+			<Row className="justify-content-center text-center">No items to show...Please add more items in your closet first :)</Row>
 		</Modal.Body>
 	</Modal>
 	}
