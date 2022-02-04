@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
 	Container,
 	Row,
@@ -7,7 +7,10 @@ import {
 	Modal,
 } from "react-bootstrap";
 
-import { useData, getAllData, getAllClothingType } from "../../utilities/firebase.js";
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+
+import { useData, getAllData, getAllClothingType, deleteData } from "../../utilities/firebase.js";
 import { NewItemForm } from "./NewItemForm.js";
 
 import "./ClosetDisplay.css";
@@ -83,7 +86,7 @@ export const ClosetGrid = ({ UID }) => {
 		else {
 			return Object.entries(typesDict[type]).map(
 				([key, item]) => (
-					<ClosetItem item={item} key={key} />
+					<ClosetItem item={item} type={type} key={key} itemkey={key} UID={UID} />
 				)
 			)
 		};
@@ -103,7 +106,7 @@ export const ClosetGrid = ({ UID }) => {
 	);
 };
 
-export const ClosetItem = ({ item }) => {
+export const ClosetItem = ({ item, type, itemkey, UID }) => {
 	const [showModal, setShowModal] = useState(false);
 	let parsed_occasion_string = "";
 	if (item.occasion != null) {
@@ -129,6 +132,9 @@ export const ClosetItem = ({ item }) => {
 			}
 			numWeather -= 1;
 		}
+	}
+	const removeItem = () => {
+		deleteData(`/${type}/${UID}/${itemkey}`);
 	}
 
 	return (
@@ -170,6 +176,11 @@ export const ClosetItem = ({ item }) => {
 						<Row>Occasion: {parsed_occasion_string}</Row>
 						<Row>Weather: {parsed_weather_string}</Row>
 					</Container>
+					<Row className="justify-content-middle my-3">
+						<IconButton aria-label="delete" size="large" onClick={removeItem}>
+							<DeleteIcon fontSize="inherit" />
+						</IconButton>
+					</Row>
 					</Container>
 				</Modal.Body>
 			</Modal>
