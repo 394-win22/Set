@@ -1,9 +1,12 @@
 import { useState } from "react";
-import { Button, Card, Col, Modal, Row, DropdownButton, Dropdown, } from "react-bootstrap";
+import { Button, Card, Col, Modal, Row } from "react-bootstrap";
 import AlertTemplate from "react-alert-template-mui";
 import { Provider as AlertProvider } from "react-alert";
 import SaveButton from "./SaveButton";
 import {Container} from '@mui/material'
+
+import { useData, getItemsFromUser } from "../../utilities/firebase.js";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // icons from https://www.flaticon.com/authors/bqlqn
@@ -174,6 +177,19 @@ const ClothesCarousel = ({ clothes, type, changeOutfit }) => {
 
 const ClothingModal = (props) => {
 	const { onSelect, ...otherProps } = props;
+	if (!props.clothes) {
+		return <Modal
+			{...otherProps}
+			size="lg"
+			aria-labelledby="contained-modal-title-vcenter"
+			centered
+		>
+		<Modal.Header closeButton></Modal.Header>
+		<Modal.Body>
+			<Row className="justify-content-center text-center">No items to show...Please add more items in your clost first :)</Row>
+		</Modal.Body>
+	</Modal>
+	}
 	return (
 		<Modal
 			{...otherProps}
@@ -235,7 +251,20 @@ const ClothingItem = ({ obj, type, img, setOutfit, currOutfit }) => {
 
 
 
-const OutfitDisplay = ({ tops, bottoms, shoes, accessories }) => {
+const OutfitDisplay = ({ UID }) => {
+
+	const [tops, loadingTops, errorTops] = useData(
+		getItemsFromUser(UID, "Tops")
+	);
+	const [bottoms, loadingBottoms, errorBottoms] = useData(
+		getItemsFromUser(UID, "Bottoms")
+	);
+	const [accessories, loadingAccessories, errorAccessories] = useData(
+		getItemsFromUser(UID, "Accessories")
+	);
+	const [shoes, loadingShoes, errorShoes] = useData(
+		getItemsFromUser(UID, "Shoes")
+	);
 	
 	const [currOutfit, setCurrOutfit] = useState({
 		"accessories": null,
@@ -243,6 +272,14 @@ const OutfitDisplay = ({ tops, bottoms, shoes, accessories }) => {
 		"bottoms": null,
 		"shoes": null,
 	});
+
+	if (errorTops || errorBottoms || errorAccessories || errorShoes)
+		return (
+			<h1>{(errorTops, errorBottoms, errorAccessories, errorShoes)}</h1>
+		);
+	if (loadingTops || loadingBottoms || loadingAccessories || loadingShoes)
+	 	return <h1>Loading...</h1>;
+
 	const changeOutfit = (type, currentSlide) => {
 		setCurrOutfit((outfit) => {
 			let temp = {...outfit};
@@ -302,6 +339,7 @@ const OutfitDisplay = ({ tops, bottoms, shoes, accessories }) => {
 							accessories={accessories}
 							shoes={shoes}
 							currOutfit={currOutfit}
+							UID={UID}
 						></SaveButton>
 					</AlertProvider>
 		

@@ -1,12 +1,20 @@
-import React from 'react';
-import Header from '../components/Header'
+import {useEffect} from 'react';
 import UserBox from '../components/UserBox'
+import { useNavigate } from "react-router-dom";
 
 const UserPage = (props) => {
-return (
-    <div>
-      <UserBox />
-    </div>
+  let navigate = useNavigate();
+    useEffect(() => {
+        let authToken = sessionStorage.getItem('Auth Token')
+
+        if (!authToken) {
+            navigate('/login')
+        }
+    }, [navigate])
+  return (
+      <div>
+        <UserBox />
+      </div>
   )
 };
 

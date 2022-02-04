@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import {
 	Container,
 	Row,
-	Col,
 	DropdownButton,
 	Dropdown,
 	Modal,
 } from "react-bootstrap";
 
-import { userId, useData, getAllData } from "../../utilities/firebase.js";
+import { useData, getAllData, getAllClothingType } from "../../utilities/firebase.js";
 import { NewItemForm } from "./NewItemForm.js";
 
 import "./ClosetDisplay.css";
@@ -32,33 +31,71 @@ const FilterSelector = ({ setType }) => (
 	</>
 );
 
-const ClosetHeader = (props) => (
+const ClosetHeader = ({setType, UID}) => (
 	<Container className="mx-0 px-0">
 		<Row className="mx-auto text-center d-grid closet-header-btns mx-0">
-			<NewItemForm />
-			<FilterSelector setType={props.filterType} />
+			<NewItemForm UID={ UID } />
+			<FilterSelector setType={setType} />
 		</Row>
 	</Container>
 );
 
-export const ClosetGrid = () => {
-	const [closet, loading, error] = useData("/", getAllData);
+export const ClosetGrid = ({ UID }) => {
 	const [type, setType] = useState("Tops");
+	const [top, loadingTop, errorTop] = useData(
+		getAllClothingType("Tops", UID),
+		getAllData
+	);
+	const [bottom, loadingBottom, errorBottom] = useData(
+		getAllClothingType("Bottoms", UID),
+		getAllData
+	);
+	const [shoes, loadingShoes, errorShoes] = useData(
+		getAllClothingType("Shoes", UID),
+		getAllData
+	);
 
-	if (error) return <h1>{error}</h1>;
-	if (loading) return <h1>Loading closet...</h1>;
+	const [accessories, loadingAccessories, errorAccessories] = useData(
+		getAllClothingType("Accessories", UID),
+		getAllData
+	);
+
+	if (errorTop || errorBottom || errorShoes || errorAccessories)
+		return <h1>{(errorTop, errorBottom, errorAccessories, errorShoes)}</h1>;
+	if (loadingTop || loadingBottom || loadingShoes || loadingAccessories)
+		return <h1>Loading...</h1>;
+
+	const typesDict = {
+		"Tops": top, 
+		"Bottoms": bottom, 
+		"Shoes": shoes,
+		"Accessories": accessories
+	};
+
+	const ShowTypeofItems = () => { 
+		if (typesDict[type] == null) {
+			return <Container>
+				<Row className="justify-content-center text-align-center text-center mt-5">
+					No saved {type.toLowerCase()} to show.<br/>
+					Click on the Add Clothing Item to add your first item.
+				</Row>
+			</Container>;}
+		else {
+			return Object.entries(typesDict[type]).map(
+				([key, item]) => (
+					<ClosetItem item={item} key={key} />
+				)
+			)
+		};
+	}
 
 	return (
 		<>
-			<ClosetHeader filterType={setType} />
+			<ClosetHeader setType={setType} UID={ UID } />
 			<div className="container mt-6">
 				<div className="album">
 					<div className="row">
-						{Object.entries(closet[type][userId]).map(
-							([key, item]) => (
-								<ClosetItem item={item} key={key} />
-							)
-						)}
+						<ShowTypeofItems />
 					</div>
 				</div>
 			</div>

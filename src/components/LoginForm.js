@@ -1,8 +1,12 @@
-import { useState } from 'react';
+import { useState, forwardRef } from 'react';
 import './LoginForm.css';
 import { signInWithEmailAndPassWD, signInWithGoogle } from '../utilities/firebase';
+import { useNavigate } from "react-router-dom";
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
 const Form = () => {    
+    let navigate = useNavigate();
     const [inputs, setinputs] = useState({
         email: "",
         password: ""
@@ -15,6 +19,22 @@ const Form = () => {
     const [eye, seteye] = useState(true);
     const [pass, setpass] = useState("password");
     
+    const [openAlert, setOpenAlert] = useState(false);
+    const Alert = forwardRef(function Alert(props, ref) {
+        return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+    });
+
+    const handleClick = () => {
+        setOpenAlert(true);
+      };
+    
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setOpenAlert(false);
+    };
     
     const inputEvent = (event) => {
         const name = event.target.name;
@@ -53,7 +73,7 @@ const Form = () => {
             setwarnemail(true);
             setdanger(false);
         } else {
-            signInWithEmailAndPassWD(inputs);
+            signInWithEmailAndPassWD(inputs, navigate, setOpenAlert)
         }
     };
 
@@ -72,14 +92,19 @@ const Form = () => {
             <div className="container-login">
                 <div className="card-login">
                     <div className="form-login">
+                        <Snackbar open={openAlert} autoHideDuration={6000} onClose={handleClose}>
+                            <Alert onClose={handleClose} severity="warning" sx={{ width: '100%' }}>
+                                Wrong username or password.
+                            </Alert>
+                        </Snackbar>
                         <div className="left-side">
                             <img src="https://image.s5a.com/is/image/saks/010422_WMHP_3UP_1_NEWYEARNEWJEANSRESOLUTION?scl=1&qlt=84&fmt=jpg" />
                         </div>
     
                         <div className="right-side">
-                            <div className="register">
+                            {/* <div className="register">
                                 <p>Not a member? <a href="#">Register Now</a></p>
-                            </div>
+                            </div> */}
     
                             <div className="hello">
                                 <h2>Welcome to SET!</h2>
@@ -96,9 +121,9 @@ const Form = () => {
                                     <input className={` ${warnpass ? "warning" : "" }`} type={pass} placeholder="Enter Password" name="password" value={inputs.password} onChange={inputEvent} />
                                     <i onClick={Eye} className={`fa ${eye ? "fa-eye-slash" : "fa-eye" }`}></i>
                                 </div>
-                                <div className="recovery">
+                                {/* <div className="recovery">
                                     <p>Forget Password</p>
-                                </div>
+                                </div> */}
                                 <div className="btn-login">
                                     <button type="submit">Sign in</button>
                                 </div>
@@ -106,7 +131,7 @@ const Form = () => {
                             </form>
                             <hr />
                             <div className="boxes-login">
-                                <span onClick={() => signInWithGoogle()}><img src="https://imgur.com/XnY9cKl.png" /></span>
+                                <span onClick={() => signInWithGoogle(navigate)}><img src="https://imgur.com/XnY9cKl.png" /></span>
                                 {/* <span><img src="https://imgur.com/ODlSChL.png" /></span>
                                 <span><img src="https://imgur.com/mPBRdQt.png" /></span> */}
                             </div>

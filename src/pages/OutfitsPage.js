@@ -1,37 +1,37 @@
-import {React, useState} from "react";
-import Header from "../components/Header";
+import {useState, useEffect} from "react";
 import imgAccessories from "../images/img_acc.png";
 import { DeleteOutlined } from '@ant-design/icons'
-import { Button, Card, Col, Modal, Row } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 import {
 	useData,
 	getItemsFromUser,
 	getAllData,
-	userId,
 	getClothingItem,
 	deleteData
 } from "../utilities/firebase.js";
 
-const Outfit = ({ outfit, id, index }) => {
+const Outfit = ({ outfit, id, index, UID }) => {
 
 	const [showModal, setShowModal] = useState(false);
 
 	const [top, loadingTop, errorTop] = useData(
-		getClothingItem("Tops", userId, outfit["Tops"]),
+		getClothingItem("Tops", UID, outfit["Tops"]),
 		getAllData
 	);
 	const [bottom, loadingBottom, errorBottom] = useData(
-		getClothingItem("Bottoms", userId, outfit["Bottoms"]),
+		getClothingItem("Bottoms", UID, outfit["Bottoms"]),
 		getAllData
 	);
 	const [shoes, loadingShoes, errorShoes] = useData(
-		getClothingItem("Shoes", userId, outfit["Shoes"]),
+		getClothingItem("Shoes", UID, outfit["Shoes"]),
 		getAllData
 	);
 
 	const [accessories, loadingAccessories, errorAccessories] = useData(
-		getClothingItem("Accessories", userId, outfit["Accessories"]),
+		getClothingItem("Accessories", UID, outfit["Accessories"]),
 		getAllData
 	);
 
@@ -41,7 +41,7 @@ const Outfit = ({ outfit, id, index }) => {
 		return <h1>Loading...</h1>;
 
 	const removeOutfit = () => {
-		deleteData(`/Saved Outfits/${userId}/${id}`);
+		deleteData(`/Saved Outfits/${UID}/${id}`);
 	}
 
 	return (
@@ -179,8 +179,27 @@ const OutfitModal = (props) => {
 };
 
 const OutfitsPage = () => {
+	const auth = getAuth();
+	let [uid, setUID] = useState(null);
+	let navigate = useNavigate();
+	useEffect(() => {
+		let authToken = sessionStorage.getItem('Auth Token')
+
+		if (!authToken) {
+			navigate('/login')
+		}
+	}, [navigate])
+	onAuthStateChanged(auth, (authuser) => {
+		if (authuser) {
+		  	// The user's ID, unique to the Firebase project. Do NOT use
+        	// this value to authenticate with the backend server
+        	// Use User.getToken() instead.
+        	setUID(authuser.uid);
+		}
+	  });
+
 	const [outfits, loadingOutfits, errorOutfits] = useData(
-		getItemsFromUser(userId, "Saved Outfits")
+		getItemsFromUser(uid, "Saved Outfits")
 	);
 
 	if (errorOutfits) return <h1>{errorOutfits}</h1>;
@@ -190,7 +209,7 @@ const OutfitsPage = () => {
 		<div>
 			<div className="container px-4">
 				{!outfits ? (
-					<p style={{ marginTop: "50%" }}>
+					<p style={{ marginTop: "30%" }}>
 						<center>No saved outfits to show.</center>
 						<center>Click on the Create tab to style your first outfit.</center>
 					</p>
@@ -199,7 +218,7 @@ const OutfitsPage = () => {
 						<div className="row">
 							{Object.entries(outfits).map(([key, outfit], index) => {
 								return (
-								<Outfit outfit={outfit} key={key} id={key} index={index}/>
+								<Outfit outfit={outfit} key={key} id={key} index={index} UID={uid} />
 							)})}
 						</div>
 					</div>

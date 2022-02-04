@@ -7,15 +7,12 @@ import { useAlert } from "react-alert";
 import { SaveNewItem } from "../../utilities/SaveNewItem";
 import TextField from "@mui/material/TextField";
 import UploadOneImage from "../../utilities/UploadOneImage";
-import { userId } from "../../utilities/firebase";
 import { DropzoneArea } from "mui-file-dropzone";
 import {
-	Fab,
 	Dialog,
 	DialogActions,
 	DialogContent,
 	DialogTitle,
-	DialogContentText,
 } from "@mui/material";
 
 const itemTypes = ["Tops", "Bottoms", "Shoes", "Accessories"];
@@ -38,7 +35,7 @@ const weatherIcons = {
 	Snow: "fas fa-snowflake fa-2x",
 };
 
-export const NewItemForm = () => {
+export const NewItemForm = ({UID}) => {
 	const [name, setName] = useState("");
 	const [imagelink, setImageLink] = useState("");
 	const [type, setType] = useState("");
@@ -65,9 +62,6 @@ export const NewItemForm = () => {
 			<Dialog open={open} onClose={handleClose}>
 				<DialogTitle>Add</DialogTitle>
 				<DialogContent>
-					{/* <DialogContentText className="mb-2">
-              To add new item to your closet, please upload an image and specify details.
-            </DialogContentText> */}
 					<Container>
 						<Row className="mb-3">
 							<Col>
@@ -134,14 +128,15 @@ export const NewItemForm = () => {
 						size="large"
 						onClick={(event) => {
 							handleClose();
-							UploadOneImage(file, type, userId).then((URL) =>
+							UploadOneImage(file, type, UID).then((URL) =>
 								SaveNewItem(
 									type,
 									name,
 									URL,
 									weathers,
 									occasions_Set,
-									alert
+									alert,
+									UID
 								).then(() => {
 									setName("");
 									setType("");

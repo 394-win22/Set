@@ -1,66 +1,29 @@
-import {React, useState} from "react";
-
-import Header from "../components/Header";
-import SaveButton from "../components/CarouselPage/SaveButton";
+import { useState, useEffect } from "react";
 import OutfitDisplay from "../components/CarouselPage/OutfitDisplay";
-
-import { Provider as AlertProvider } from "react-alert";
-import AlertTemplate from "react-alert-template-mui";
-
-import { useData, getItemsFromUser, userId } from "../utilities/firebase.js";
-
-const alertOptions = {
-	position: "top center",
-	timeout: 5000,
-	offset: "130px",
-	transition: "scale",
-	type: "success",
-};
+import { useNavigate } from "react-router-dom";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const CarouselPage = () => {
-	const [tops, loadingTops, errorTops] = useData(
-		getItemsFromUser(userId, "Tops")
-	);
-	const [bottoms, loadingBottoms, errorBottoms] = useData(
-		getItemsFromUser(userId, "Bottoms")
-	);
-	const [accessories, loadingAccessories, errorAccessories] = useData(
-		getItemsFromUser(userId, "Accessories")
-	);
-	const [shoes, loadingShoes, errorShoes] = useData(
-		getItemsFromUser(userId, "Shoes")
-	);
+	const auth = getAuth();
+	let [uid, setUID] = useState(null);
+	let navigate = useNavigate();
+	onAuthStateChanged(auth, (authuser) => {
+		if (authuser) {
+		  	// The user's ID, unique to the Firebase project. Do NOT use
+        	// this value to authenticate with the backend server
+        	// Use User.getToken() instead.
+        	setUID(authuser.uid);
+		}
+	  });
 
-	// const [currOutfit, setCurrOutfit] = useState({
-	// 	accessories: null,
-	// 	tops: null,
-	// 	bottoms: null,
-	// 	shoes: null,
-	// });
-
-	if (errorTops || errorBottoms || errorAccessories || errorShoes)
-		return (
-			<h1>{(errorTops, errorBottoms, errorAccessories, errorShoes)}</h1>
-		);
-	// if (loadingTops || loadingBottoms || loadingAccessories || loadingShoes)
-	// 	return <h1>Loading...</h1>;
-
+    useEffect(() => {
+        if (!auth) {
+            navigate('/login')
+        }
+    }, [navigate])
 	return (
 			<div>
-				<OutfitDisplay
-					tops={tops}
-					bottoms={bottoms}
-					accessories={accessories}
-					shoes={shoes}
-				/>
-				{/* <AlertProvider template={AlertTemplate} {...alertOptions}>
-					<SaveButton
-						tops={tops}
-						bottoms={bottoms}
-						accessories={accessories}
-						shoes={shoes}
-					></SaveButton>
-				</AlertProvider> */}
+				<OutfitDisplay UID={uid} />
 			</div>
 	);
 };

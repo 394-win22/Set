@@ -12,6 +12,7 @@ import {
 	signInWithPopup,
 	signOut,
 } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -31,9 +32,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 export const storage = getStorage(app);
-
-// This is a hardcoded test user id
-export const userId = "C0XdX2OmOQZKzVknueo4xGtsgvI2";
 
 export const deleteData = (path) => {
 	set(ref(database, path), null)
@@ -89,8 +87,34 @@ export const getClothingItem = (type, userID, clothingID) => {
 	return `/${type}/${userID}/${clothingID}`;
 };
 
-export const signInWithGoogle = () => {
-	signInWithPopup(getAuth(app), new GoogleAuthProvider());
+export const getAllClothingType = (type, userID) => {
+	return `/${type}/${userID}/`;
+};
+
+export const signInWithGoogle = (navigate) => {
+	signInWithPopup(getAuth(app), new GoogleAuthProvider())
+	.then((result) => {
+		// This gives you a Google Access Token. You can use it to access the Google API.
+		const credential = GoogleAuthProvider.credentialFromResult(result);
+		const token = credential.accessToken;
+		sessionStorage.setItem(
+			"Auth Token",
+			token
+		);
+		// The signed-in user info.
+		const user = result.user;
+		navigate('/closet')
+	  }).catch((error) => {
+		// Handle Errors here.
+		const errorCode = error.code;
+		const errorMessage = error.message;
+		// The email of the user's account used.
+		const email = error.email;
+		// The AuthCredential type that was used.
+		const credential = GoogleAuthProvider.credentialFromError(error);
+		console.log(errorCode, errorMessage, email);
+		return false;
+	  });
 };
 
 const firebaseSignOut = () => signOut(getAuth(app));
@@ -106,7 +130,7 @@ export const useUserState = () => {
 	return [user];
 };
 
-export const signInWithEmailAndPassWD = (inputs) => {
+export const signInWithEmailAndPassWD = (inputs, navigate, setOpenAlert) => {
 	const authentication = getAuth(app);
 	signInWithEmailAndPassword(authentication, inputs.email, inputs.password)
 		.then((response) => {
@@ -114,14 +138,14 @@ export const signInWithEmailAndPassWD = (inputs) => {
 				"Auth Token",
 				response._tokenResponse.refreshToken
 			);
-			return true;
+			navigate('/closet');
 		})
 		.catch((error) => {
-			if (
-				error.code === "auth/wrong-password" ||
-				error.code === "auth/user-not-found"
-			) {
-				return false;
-			}
+			if (error.code == "auth/user-not-found" ||
+				error.code == "auth/wrong-password") {
+					setOpenAlert(true);
+				} else {
+					console.log(error.code);
+				}
 		});
 };

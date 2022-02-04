@@ -1,15 +1,14 @@
 import React from "react";
 
-import { Button, Container, Row } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { useAlert } from "react-alert";
 
-import { userId, pushData } from "../../utilities/firebase";
+import { pushData } from "../../utilities/firebase";
 
 export const savedOutfit = { accessories: 0, tops: 0, bottoms: 0, shoes: 0 };
 
-const saveOutfit = async (tops, bottoms, shoes, accessories, alert, currOutfit) => {
+const saveOutfit = async (tops, bottoms, shoes, accessories, alert, currOutfit, UID) => {
 	if (currOutfit["tops"] == null || currOutfit["bottoms"] == null || currOutfit["shoes"] == null) return;
-	// if (Object.values(currOutfit).includes(null)) return;
 
 	savedOutfit["tops"] = Object.entries(tops)[currOutfit["tops"]][0];
 	savedOutfit["bottoms"] =
@@ -24,7 +23,7 @@ const saveOutfit = async (tops, bottoms, shoes, accessories, alert, currOutfit) 
 
 	try {
 		if (accessorySelected){
-			await pushData(`/Saved Outfits/${userId}`, {
+			await pushData(`/Saved Outfits/${UID}`, {
 				Name: "Outfit",
 				Accessories: savedOutfit["accessories"],
 				Tops: savedOutfit["tops"],
@@ -32,7 +31,7 @@ const saveOutfit = async (tops, bottoms, shoes, accessories, alert, currOutfit) 
 				Bottoms: savedOutfit["bottoms"],
 			});
 		} else {
-			await pushData(`/Saved Outfits/${userId}`, {
+			await pushData(`/Saved Outfits/${UID}`, {
 				Name: "Outfit",
 				Tops: savedOutfit["tops"],
 				Shoes: savedOutfit["shoes"],
@@ -46,7 +45,7 @@ const saveOutfit = async (tops, bottoms, shoes, accessories, alert, currOutfit) 
 	return;
 };
 
-const SaveButton = ({ tops, bottoms, shoes, accessories, currOutfit }) => {
+const SaveButton = ({ tops, bottoms, shoes, accessories, currOutfit, UID }) => {
 	const alert = useAlert();
 	let render = false
 	if (currOutfit["tops"] != null && currOutfit["bottoms"] != null && currOutfit["shoes"] != null){
@@ -65,7 +64,7 @@ const SaveButton = ({ tops, bottoms, shoes, accessories, currOutfit }) => {
 			) : (
 				<Button
 					onClick={(ev) => {
-						saveOutfit(tops, bottoms, shoes, accessories, alert, currOutfit);
+						saveOutfit(tops, bottoms, shoes, accessories, alert, currOutfit, UID);
 					}}
 					variant="danger"
 					style = {{width: "80%"}}

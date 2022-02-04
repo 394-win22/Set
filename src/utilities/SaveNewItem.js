@@ -1,4 +1,4 @@
-import { pushData, userId } from "../utilities/firebase.js";
+import { pushData } from "../utilities/firebase.js";
 
 export const NewItem = {type: "", name: "", image: "", occasion: [], weather: [] };
 
@@ -12,7 +12,7 @@ function isURL(str) {
     return !!pattern.test(str);
 }
 
-export const SaveNewItem = async (itemType, itemName, imageLink, itemWeathers, itemOccasions, alert) => {
+export const SaveNewItem = async (itemType, itemName, imageLink, itemWeathers, itemOccasions, alert, UID) => {
 	if (itemName == "" || imageLink == "" || itemWeathers == [] || itemOccasions == []) {
         alert.show("An input is missing!");
         return;
@@ -23,7 +23,7 @@ export const SaveNewItem = async (itemType, itemName, imageLink, itemWeathers, i
 
 	// push to firebase here
 	try {
-		await pushData(`/${itemType}/${userId}`, {
+		await pushData(`/${itemType}/${UID}`, {
 			name: itemName,
 			image: imageLink,
             color: ["unknown"],
