@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Card, Col, Modal, Row } from "react-bootstrap";
+import { Button, Card, Col, Modal, Row, Dropdown, DropdownButton } from "react-bootstrap";
 import AlertTemplate from "react-alert-template-mui";
 import { Provider as AlertProvider } from "react-alert";
 import SaveButton from "./SaveButton";
@@ -58,8 +58,19 @@ const alertOptions = {
 	type: "success",
 };
 
+const filterTypes = {
+	SW: "Sunny and Warm",
+	H: "Hot and Humid",
+	F: "Fall Breeze",
+	W: "Winter Chill",
+	R: "Rain",
+	S: "Snow",
+	A: "All",
+};
 
-const ClothesCarousel = ({ clothes, type, changeOutfit }) => {
+
+const ClothesCarousel = ({ clothes, type, weatherType, changeOutfit }) => {
+
 	if (isMobile) {
 		return (
 			<Swiper 
@@ -103,15 +114,20 @@ const ClothesCarousel = ({ clothes, type, changeOutfit }) => {
 			onSlideChange={ (swiper) => {//If checking to avoid real indexing issues
 				if (swiper.realIndex != swiper.activeIndex) {currentOutfit2[type] = swiper.realIndex;}}}>
 				{Object.entries(clothes).map(([key, clothingItem], index) => {
-					return (
-						<SwiperSlide key={key} virtualIndex={index}>
-							<img
-								className="d-block w-100"
-								src={clothingItem.image}
-								alt={clothingItem.name}
-							/>
-						</SwiperSlide>
-					);
+					if (weatherType == "All" || (clothingItem.weather && Object.entries(clothingItem.weather).flat().includes(weatherType))){
+						return (
+							<SwiperSlide key={key} virtualIndex={index}>
+								<img
+									className="d-block w-100"
+									src={clothingItem.image}
+									alt={clothingItem.name}
+								/>
+							</SwiperSlide>
+						);
+					}
+					else {
+						console.log("Weather type not applicable!");
+					}
 				})}
 			
 			</Swiper>
@@ -160,15 +176,20 @@ const ClothesCarousel = ({ clothes, type, changeOutfit }) => {
 			onSlideChange={ (swiper) => {//If checking to avoid real indexing issues
 				if (swiper.realIndex != swiper.activeIndex) {currentOutfit2[type] = swiper.realIndex;}}}>
 				{Object.entries(clothes).map(([key, clothingItem], index) => {
-					return (
-						<SwiperSlide key={key} virtualIndex={index}>
-							<img
-								className="d-block w-100"
-								src={clothingItem.image}
-								alt={clothingItem.name}
-							/>
-						</SwiperSlide>
-					);
+					if (weatherType == "All" || (clothingItem.weather && Object.entries(clothingItem.weather).flat().includes(weatherType))){
+						return (
+							<SwiperSlide key={key} virtualIndex={index}>
+								<img
+									className="d-block w-100"
+									src={clothingItem.image}
+									alt={clothingItem.name}
+								/>
+							</SwiperSlide>
+						);
+					}
+					else {
+						console.log("Weather type not applicable!");
+					}
 				})}
 			
 		</Swiper>
@@ -199,7 +220,7 @@ const ClothingModal = (props) => {
 		>
 			<Modal.Header closeButton></Modal.Header>
 			<Modal.Body>
-				<ClothesCarousel clothes={props.clothes} type={props.type} changeOutfit={props.setOutfit} />
+				<ClothesCarousel clothes={props.clothes} type={props.type} weatherType={props.weatherType} changeOutfit={props.setOutfit} />
 			</Modal.Body>
 			<Modal.Footer>
 				<Button variant="secondary" onClick={props.onSelect}>Select</Button>
@@ -208,7 +229,7 @@ const ClothingModal = (props) => {
 	);
 };
 
-const ClothingItem = ({ obj, type, img, setOutfit, currOutfit }) => {
+const ClothingItem = ({ obj, type, img, setOutfit, weatherType, currOutfit }) => {
 	const [showModal, setShowModal] = useState(false);
 	const [displayImg, setDisplayImg] = useState(img);
 
@@ -243,6 +264,7 @@ const ClothingItem = ({ obj, type, img, setOutfit, currOutfit }) => {
 				onSelect={() => setNewImg()}
 				clothes={obj}
 				type={type}
+				weatherType={weatherType}
 				setOutfit={setOutfit}
 			/>
 		</>
@@ -252,6 +274,8 @@ const ClothingItem = ({ obj, type, img, setOutfit, currOutfit }) => {
 
 
 const OutfitDisplay = ({ UID }) => {
+
+	const [weatherType, setWeatherType] = useState("All");
 
 	const [tops, loadingTops, errorTops] = useData(
 		getItemsFromUser(UID, "Tops")
@@ -291,11 +315,16 @@ const OutfitDisplay = ({ UID }) => {
 	
 		<Container className="px-4" maxWidth="sm">
 			
+			<Row className="g-4">
+				<WeatherFilter setWeatherType={setWeatherType}/>
+			</Row>
+
 			<Row xs={2} className="g-4">
 				<Col>
 					<ClothingItem
 						obj={tops}
 						type="tops"
+						weatherType={weatherType}
 						img={imgTops}
 						setOutfit={changeOutfit}
 						currOutfit={currOutfit}
@@ -306,6 +335,7 @@ const OutfitDisplay = ({ UID }) => {
 					<ClothingItem
 						obj={accessories}
 						type="accessories"
+						weatherType={weatherType}
 						img={imgAccessories}
 						setOutfit={changeOutfit}
 						currOutfit={currOutfit}
@@ -315,6 +345,7 @@ const OutfitDisplay = ({ UID }) => {
 					<ClothingItem
 						obj={bottoms}
 						type="bottoms"
+						weatherType={weatherType}
 						img={imgBottoms}
 						setOutfit={changeOutfit}
 						currOutfit={currOutfit}
@@ -324,6 +355,7 @@ const OutfitDisplay = ({ UID }) => {
 					<ClothingItem
 						obj={shoes}
 						type="shoes"
+						weatherType={weatherType}
 						img={imgShoes}
 						setOutfit={changeOutfit}
 						currOutfit={currOutfit}
@@ -348,6 +380,21 @@ const OutfitDisplay = ({ UID }) => {
 		
 	);
 };
+
+const WeatherFilter = ({setWeatherType}) => {
+
+	return (
+	<>
+		<DropdownButton variant="closet" className="px-0" id="closet-header-dropdown" title="Filter By">
+			{Object.values(filterTypes).map((type, index) => (
+				<Dropdown.Item id="dropdown-closet" onClick={() => {console.log(type); setWeatherType(type);}} key={index}>
+					{type}
+				</Dropdown.Item>
+			))}
+		</DropdownButton>
+	</>
+);
+}
 
 
 export default OutfitDisplay;
