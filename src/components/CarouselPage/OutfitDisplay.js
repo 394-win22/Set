@@ -65,7 +65,7 @@ const filterTypes = {
 	W: "Winter Chill",
 	R: "Rain",
 	S: "Snow",
-	A: "All",
+	A: "All Weather Types",
 };
 
 
@@ -114,7 +114,7 @@ const ClothesCarousel = ({ clothes, type, weatherType, changeOutfit }) => {
 			onSlideChange={ (swiper) => {//If checking to avoid real indexing issues
 				if (swiper.realIndex != swiper.activeIndex) {currentOutfit2[type] = swiper.realIndex;}}}>
 				{Object.entries(clothes).map(([key, clothingItem], index) => {
-					if (weatherType == "All" || (clothingItem.weather && Object.entries(clothingItem.weather).flat().includes(weatherType))){
+					if (weatherType == "All Weather Types" || (clothingItem.weather && Object.entries(clothingItem.weather).flat().includes(weatherType))){
 						return (
 							<SwiperSlide key={key} virtualIndex={index}>
 								<img
@@ -176,7 +176,7 @@ const ClothesCarousel = ({ clothes, type, weatherType, changeOutfit }) => {
 			onSlideChange={ (swiper) => {//If checking to avoid real indexing issues
 				if (swiper.realIndex != swiper.activeIndex) {currentOutfit2[type] = swiper.realIndex;}}}>
 				{Object.entries(clothes).map(([key, clothingItem], index) => {
-					if (weatherType == "All" || (clothingItem.weather && Object.entries(clothingItem.weather).flat().includes(weatherType))){
+					if (weatherType == "All Weather Types" || (clothingItem.weather && Object.entries(clothingItem.weather).flat().includes(weatherType))){
 						return (
 							<SwiperSlide key={key} virtualIndex={index}>
 								<img
@@ -207,7 +207,7 @@ const ClothingModal = (props) => {
 		>
 		<Modal.Header closeButton></Modal.Header>
 		<Modal.Body>
-			<Row className="justify-content-center text-center">No items to show...Please add more items in your closet first :)</Row>
+			<Row className="justify-content-center text-center">No items to show... Please add more items in your closet first :)</Row>
 		</Modal.Body>
 	</Modal>
 	}
@@ -275,7 +275,7 @@ const ClothingItem = ({ obj, type, img, setOutfit, weatherType, currOutfit }) =>
 
 const OutfitDisplay = ({ UID }) => {
 
-	const [weatherType, setWeatherType] = useState("All");
+	const [weatherType, setWeatherType] = useState("All Weather Types");
 
 	const [tops, loadingTops, errorTops] = useData(
 		getItemsFromUser(UID, "Tops")
@@ -316,7 +316,7 @@ const OutfitDisplay = ({ UID }) => {
 		<Container className="px-4" maxWidth="sm">
 			
 			<Row className="g-4">
-				<WeatherFilter setWeatherType={setWeatherType}/>
+				<WeatherFilter setWeatherType={setWeatherType} weatherType={weatherType}/>
 			</Row>
 
 			<Row xs={2} className="g-4">
@@ -381,11 +381,11 @@ const OutfitDisplay = ({ UID }) => {
 	);
 };
 
-const WeatherFilter = ({setWeatherType}) => {
+const WeatherFilter = ({setWeatherType, weatherType}) => {
 
 	return (
 	<>
-		<DropdownButton variant="closet" className="px-0" id="closet-header-dropdown" title="Filter By">
+		<DropdownButton variant="closet" className="px-0" id="closet-header-dropdown" title={weatherType}>
 			{Object.values(filterTypes).map((type, index) => (
 				<Dropdown.Item id="dropdown-closet" onClick={() => {console.log(type); setWeatherType(type);}} key={index}>
 					{type}

@@ -22,9 +22,9 @@ const filterTypes = {
 	A: "Accessories",
 };
 
-const FilterSelector = ({ setType }) => (
+const FilterSelector = ({ setType, type }) => (
 	<>
-		<DropdownButton variant="closet" className="px-0" id="closet-header-dropdown" title="Filter By">
+		<DropdownButton variant="closet" className="px-0" id="closet-header-dropdown" title={type}>
 			{Object.values(filterTypes).map((type, index) => (
 				<Dropdown.Item id="dropdown-closet" onClick={() => setType(type)} key={index}>
 					{type}
@@ -34,11 +34,11 @@ const FilterSelector = ({ setType }) => (
 	</>
 );
 
-const ClosetHeader = ({setType, UID}) => (
+const ClosetHeader = ({setType, UID, type}) => (
 	<Container className="mx-0 px-0">
 		<Row className="mx-auto text-center d-grid closet-header-btns mx-0">
 			<NewItemForm UID={ UID } />
-			<FilterSelector setType={setType} />
+			<FilterSelector setType={setType} type={type}/>
 		</Row>
 	</Container>
 );
@@ -94,7 +94,7 @@ export const ClosetGrid = ({ UID }) => {
 
 	return (
 		<>
-			<ClosetHeader setType={setType} UID={ UID } />
+			<ClosetHeader setType={setType} UID={ UID } type={type}/>
 			<div className="container mt-6">
 				<div className="album">
 					<div className="row">
