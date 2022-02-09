@@ -315,7 +315,7 @@ const OutfitDisplay = ({ UID }) => {
 	
 		<Container className="px-4" maxWidth="sm">
 			
-			<Row className="g-4">
+			<Row className="g-4 mb-3">
 				<WeatherFilter setWeatherType={setWeatherType} weatherType={weatherType}/>
 			</Row>
 
@@ -331,7 +331,7 @@ const OutfitDisplay = ({ UID }) => {
 	
 					></ClothingItem>
 				</Col>
-				<div className="col">
+				<Col>
 					<ClothingItem
 						obj={accessories}
 						type="accessories"
@@ -340,8 +340,8 @@ const OutfitDisplay = ({ UID }) => {
 						setOutfit={changeOutfit}
 						currOutfit={currOutfit}
 					></ClothingItem>
-				</div>
-				<div className="col">
+				</Col>
+				<Col>
 					<ClothingItem
 						obj={bottoms}
 						type="bottoms"
@@ -350,8 +350,8 @@ const OutfitDisplay = ({ UID }) => {
 						setOutfit={changeOutfit}
 						currOutfit={currOutfit}
 					></ClothingItem>
-				</div>
-				<div className="col">
+				</Col>
+				<Col>
 					<ClothingItem
 						obj={shoes}
 						type="shoes"
@@ -360,10 +360,9 @@ const OutfitDisplay = ({ UID }) => {
 						setOutfit={changeOutfit}
 						currOutfit={currOutfit}
 					></ClothingItem>
-				</div>
+				</Col>
 			</Row>
 			<Row className="g-4">
-			
 					<AlertProvider template={AlertTemplate} {...alertOptions}>
 						<SaveButton
 							tops={tops}
@@ -374,7 +373,6 @@ const OutfitDisplay = ({ UID }) => {
 							UID={UID}
 						></SaveButton>
 					</AlertProvider>
-		
 			</Row>
 		</Container>
 		
