@@ -36,3 +36,12 @@
 .slide-routes {
 	padding-top: env(safe-area-inset-top);
 }
+
+.my-6 {
+	margin-top: 4rem !important;
+	margin-bottom: 4rem !important;
+}
+
+.mb-6 {
+	margin-bottom: 4rem !important;
+}

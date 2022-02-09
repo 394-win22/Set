@@ -289,7 +289,7 @@ const OutfitDisplay = ({ UID }) => {
 	}
 	return (
 	
-		<Container className="px-4" maxWidth="sm">
+		<Container className="px-4 mt-3" maxWidth="sm">
 			
 			<Row xs={2} className="g-4">
 				<Col>
