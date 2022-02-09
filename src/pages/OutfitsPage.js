@@ -1,9 +1,10 @@
 import {useState, useEffect} from "react";
 import imgAccessories from "../images/img_acc.png";
-import { DeleteOutlined } from '@ant-design/icons'
-import { Modal } from "react-bootstrap";
+import { Modal, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import {
 	useData,
@@ -41,6 +42,7 @@ const Outfit = ({ outfit, id, index, UID }) => {
 		return <h1>Loading...</h1>;
 
 	const removeOutfit = () => {
+		console.log("called here")
 		deleteData(`/Saved Outfits/${UID}/${id}`);
 	}
 
@@ -93,17 +95,6 @@ const Outfit = ({ outfit, id, index, UID }) => {
 					<div className="card-body">
 						<p className="card-text">{`${outfit["Name"]} ${index + 1}`}</p>
 						<div className="d-flex justify-content-between align-items-center">
-							<div className="btn-group">
-								<button
-									type="button"
-									className="btn btn-sm btn-outline-secondary"
-									onClick={(ev) => {
-										removeOutfit()
-									}}
-								>
-									<DeleteOutlined />
-								</button>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -115,6 +106,7 @@ const Outfit = ({ outfit, id, index, UID }) => {
 				top={top}
 				accessories={accessories}
 				bottom={bottom}
+				removeoutfit={removeOutfit}
 			/>
 		</>
 	);
@@ -131,7 +123,6 @@ const OutfitModal = (props) => {
 		>
 			<Modal.Header closeButton></Modal.Header>
 			<Modal.Body>
-				<div className="col-6 col-sm-4 col-md-3 py-3">
 					<div className="card mb-4">
 						<div>
 							<div className="row">
@@ -172,7 +163,11 @@ const OutfitModal = (props) => {
 							</div>
 						</div>
 					</div>
-				</div>
+				<Row className="justify-content-middle my-3">
+						<IconButton aria-label="delete" size="large" onClick={props.removeoutfit}>
+							<DeleteIcon fontSize="inherit" />
+						</IconButton>
+				</Row>
 			</Modal.Body>
 		</Modal>
 	);
