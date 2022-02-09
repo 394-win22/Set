@@ -114,11 +114,11 @@ const Form = () => {
                             <form onSubmit={submitForm}>
     
                                 <div className="input_text">
-                                    <input className={` ${warnemail ? "warning" : "" }`} type="text" pattern="[^\s]+" placeholder="Enter Email" name="email" value={inputs.email} onChange={inputEvent} />
+                                    <input id="user_name" className={` ${warnemail ? "warning" : "" }`} type="text" pattern="[^\s]+" placeholder="Enter Email" name="email" autoComplete="email" value={inputs.email} onChange={inputEvent} />
                                     <p className={` ${danger ? "danger" : "" }`}><i className="fa fa-warning"></i>Please enter a valid email address.</p>
                                 </div>
                                 <div className="input_text">
-                                    <input className={` ${warnpass ? "warning" : "" }`} type={pass} placeholder="Enter Password" name="password" value={inputs.password} onChange={inputEvent} />
+                                    <input id="user_password" className={` ${warnpass ? "warning" : "" }`} type={pass} placeholder="Enter Password" name="password" autoComplete="current-password" value={inputs.password} onChange={inputEvent} />
                                     <i onClick={Eye} className={`fa ${eye ? "fa-eye-slash" : "fa-eye" }`}></i>
                                 </div>
                                 {/* <div className="recovery">
@@ -126,6 +126,7 @@ const Form = () => {
                                 </div> */}
                                 <div className="btn-login">
                                     <button type="submit">Sign in</button>
+                                    <button type="button" className="mt-2" onClick={() => setinputs({email: "test@a.com", password: "123456"})}>Fill In Test User</button>
                                 </div>
 
                             </form>

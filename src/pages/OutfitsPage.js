@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react";
 import imgAccessories from "../images/img_acc.png";
-import { Modal, Row } from "react-bootstrap";
+import { Modal, Row, Container} from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import IconButton from '@mui/material/IconButton';
@@ -123,7 +123,8 @@ const OutfitModal = (props) => {
 		>
 			<Modal.Header closeButton></Modal.Header>
 			<Modal.Body>
-					<div className="card mb-4">
+				<Container className="closet-modal">
+					<div className="card mb-4 outfit-modal-container">
 						<div>
 							<div className="row">
 								<div className="col-6">
@@ -168,6 +169,7 @@ const OutfitModal = (props) => {
 							<DeleteIcon fontSize="inherit" />
 						</IconButton>
 				</Row>
+			</Container>
 			</Modal.Body>
 		</Modal>
 	);
