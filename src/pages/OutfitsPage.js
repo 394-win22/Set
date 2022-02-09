@@ -202,7 +202,7 @@ const OutfitsPage = () => {
 
 	return (
 		<div>
-			<div className="container px-4">
+			<div className="container mb-6">
 				{!outfits ? (
 					<p style={{ marginTop: "30%" }}>
 						<center>No saved outfits to show.</center>
