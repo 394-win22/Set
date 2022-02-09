@@ -22,6 +22,7 @@ const saveOutfit = async (tops, bottoms, shoes, accessories, alert, currOutfit, 
 	}
 
 	try {
+		var today = new Date();
 		if (accessorySelected){
 			await pushData(`/Saved Outfits/${UID}`, {
 				Name: "Outfit",
@@ -29,6 +30,7 @@ const saveOutfit = async (tops, bottoms, shoes, accessories, alert, currOutfit, 
 				Tops: savedOutfit["tops"],
 				Shoes: savedOutfit["shoes"],
 				Bottoms: savedOutfit["bottoms"],
+				timestamp: today.getTime()
 			});
 		} else {
 			await pushData(`/Saved Outfits/${UID}`, {
@@ -36,6 +38,7 @@ const saveOutfit = async (tops, bottoms, shoes, accessories, alert, currOutfit, 
 				Tops: savedOutfit["tops"],
 				Shoes: savedOutfit["shoes"],
 				Bottoms: savedOutfit["bottoms"],
+				timestamp: today.getTime()
 			});
 		}
 	} catch (error) {

@@ -211,7 +211,9 @@ const OutfitsPage = () => {
 				) : (
 					<div className="album">
 						<div className="row">
-							{Object.entries(outfits).map(([key, outfit], index) => {
+							{Object.entries(outfits).sort(function(a,b) {
+								return a.timestamp - b.timestamp;
+								}).map(([key, outfit], index) => {
 								return (
 								<Outfit outfit={outfit} key={key} id={key} index={index} UID={uid} />
 							)})}
