@@ -95,7 +95,7 @@ export const ClosetGrid = ({ UID }) => {
 	return (
 		<>
 			<ClosetHeader setType={setType} UID={ UID } />
-			<div className="container mt-6">
+			<div className="container my-6">
 				<div className="album">
 					<div className="row">
 						<ShowTypeofItems />
