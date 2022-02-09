@@ -215,9 +215,9 @@ const OutfitsPage = () => {
 								if (!a[1].timestamp && !b[1].timestamp){
 									return 0
 								} else if (!a[1].timestamp){
-									return 1
-								} else if (!b[1].timestamp){
 									return -1
+								} else if (!b[1].timestamp){
+									return 1
 								}
 								return b[1].timestamp - a[1].timestamp;
 								}).map(([key, outfit], index) => {
